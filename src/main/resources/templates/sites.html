@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Sites</title>
+</head>
+
+<body>
+	<div class="flex-container" th:each="site:${sites}">
+		<a class="flex-item" th:href="@{/site/{id}(id=${site.id})}">
+			<h1 th:text="${site.name+ ' - ' + site.city}"></h1>
+		</a>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Rental Summary</title>
+</head>
+
+<body>
+    <h1>Rental Summary</h1>
+
+    <p><strong>City:</strong> <span th:text="${site.city}"></span></p>
+    <p><strong>Start Date:</strong> <span th:text="${startDate}"></span></p>
+    <p><strong>End Date:</strong> <span th:text="${endDate}"></span></p>
+
+    <h2>Selected Vehicle</h2>
+    <ul>
+        <li th:text="'Brand: ' + ${vehicle.brand}"></li>
+        <li th:text="'Model: ' + ${vehicle.model}"></li>
+        <li th:text="'Transmission: ' + ${vehicle.transmission}"></li>
+        <li th:text="'Color: ' + ${vehicle.color}"></li>
+        <li th:text="'Seats: ' + ${vehicle.seats}"></li>
+        <li th:text="'Daily Price: ' + ${vehicle.price} + ' €'"></li>
+    </ul>
+
+    <h2 th:text="'Total: ' + ${total} + ' €'"></h2>
+
+    <form th:action="@{/confirmRental}" method="post">
+        <input type="hidden" name="siteId" th:value="${vehicle.site.id}" />
+        <input type="hidden" name="vehicleId" th:value="${vehicle.id}" />
+        <input type="hidden" name="startDate" th:value="${startDate}" />
+        <input type="hidden" name="endDate" th:value="${endDate}" />
+        <button type="submit">Confirm Rental</button>
+    </form>
+
+    <button onclick="window.history.back();">Back</button>
+
+</body>
+
+</html>

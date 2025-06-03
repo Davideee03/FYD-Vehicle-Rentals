@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Homepage</title>
+</head>
+
+<body>
+	<div class="nav-links">
+		<a class="nav-link" href="/">Login</a>
+	</div>
+	
+	<h1>FYD Car Rentals</h1>
+
+	<form th:action="@{/availableVehicles}" method="get">
+		<label for="startDate">Pick-up date:</label>
+		<input type="date" name="startDate" id="startDate" required>
+
+		<label for="endDate">Drop-off date:</label>
+		<input type="date" name="endDate" id="endDate" required>
+
+		<label for="city">City:</label>
+		<input type="text" name="city" id="city" list="suggestions" placeholder="Enter a city" required>
+		<datalist id="suggestions">
+			<option th:each="c : ${cityList}" th:value="${c}"> </option>
+		</datalist>
+
+		<button type="submit">Search</button>
+	</form>
+</body>
+
+</html>
