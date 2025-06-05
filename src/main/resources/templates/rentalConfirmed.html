@@ -6,12 +6,15 @@
 </head>
 
 <body>
+	<div th:replace="fragments/navbar :: navbar"></div>
     <h1>Rental Confirmed</h1>
     
     <p>Vehicle: <span th:text="${rental.vehicle.brand + ' ' + rental.vehicle.model}"></span></p>
     <p>Site: <span th:text="${rental.site.city}"></span></p>
     <p>Period: <span th:text="${rental.startDate}"></span> - <span th:text="${rental.endDate}"></span></p>
     <p>Total: <span th:text="${rental.total} + ' €'"></span></p>
+	
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 
 </html>

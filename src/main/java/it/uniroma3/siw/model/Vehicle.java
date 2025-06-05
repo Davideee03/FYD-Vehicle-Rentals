@@ -21,7 +21,7 @@ public class Vehicle {
 	private String model;
 	private String transmission;
 	private String color;
-	private Long seats;
+	private int seats;
 	private Long price;
 
 	@ManyToOne
@@ -79,11 +79,11 @@ public class Vehicle {
 		this.color = color;
 	}
 
-	public Long getSeats() {
+	public int getSeats() {
 		return seats;
 	}
 
-	public void setSeats(Long seats) {
+	public void setSeats(int seats) {
 		this.seats = seats;
 	}
 

@@ -6,11 +6,13 @@
 </head>
 
 <body>
+	<div th:replace="fragments/navbar :: navbar"></div>
 	<div class="flex-container" th:each="site:${sites}">
 		<a class="flex-item" th:href="@{/site/{id}(id=${site.id})}">
 			<h1 th:text="${site.name+ ' - ' + site.city}"></h1>
 		</a>
 	</div>
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 
 </html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Add new site</title>
+</head>
+
+<body>
+	<div th:replace="fragments/navbar :: navbar"></div>
+	<form th:action="@{/site}" method="POST" th:object="${site}">
+		<div>Name: <span><input required type="text" th:field="${site.name}" /></span></div>
+		<div>City: <span><input required type="text" th:field="${site.city}" /></span></div>
+		<div>Address: <span><input required type="text" th:field="${site.address}" /></span></div>
+		<div>Postal code: <span><input required type="number" th:field="${site.postalCode}" /></span></div>
+		<div>Phone: <span><input required type="text" th:field="${site.phone}" /></span></div>
+		<div>Email: <span><input required type="text" th:field="${site.email}" /></span></div>
+
+		<label th:each="site : ${sites}">
+			<input type="radio" name="site_id" th:value="${site.id}">
+			<h3 th:text="${site.name}"></h3>
+			<p th:text="${site.city}"></p>
+		</label>
+
+		<div>
+			<span><button type="submit">Submit</button></span>
+		</div>
+	</form>
+	<div th:replace="fragments/footer :: footer"></div>
+</body>
+
+</html>
