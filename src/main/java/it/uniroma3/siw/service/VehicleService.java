@@ -28,4 +28,8 @@ public class VehicleService {
 	    return vehicleRepository.queryAvailableVehicles(startDate, endDate, city);
 	}
 
+	public void save(Vehicle vehicle) {
+		this.vehicleRepository.save(vehicle);
+	}
+
 }

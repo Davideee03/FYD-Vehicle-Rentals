@@ -7,9 +7,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import it.uniroma3.siw.model.Vehicle;
+import it.uniroma3.siw.service.SiteService;
 import it.uniroma3.siw.service.VehicleService;
 
 @Controller
@@ -17,6 +21,9 @@ public class VehicleController {
 
 	@Autowired
 	private VehicleService vehicleService;
+	
+	@Autowired
+	private SiteService siteService;
 	
 	@GetMapping("/vehicles")
 	public String getAllVehicles(Model model) {
@@ -36,8 +43,8 @@ public class VehicleController {
 	                                   @RequestParam String city,
 	                                   Model model) {
 		
-		if (startDate.isAfter(endDate)) {
-			model.addAttribute("error", "Start date must be before or equal to end date.");
+		if (startDate.isAfter(endDate)||startDate.isBefore(LocalDate.now())) {
+			model.addAttribute("error", "Invalid pick-up or drop-off date.");
 			return "error.html";
 		}
 		
@@ -45,7 +52,21 @@ public class VehicleController {
 	    model.addAttribute("startDate", startDate);
 	    model.addAttribute("endDate", endDate);
 	    model.addAttribute("city", city);
-	    return "vehicles.html";
+	    return "rentVehicle.html";
+	}
+	
+	@GetMapping("/administrator/formNewVehicle")
+	public String addVehicle(Model model) {
+		model.addAttribute("vehicle", new Vehicle());
+		model.addAttribute("sites", this.siteService.getAllSites());
+		return "formNewVehicle.html";
+	}
+	
+	@PostMapping("/vehicle")
+	public String newAuthor(@ModelAttribute("vehicle") Vehicle vehicle, @RequestParam("site_id") Long id, Model model) {
+		vehicle.setSite(this.siteService.getSiteById(id));
+		this.vehicleService.save(vehicle);
+		return "redirect:/vehicle/" + vehicle.getId();
 	}
 
 }

@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import it.uniroma3.siw.service.SiteService;
+import it.uniroma3.siw.service.VehicleService;
 
 @Controller
 public class HomepageController {

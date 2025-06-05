@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Add new vehicle</title>
+</head>
+
+<body>
+	<div th:replace="fragments/navbar :: navbar"></div>
+	<form th:action="@{/vehicle}" method="POST" th:object="${vehicle}">
+		<div>Category: <span><input required type="text" th:field="${vehicle.category}" /></span></div>
+		<div>Brand: <span><input required type="text" th:field="${vehicle.brand}" /></span></div>
+		<div>Model: <span><input required type="text" th:field="${vehicle.model}" /></span></div>
+		<div>Transmission: <span><input required type="text" th:field="${vehicle.transmission}" /></span></div>
+		<div>Color: <span><input required type="text" th:field="${vehicle.color}" /></span></div>
+		<div>Seats: <span><input required type="number" th:field="${vehicle.seats}" /></span></div>
+		<div>Price: <span><input required type="number" th:field="${vehicle.price}" /></span></div>
+
+		<label th:each="site : ${sites}">
+			<input type="radio" name="site_id" th:value="${site.id}">
+			<h3 th:text="${site.name}"></h3>
+			<p th:text="${site.city}"></p>
+		</label>
+
+		<div>
+			<span><button type="submit">Submit</button></span>
+		</div>
+	</form>
+	<div th:replace="fragments/footer :: footer"></div>
+</body>
+
+</html>

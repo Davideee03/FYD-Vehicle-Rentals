@@ -6,11 +6,7 @@
 </head>
 
 <body>
-	<div class="nav-links">
-		<a class="nav-link" href="/">Login</a>
-	</div>
-	
-	<h1>FYD Vehicle Rentals</h1>
+	<div th:replace="fragments/navbar :: navbar"></div>
 
 	<form th:action="@{/availableVehicles}" method="get">
 		<label for="startDate">Pick-up date:</label>
@@ -27,6 +23,7 @@
 
 		<button type="submit">Search</button>
 	</form>
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 
 </html>
