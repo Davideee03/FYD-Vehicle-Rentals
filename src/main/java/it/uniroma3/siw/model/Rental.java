@@ -21,7 +21,7 @@ public class Rental {
 
 	@ManyToOne
 	@JoinColumn(name = "client_id")
-	private Client client;
+	private User client;
 
 	@ManyToOne
 	@JoinColumn(name = "vehicle_id")
@@ -59,11 +59,11 @@ public class Rental {
 		this.total = total;
 	}
 
-	public Client getClient() {
+	public User getClient() {
 		return client;
 	}
 
-	public void setClient(Client client) {
+	public void setClient(User client) {
 		this.client = client;
 	}
 
