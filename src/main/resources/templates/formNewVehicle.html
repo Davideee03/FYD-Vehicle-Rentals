@@ -7,7 +7,7 @@
 
 <body>
 	<div th:replace="fragments/navbar :: navbar"></div>
-	<form th:action="@{/vehicle}" method="POST" th:object="${vehicle}">
+	<form th:action="@{/vehicle}" method="POST" th:object="${vehicle}" enctype="multipart/form-data">
 		<div>Category: <span><input required type="text" th:field="${vehicle.category}" /></span></div>
 		<div>Brand: <span><input required type="text" th:field="${vehicle.brand}" /></span></div>
 		<div>Model: <span><input required type="text" th:field="${vehicle.model}" /></span></div>
@@ -21,6 +21,9 @@
 			<h3 th:text="${site.name}"></h3>
 			<p th:text="${site.city}"></p>
 		</label>
+
+		<label for="file">Seleziona immagine:</label>
+		<input type="file" name="photo" accept="image/*" required />
 
 		<div>
 			<span><button type="submit">Submit</button></span>

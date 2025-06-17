@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Vehicle {
@@ -30,6 +31,9 @@ public class Vehicle {
 
 	@OneToMany(mappedBy = "vehicle")
 	private List<Rental> rentals;
+	
+	@OneToOne(mappedBy = "vehicle")
+	private VehiclePhoto vehiclePhoto;
 
 	public Long getId() {
 		return id;
@@ -73,6 +77,10 @@ public class Vehicle {
 
 	public String getColor() {
 		return color;
+	}
+	
+	public VehiclePhoto getPhoto() {
+		return this.vehiclePhoto;
 	}
 
 	public void setColor(String color) {
