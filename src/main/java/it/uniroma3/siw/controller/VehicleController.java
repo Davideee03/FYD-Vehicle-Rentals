@@ -83,6 +83,8 @@ public class VehicleController {
 	@PostMapping("/vehicle")
 	public String saveVehicle(@ModelAttribute("vehicle") Vehicle vehicle, @RequestParam("site_id") Long id, @RequestParam("vehiclePhoto") MultipartFile photo, Model model) {
 		vehicle.setSite(this.siteService.getSiteById(id));
+		this.vehicleService.save(vehicle);
+		
 		if(!photo.isEmpty()) {
 			try {
 				VehiclePhoto vehiclePhoto = new VehiclePhoto();

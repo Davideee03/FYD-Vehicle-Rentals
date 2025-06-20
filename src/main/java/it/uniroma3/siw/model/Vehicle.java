@@ -118,4 +118,8 @@ public class Vehicle {
 	public void setRentals(List<Rental> rentals) {
 		this.rentals = rentals;
 	}
+	
+	public VehiclePhoto getVehiclePhoto() {
+	    return this.vehiclePhoto;
+	}
 }
