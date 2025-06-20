@@ -9,18 +9,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import it.uniroma3.siw.model.VehiclePhoto;
-import it.uniroma3.siw.service.VehiclePhotoService;
+import it.uniroma3.siw.model.SitePhoto;
+import it.uniroma3.siw.service.SitePhotoService;
 
 @Controller
-public class VehiclePhotoController {
+public class SitePhotoController {
 
 	@Autowired
-	private VehiclePhotoService vehiclePhotoService;
+	private SitePhotoService sitePhotoService;
 	
-	@GetMapping("/vehiclePhoto/{id}")
+	@GetMapping("/sitePhoto/{id}")
 	public ResponseEntity<byte[]> getPhoto(@PathVariable Long id) {
-	    VehiclePhoto photo = this.vehiclePhotoService.findById(id);
+	    SitePhoto photo = this.sitePhotoService.findById(id);
 	    if (photo == null) {
 	        return ResponseEntity.notFound().build();
 	    }

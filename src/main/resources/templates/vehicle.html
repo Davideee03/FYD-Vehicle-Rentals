@@ -11,7 +11,7 @@
 	<h1 class="central-title" th:text="${vehicle.brand + ' ' + vehicle.model}"></h1>
 
 	<div class="description">
-		<img th:src="@{'/vehiclePhoto/' + ${photo.id}}" alt="Foto libro" />
+		<img th:src="@{'/vehiclePhoto/' + ${photo.id}}" />
 		<h3>Model: </h3>
 		<p th:text="${vehicle.model}"></p>
 		<h3>Transmission: </h3>
