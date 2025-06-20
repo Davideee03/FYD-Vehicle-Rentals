@@ -3,30 +3,37 @@
 
 <head>
 	<title th:text="${vehicle.brand + ' ' + vehicle.model}"></title>
+
+	<link rel="stylesheet" href="/css/style.css?v=1">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400&display=swap" rel="stylesheet">
 </head>
 
 <body>
 	<div th:replace="fragments/navbar :: navbar"></div>
-	
+
 	<h1 class="central-title" th:text="${vehicle.brand + ' ' + vehicle.model}"></h1>
 
-	<div class="description">
-		<img th:src="@{'/vehiclePhoto/' + ${photo.id}}" />
-		<h3>Model: </h3>
-		<p th:text="${vehicle.model}"></p>
-		<h3>Transmission: </h3>
-		<p th:text="${vehicle.transmission}"></p>
-		<h3>Color: </h3>
-		<p th:text="${vehicle.color}"></p>
-		<h3>Seats: </h3>
-		<p th:text="${vehicle.seats}"></p>
-		<h3>Price: </h3>
-		<p th:text="${vehicle.price + ' €'}"></p>
-		<h3>Site</h3>
-		<a th:href="@{/site/{id}(id=${vehicle.site.id})}">
-			<p th:text="${vehicle.site.name+' - '+vehicle.site.city}"></p>
-		</a>
-	</div>
+	<section id="description-container">
+		<div class="description">
+			<img class="photo" th:if="${vehicle.vehiclePhoto}" th:src="@{'/vehiclePhoto/' + ${photo.id}}" />
+		</div>
+		<div class="description">
+			<h3>Model: </h3>
+			<p th:text="${vehicle.model}"></p>
+			<h3>Transmission: </h3>
+			<p th:text="${vehicle.transmission}"></p>
+			<h3>Color: </h3>
+			<p th:text="${vehicle.color}"></p>
+			<h3>Seats: </h3>
+			<p th:text="${vehicle.seats}"></p>
+			<h3>Price: </h3>
+			<p th:text="${vehicle.price + ' €'}"></p>
+			<h3>Site</h3>
+			<a th:href="@{/site/{id}(id=${vehicle.site.id})}">
+				<p th:text="${vehicle.site.name+' - '+vehicle.site.city}"></p>
+			</a>
+		</div>
+	</section>
 	<div th:replace="fragments/footer :: footer"></div>
 </body>
 

@@ -4,26 +4,43 @@
 <head>
 	<title>FYD Vehicle Rentals</title>
 	<link rel="stylesheet" href="/css/style.css?v=1">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400&display=swap">
 </head>
 
 <body>
 	<div th:replace="fragments/navbar :: navbar"></div>
 
+	<section class="homepage">
+		<h1 class="slogan">Mobility for a connected world</h1>
+		<p class="sub-slogan">Discover the safety of FYD car rentals</p>
+	</section>
+
 	<form th:action="@{/availableVehicles}" method="get">
-		<label for="startDate">Pick-up date:</label>
-		<input type="date" name="startDate" id="startDate" required>
+		<fieldset>
+			<legend>Search for Available Vehicles</legend>
 
-		<label for="endDate">Drop-off date:</label>
-		<input type="date" name="endDate" id="endDate" required>
+			<div class="form-group">
+				<label for="startDate">Pick-up date:</label>
+				<input type="date" name="startDate" id="startDate" required>
+			</div>
 
-		<label for="city">City:</label>
-		<input type="text" name="city" id="city" list="suggestions" placeholder="Enter a city" required>
-		<datalist id="suggestions">
-			<option th:each="c : ${cityList}" th:value="${c}"> </option>
-		</datalist>
+			<div class="form-group">
+				<label for="endDate">Drop-off date:</label>
+				<input type="date" name="endDate" id="endDate" required>
+			</div>
 
-		<button type="submit">Search</button>
+			<div class="form-group">
+				<label for="city">City:</label>
+				<input type="text" name="city" id="city" list="suggestions" placeholder="Enter a city" required>
+				<datalist id="suggestions">
+					<option th:each="c : ${cityList}" th:value="${c}"> </option>
+				</datalist>
+			</div>
+
+			<button type="submit">Search</button>
+		</fieldset>
 	</form>
+
 	<div th:replace="fragments/footer :: footer"></div>
 </body>
 
