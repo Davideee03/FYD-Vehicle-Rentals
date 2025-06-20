@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Site {
@@ -26,6 +27,9 @@ public class Site {
 
 	@OneToMany(mappedBy = "site")
 	private List<Rental> rentals;
+	
+	@OneToOne(mappedBy = "site")
+	private SitePhoto photo;
 
 	public Long getId() {
 		return id;
@@ -93,5 +97,13 @@ public class Site {
 
 	public void setRentals(List<Rental> rentals) {
 		this.rentals = rentals;
+	}
+
+	public SitePhoto getPhoto() {
+		return this.photo;
+	}
+	
+	public void setPhoto(SitePhoto sitePhoto) {
+		this.photo = sitePhoto;
 	}
 }

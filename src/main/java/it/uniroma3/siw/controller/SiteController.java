@@ -1,14 +1,21 @@
 package it.uniroma3.siw.controller;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.model.Site;
+import it.uniroma3.siw.model.SitePhoto;
+import it.uniroma3.siw.service.SitePhotoService;
 import it.uniroma3.siw.service.SiteService;
 
 @Controller
@@ -17,16 +24,29 @@ public class SiteController {
 	@Autowired
 	private SiteService siteService;
 	
+	@Autowired
+	private SitePhotoService sitePhotoService;
+	
 	@GetMapping("/sites")
 	public String getAllVehicles(Model model) {
 		model.addAttribute("sites", this.siteService.getAllSites());
 		return "sites.html";
 	}
 	
+	@Transactional
 	@GetMapping("/site/{id}")
 	public String getSiteById(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("site", this.siteService.getSiteById(id));
-		return "site.html";
+		
+		Site site = this.siteService.getSiteById(id);
+		
+		if(site!=null) {
+			model.addAttribute("site", site);
+			model.addAttribute("photo", site.getPhoto());
+			return "site.html";
+		}
+		
+		model.addAttribute("errorMessage", "Site not found");
+		return "error.html";
 	}
 	
 	@GetMapping("/administrator/formNewSite")
@@ -35,9 +55,23 @@ public class SiteController {
 		return "formNewSite.html";
 	}
 	
+	@Transactional
 	@PostMapping("/site")
-	public String newAuthor(@ModelAttribute("site") Site site) {
+	public String newAuthor(@ModelAttribute("site") Site site, @RequestParam("sitePhoto") MultipartFile photo, Model model) {
 		this.siteService.save(site);
+
+		try {
+			SitePhoto sitePhoto = new SitePhoto();
+			sitePhoto.setData(photo.getBytes());
+			sitePhoto.setSite(site);
+			
+			this.sitePhotoService.save(sitePhoto);
+		} catch(IOException e) {
+			e.printStackTrace();
+			model.addAttribute("errorMessage", "Errore nel caricamento della foto");
+			return "error.html";
+		}
+		
 		return "redirect:site/"+site.getId();
 	}
 }

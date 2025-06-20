@@ -1,0 +1,35 @@
+nav {
+	border: 2px solid red;
+    padding: 15px 30px;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo .nav-link {
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none;
+	margin: 0 20px 0 20px;
+    color: black;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: black;
+    font-size: 16px;
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+
+.nav-link:hover {
+    opacity: 0.8;
+}
