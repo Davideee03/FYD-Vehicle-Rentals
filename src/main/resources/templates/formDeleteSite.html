@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Delete Site</title>
+</head>
+<body>
+    <h1>Delete Site</h1>
+
+    <form th:action="@{/administrator/confirmDeleteSite}" method="post">
+        <label for="siteToDeleteId">Select Site to Delete:</label>
+        <select name="siteToDeleteId" id="siteToDeleteId" required onchange="filterNewSiteOptions()">
+            <option th:each="site : ${sites}" th:value="${site.id}" th:text="${site.name}">Site</option>
+        </select>
+
+        <label for="newSiteId">Reassign Vehicles & Rentals to:</label>
+        <select name="newSiteId" id="newSiteId" required>
+            <option th:each="site : ${sites}" th:value="${site.id}" th:text="${site.name}">Site</option>
+        </select>
+
+        <button type="submit">Confirm</button>
+    </form>
+
+    <script>
+        function filterNewSiteOptions() {
+            const toDeleteId = document.getElementById('siteToDeleteId').value;
+            const newSiteSelect = document.getElementById('newSiteId');
+
+            for (const option of newSiteSelect.options) {
+                if (option.value === toDeleteId) {
+                    option.style.display = 'none';  // nascondi
+                } else {
+                    option.style.display = 'block'; // mostra
+                }
+            }
+        }
+
+        // esegui il filtro all'inizio per evitare ambiguità iniziali
+        window.addEventListener('DOMContentLoaded', filterNewSiteOptions);
+    </script>
+</body>
+</html>

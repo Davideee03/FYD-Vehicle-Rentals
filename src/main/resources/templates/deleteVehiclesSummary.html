@@ -1,0 +1,14 @@
+<h2>Veicoli selezionati per eliminazione:</h2>
+<ul>
+    <li th:each="v : ${vehicles}" th:text="${v.brand + ' ' + v.model}"></li>
+</ul>
+
+<form action="/administrator/deleteVehiclesWithRentals" method="post">
+    <input type="hidden" name="vehicleIds" th:each="v : ${vehicles}" th:value="${v.id}" />
+    <button type="submit">Elimina veicoli e relativi noleggi</button>
+</form>
+
+<form action="/administrator/deleteVehiclesOnly" method="post">
+    <input type="hidden" name="vehicleIds" th:each="v : ${vehicles}" th:value="${v.id}" />
+    <button type="submit">Elimina veicoli ma lascia i noleggi</button>
+</form>

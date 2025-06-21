@@ -2,6 +2,7 @@ package it.uniroma3.siw.controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.model.Vehicle;
 import it.uniroma3.siw.model.VehiclePhoto;
+import it.uniroma3.siw.service.RentalService;
 import it.uniroma3.siw.service.SiteService;
 import it.uniroma3.siw.service.VehiclePhotoService;
 import it.uniroma3.siw.service.VehicleService;
@@ -32,6 +34,9 @@ public class VehicleController {
 	
 	@Autowired
 	private VehiclePhotoService vehiclePhotoService;
+	
+	@Autowired
+	private RentalService rentalService;
 	
 	@GetMapping("/vehicles")
 	public String getAllVehicles(Model model) {
@@ -100,5 +105,43 @@ public class VehicleController {
 		
 		return "redirect:/vehicle/" + vehicle.getId();
 	}
+	
+	
+	@GetMapping("/administrator/deleteVehicles") 
+	public String showDeleteVehicles(Model model) {
+		model.addAttribute("vehicles", this.vehicleService.getAllVehicles());
+		return "deleteVehicles.html";
+	}
+	
+	// summary page with all selected vehicles to delete
+	@PostMapping("/administrator/confirmDeleteVehicles") 
+	public String confirmDeleteVehicles(@RequestParam List<Long> vehicleIds, Model model) {
+		List<Vehicle> selectedVehicles = this.vehicleService.getVehiclesByIds(vehicleIds);
+		model.addAttribute("vehicles", selectedVehicles); 
+		return "deleteVehiclesSummary.html";
+	}
+	
+	
+	
+	// delete vehicles AND RENTALS
+	@PostMapping("/administrator/deleteVehiclesWithRentals")
+	public String deleteVehiclesWithRentals(@RequestParam List<Long> vehicleIds, Model model) {
+		this.rentalService.deleteRentalsByVehicleIds(vehicleIds);
+		this.vehicleService.deleteVehiclesByIds(vehicleIds);
+		return "redirect:/vehicles";
+	}
+	
+	// delete vehicles but NOT actives rentals
+	@PostMapping("/administrator/deleteVehiclesOnly")
+	public String deleteVehiclesOnly(@RequestParam List<Long> vehicleIds, Model model) {
+		this.vehicleService.deleteVehiclesOnly(vehicleIds);
+		return "redirect:/vehicles";
+	}
+	
+	
+	
+	
+	
+	
 
 }

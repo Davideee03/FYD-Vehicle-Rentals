@@ -2,6 +2,7 @@ package it.uniroma3.siw.controller;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -88,6 +89,10 @@ public class RentalController {
 		rental.setEndDate(endDate);
 		rental.setTotal(total);
 		
+		// snap
+		rental.setVehicleBrand(vehicle.getBrand());
+		rental.setVehicleModel(vehicle.getModel());
+		
 		this.rentalService.confirmRental(rental);
 		
 		redirectAttributes.addAttribute("rentalId", rental.getId());
@@ -100,4 +105,28 @@ public class RentalController {
 		model.addAttribute("rental", rental);
 		return "rentalConfirmed.html";
 	}
+	
+	@GetMapping("/administrator/deleteRentals") 
+	public String showDeleteRentals(Model model) {
+		model.addAttribute("rentals", this.rentalService.getAllRentals());
+		return "deleteRentals.html";
+	}
+	
+	// summary page with all selected vehicles to delete
+	@PostMapping("/administrator/confirmDeleteRentals") 
+	public String confirmDeleteVehicles(@RequestParam List<Long> rentalIds, Model model) {
+		List<Rental> selectedRentals = this.rentalService.getRentalByIds(rentalIds);
+		model.addAttribute("rental", selectedRentals); 
+		return "deleteRentalsSummary.html";
+	}
+	
+
+	// delete active rentals
+	@PostMapping("/administrator/deleteRentals")
+	public String deleteRentals(@RequestParam List<Long> rentalIds, Model model) {
+		this.rentalService.deleteRentals(rentalIds);
+		return "redirect:/vehicles";
+	}
+	
+	
 }

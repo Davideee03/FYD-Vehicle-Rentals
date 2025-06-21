@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Delete Rentals</title>
+    <meta charset="UTF-8" />
+</head>
+
+<body>
+    <h1>Select Rentals to Delete:</h1>
+
+    <form th:action="@{/administrator/confirmDeleteRentals}" method="post">
+        <div th:each="rental : ${rentals}">
+            <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+                <label>
+                    <input type="checkbox" name="rentalIds" th:value="${rental.id}" />
+                    <strong>Rental ID:</strong> <span th:text="${rental.id}"></span><br />
+                    <strong>Start Date:</strong> <span th:text="${rental.startDate}"></span><br />
+                    <strong>End Date:</strong> <span th:text="${rental.endDate}"></span><br />
+                    <strong>Total:</strong> <span th:text="${rental.total}"></span><br />
+
+                    <!-- Vehicle info  -->
+                    <div th:if="${rental.vehicle != null}">
+                        <strong>Vehicle Brand:</strong> <span th:text="${rental.vehicle.brand}"></span><br />
+                        <strong>Vehicle Model:</strong> <span th:text="${rental.vehicle.model}"></span><br />
+                    </div>
+                    <div th:if="${rental.vehicle == null}">
+                        <em>No associated vehicle (vehicle was deleted or unassigned)</em><br />
+                    </div>
+
+                    <!-- if the vehicle was deleted then use fallback information )) -->
+                    <div th:if="${rental.vehicle == null}">
+                        <strong>Stored Brand:</strong> <span th:text="${rental.vehicleBrand}"></span><br />
+                        <strong>Stored Model:</strong> <span th:text="${rental.vehicleModel}"></span><br />
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <button type="submit">Confirm Selected Rentals</button>
+    </form>
+</body>
+
+</html>
