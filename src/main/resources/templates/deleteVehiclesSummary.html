@@ -1,14 +1,34 @@
-<h2>Veicoli selezionati per eliminazione:</h2>
-<ul>
-    <li th:each="v : ${vehicles}" th:text="${v.brand + ' ' + v.model}"></li>
-</ul>
+<!DOCTYPE html>
+<html>
 
-<form action="/administrator/deleteVehiclesWithRentals" method="post">
-    <input type="hidden" name="vehicleIds" th:each="v : ${vehicles}" th:value="${v.id}" />
-    <button type="submit">Elimina veicoli e relativi noleggi</button>
-</form>
+<head>
+	<title>Delete Vehicles</title>
+	<link rel="stylesheet" href="/css/style.css?v=1">
+</head>
 
-<form action="/administrator/deleteVehiclesOnly" method="post">
-    <input type="hidden" name="vehicleIds" th:each="v : ${vehicles}" th:value="${v.id}" />
-    <button type="submit">Elimina veicoli ma lascia i noleggi</button>
-</form>
+<body>
+	<div class="deletion-summary">
+		<h2>Veicoli selezionati per eliminazione:</h2>
+		<ul class="vehicle-list">
+			<li th:each="v : ${vehicles}" th:text="${v.brand + ' ' + v.model}"></li>
+		</ul>
+
+		<div class="button-group">
+			<form action="/administrator/deleteVehiclesWithRentals" method="post">
+				<div th:each="v : ${vehicles}">
+					<input type="hidden" name="vehicleIds" th:value="${v.id}" />
+				</div>
+				<button type="submit" class="btn btn-danger">Elimina veicoli e relativi noleggi</button>
+			</form>
+
+			<form action="/administrator/deleteVehiclesOnly" method="post">
+				<div th:each="v : ${vehicles}">
+					<input type="hidden" name="vehicleIds" th:value="${v.id}" />
+				</div>
+				<button type="submit" class="btn btn-warning">Elimina veicoli ma lascia i noleggi</button>
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>

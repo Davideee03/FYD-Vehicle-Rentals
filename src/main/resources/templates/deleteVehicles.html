@@ -3,28 +3,30 @@
 
 <head>
 	<title>Delete Vehicles</title>
+	<link rel="stylesheet" href="/css/style.css?v=1">
 </head>
 
-<body>
-	<h1>Select Vehicles to Eliminate:</h1>
-	<form th:action="@{/administrator/confirmDeleteVehicles}" method="post">
-		<div th:each="vehicle : ${vehicles}">
-			<h1>
-				<label>
-					<input type="checkbox" name="vehicleIds" th:value="${vehicle.id}">
 
-					<div>category: <span th:text="${vehicle.category}"></span></div>
-					<div>brand: <span th:text="${vehicle.brand}"></span></div>
-					<div>model: <span th:text="${vehicle.model}"></span></div>
-					<div>transmission: <span th:text="${vehicle.transmission}"></span></div>
-					<div>color: <span th:text="${vehicle.color}"></span></div>
-					<div>seats: <span th:text="${vehicle.seats}"></span></div>
-					<div>price: <span th:text="${vehicle.price}"></span></div>
-				</label>
-			</h1>
+<body>
+	<h1 class="page-title">Select Vehicles to Eliminate</h1>
+
+	<form th:action="@{/administrator/confirmDeleteVehicles}" method="post">
+		<div th:each="vehicle : ${vehicles}" class="vehicle-card">
+			<input type="checkbox" name="vehicleIds" th:value="${vehicle.id}">
+
+			<div class="vehicle-info">
+				<div><strong>Category:</strong> <span th:text="${vehicle.category}"></span></div>
+				<div><strong>Brand:</strong> <span th:text="${vehicle.brand}"></span></div>
+				<div><strong>Model:</strong> <span th:text="${vehicle.model}"></span></div>
+				<div><strong>Transmission:</strong> <span th:text="${vehicle.transmission}"></span></div>
+				<div><strong>Color:</strong> <span th:text="${vehicle.color}"></span></div>
+				<div><strong>Seats:</strong> <span th:text="${vehicle.seats}"></span></div>
+				<div><strong>Price:</strong> €<span th:text="${vehicle.price}"></span></div>
+			</div>
 		</div>
 
 		<button type="submit">Confirm Selected</button>
 	</form>
+</body>rm>
 
 </html>
