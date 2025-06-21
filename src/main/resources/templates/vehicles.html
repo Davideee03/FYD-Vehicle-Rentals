@@ -12,12 +12,57 @@
 <body>
 	<div th:replace="fragments/navbar :: navbar"></div>
 
+	<form th:action="@{/filterVehicles}" method="get">
+		<fieldset>
+			<legend>Search Vehicles</legend>
+
+			<div class="form-grid">
+				<div class="form-group">
+					<label for="brand">Brand</label>
+					<input type="text" name="brand" id="brand" placeholder="Fiat">
+				</div>
+
+				<div class="form-group">
+					<label for="model">Model</label>
+					<input type="text" name="model" id="model" placeholder="Panda">
+				</div>
+
+				<div class="form-group">
+					<label for="category">Category</label>
+					<input type="text" name="category" id="category" placeholder="SUV, Citycar...">
+				</div>
+
+				<div class="form-group">
+					<label for="transmission">Transmission</label>
+					<input type="text" name="transmission" id="transmission" placeholder="Automatic, Manual...">
+				</div>
+
+				<div class="form-group">
+					<label for="color">Color</label>
+					<input type="text" name="color" id="color" placeholder="Black, Red...">
+				</div>
+
+				<div class="form-group">
+					<label for="seats">Seats</label>
+					<input type="number" name="seats" id="seats" min="1" placeholder="e.g. 5">
+				</div>
+
+				<div class="form-group">
+					<label for="price">Max Price (€)</label>
+					<input type="number" name="price" id="price" min="0" placeholder="e.g. 50">
+				</div>
+			</div>
+
+			<br>
+			<button type="submit">Filter</button>
+		</fieldset>
+	</form>
+
+
+
 	<h1 th:if="${#lists.isEmpty(vehicles)}">
 		No vehicles are available for the selected period
 	</h1>
-
-
-
 
 	<div id="flex-container">
 		<a class="flex-item" th:href="@{/vehicle/{id}(id=${vehicle.id})}" th:each="vehicle:${vehicles}">
@@ -28,28 +73,6 @@
 			<p th:text="'Price per day: €' + ${vehicle.price}"></p>
 		</a>
 	</div>
-
-
-
-
-	<!--
-	<div id="flex-container">
-		<div class="flex-item" th:each="vehicle : ${vehicles}">
-			<a th:href="@{/vehicle/{id}(id=${vehicle.id})}" class="flex-link">
-				<div class="vehicle-card-inner">
-					<img th:if="${vehicle.vehiclePhoto}" class="vehicle-image"
-						 th:src="@{'/vehiclePhoto/' + ${vehicle.vehiclePhoto.id}}" alt="Vehicle image" />
-
-					<div class="vehicle-info">
-						<h1 th:text="${vehicle.brand + ' ' + vehicle.model}"></h1>
-						<p th:text="'Seats: ' + ${vehicle.seats}"></p>
-						<p th:text="'Price per day: €' + ${vehicle.price}"></p>
-					</div>
-				</div>
-			</a>
-		</div>
-	</div>
-	-->
 	<div th:replace="fragments/footer :: footer"></div>
 </body>
 
