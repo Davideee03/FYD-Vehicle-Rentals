@@ -78,10 +78,6 @@ public class Vehicle {
 	public String getColor() {
 		return color;
 	}
-	
-	public VehiclePhoto getPhoto() {
-		return this.vehiclePhoto;
-	}
 
 	public void setColor(String color) {
 		this.color = color;
@@ -121,5 +117,9 @@ public class Vehicle {
 	
 	public VehiclePhoto getVehiclePhoto() {
 	    return this.vehiclePhoto;
+	}
+
+	public void setVehiclePhoto(VehiclePhoto vehiclePhoto){
+		this.vehiclePhoto = vehiclePhoto;
 	}
 }

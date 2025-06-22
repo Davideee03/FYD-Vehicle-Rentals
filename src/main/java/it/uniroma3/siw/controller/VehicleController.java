@@ -2,6 +2,7 @@ package it.uniroma3.siw.controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import it.uniroma3.siw.model.Site;
 import it.uniroma3.siw.model.Vehicle;
 import it.uniroma3.siw.model.VehiclePhoto;
 import it.uniroma3.siw.service.SiteService;
@@ -46,7 +48,7 @@ public class VehicleController {
 		
 		if(vehicle!=null) {
 			model.addAttribute("vehicle", vehicle);
-			model.addAttribute("photo", vehicle.getPhoto());
+			model.addAttribute("photo", vehicle.getVehiclePhoto());
 			return "vehicle.html";
 		}
 		
@@ -78,6 +80,49 @@ public class VehicleController {
 		model.addAttribute("sites", this.siteService.getAllSites());
 		return "formNewVehicle.html";
 	}
+
+	@GetMapping("/administrator/formEditVehicle/{id}")
+	public String editVehicle(@PathVariable Long id, Model model) {
+
+		Vehicle vehicle = vehicleService.getVehicleById(id);
+		List<Site> sites = siteService.getAllSites();
+
+		model.addAttribute("sites",sites);
+		model.addAttribute("vehicle",vehicle);
+		model.addAttribute("photo", vehicle.getVehiclePhoto());
+
+		return "formEditVehicle.html";
+	}
+
+	@PostMapping("/administrator/formEditVehicle/{id}")
+	public String editVehicle(@PathVariable Long id, @RequestParam("file") MultipartFile file, @ModelAttribute Vehicle vehicle) {
+
+		Vehicle existingVehicle = vehicleService.getVehicleById(id);
+
+		existingVehicle.setBrand(vehicle.getBrand());
+		existingVehicle.setModel(vehicle.getModel());
+		existingVehicle.setTransmission(vehicle.getTransmission());
+		existingVehicle.setColor(vehicle.getColor());
+		existingVehicle.setSeats(vehicle.getSeats());
+		existingVehicle.setPrice(vehicle.getPrice());
+
+		if(!file.isEmpty()) {
+			try {
+				VehiclePhoto vehiclePhoto = new VehiclePhoto();
+				vehiclePhoto.setData(file.getBytes());
+				this.vehiclePhotoService.save(vehiclePhoto);
+				existingVehicle.setVehiclePhoto(vehiclePhoto);
+			} catch (IOException e) {
+				e.printStackTrace();
+				return "error.html";
+			}
+		}
+
+		vehicleService.save(existingVehicle);
+
+		return "redirect:/administrator/formEditVehicle/" + id;
+	}
+	
 	
 	@Transactional
 	@PostMapping("/vehicle")
