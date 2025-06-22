@@ -28,52 +28,51 @@ public class VehicleController {
 
 	@Autowired
 	private VehicleService vehicleService;
-	
+
 	@Autowired
 	private SiteService siteService;
-	
+
 	@Autowired
 	private VehiclePhotoService vehiclePhotoService;
-	
+
 	@GetMapping("/vehicles")
 	public String getAllVehicles(Model model) {
 		model.addAttribute("vehicles", this.vehicleService.getAllVehicles());
 		return "vehicles.html";
 	}
-	
+
 	@Transactional
 	@GetMapping("/vehicle/{id}")
 	public String getVehicleById(@PathVariable("id") Long id, Model model) {
 		Vehicle vehicle = this.vehicleService.getVehicleById(id);
-		
-		if(vehicle!=null) {
+
+		if (vehicle != null) {
 			model.addAttribute("vehicle", vehicle);
 			model.addAttribute("photo", vehicle.getVehiclePhoto());
 			return "vehicle.html";
 		}
-		
-		model.addAttribute("errorMessage", "Book not found");
+
+		model.addAttribute("errorMessage", "Vehicle not found");
 		return "error.html";
 	}
-	
+
 	@GetMapping("/availableVehicles")
 	public String getAvailableVehicles(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-	                                   @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
-	                                   @RequestParam String city,
-	                                   Model model) {
-		
-		if (startDate.isAfter(endDate)||startDate.isBefore(LocalDate.now())) {
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate, @RequestParam String city,
+			Model model) {
+
+		if (startDate.isAfter(endDate) || startDate.isBefore(LocalDate.now())) {
 			model.addAttribute("error", "Invalid pick-up or drop-off date.");
 			return "error.html";
 		}
-		
-	    model.addAttribute("vehicles", this.vehicleService.getAvailableVehicles(startDate, endDate, city));
-	    model.addAttribute("startDate", startDate);
-	    model.addAttribute("endDate", endDate);
-	    model.addAttribute("city", city);
-	    return "rentVehicle.html";
+
+		model.addAttribute("vehicles", this.vehicleService.getAvailableVehicles(startDate, endDate, city));
+		model.addAttribute("startDate", startDate);
+		model.addAttribute("endDate", endDate);
+		model.addAttribute("city", city);
+		return "rentVehicle.html";
 	}
-	
+
 	@GetMapping("/administrator/formNewVehicle")
 	public String addVehicle(Model model) {
 		model.addAttribute("vehicle", new Vehicle());
@@ -126,14 +125,15 @@ public class VehicleController {
 	
 	@Transactional
 	@PostMapping("/vehicle")
-	public String saveVehicle(@ModelAttribute("vehicle") Vehicle vehicle, @RequestParam("site_id") Long id, @RequestParam("vehiclePhoto") MultipartFile photo, Model model) {
+	public String saveVehicle(@ModelAttribute("vehicle") Vehicle vehicle, @RequestParam("site_id") Long id,
+			@RequestParam("file") MultipartFile file, Model model) {
 		vehicle.setSite(this.siteService.getSiteById(id));
 		this.vehicleService.save(vehicle);
-		
-		if(!photo.isEmpty()) {
+
+		if (!file.isEmpty()) {
 			try {
 				VehiclePhoto vehiclePhoto = new VehiclePhoto();
-				vehiclePhoto.setData(photo.getBytes());
+				vehiclePhoto.setData(file.getBytes());
 				vehiclePhoto.setVehicle(vehicle);
 				this.vehiclePhotoService.save(vehiclePhoto);
 			} catch (IOException e) {
@@ -142,8 +142,22 @@ public class VehicleController {
 				return "error.html";
 			}
 		}
-		
+
 		return "redirect:/vehicle/" + vehicle.getId();
+	}
+
+	@GetMapping("/filterVehicles")
+	public String filterVehicles(@RequestParam(required = false, defaultValue = "") String brand,
+			@RequestParam(required = false, defaultValue = "") String model,
+			@RequestParam(required = false, defaultValue = "") String category,
+			@RequestParam(required = false, defaultValue = "") String transmission,
+			@RequestParam(required = false, defaultValue = "") String color,
+			@RequestParam(required = false) Integer seats, @RequestParam(required = false) Long price,
+			Model htmlModel) {
+		List<Vehicle> vehicles = vehicleService.filterVehicles(brand, model, category, transmission, color, seats,
+				price);
+		htmlModel.addAttribute("vehicles", vehicles);
+		return "vehicles.html";
 	}
 
 }
