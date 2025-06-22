@@ -1,6 +1,7 @@
 package it.uniroma3.siw.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -74,4 +75,18 @@ public class SiteController {
 		
 		return "redirect:site/"+site.getId();
 	}
+	
+	@GetMapping("/administrator/deleteSite")
+    public String showDeleteSiteForm(Model model) {
+        List<Site> sites = siteService.getAllSites();
+        model.addAttribute("sites", sites);
+        return "formDeleteSite.html";
+    }
+	
+    @PostMapping("/administrator/confirmDeleteSite")
+    public String confirmDeleteSite(@RequestParam Long siteToDeleteId, @RequestParam Long newSiteId) {
+        this.siteService.reassignAndDeleteSite(siteToDeleteId, newSiteId);
+        return "redirect:/sites";
+    }
 }
+	
