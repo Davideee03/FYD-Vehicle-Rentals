@@ -22,21 +22,26 @@ public class VehicleService {
 	@Autowired
 	private RentalRepository rentalRepository;
 
-	public List<Vehicle> getAllVehicles(){
+	public List<Vehicle> getAllVehicles() {
 		return (List<Vehicle>) this.vehicleRepository.findAll();
 	}
 
 	public Vehicle getVehicleById(Long id) {
 		return this.vehicleRepository.findById(id).orElse(null);
 	}
-	
+
 	public List<Vehicle> getAvailableVehicles(LocalDate startDate, LocalDate endDate, String city) {
-	    return vehicleRepository.queryAvailableVehicles(startDate, endDate, city);
+		return vehicleRepository.queryAvailableVehicles(startDate, endDate, city);
 	}
 
 	public void save(Vehicle vehicle) {
 		this.vehicleRepository.save(vehicle);
 	}
+
+
+	public List<Vehicle> filterVehicles(String brand, String model, String category, String transmission, String color,
+			Integer seats, Long price) {
+		return vehicleRepository.filterVehicles(brand, model, category, transmission, color, seats, price);
 
 	public List<Vehicle> getVehiclesByIds(List<Long> vehicleIds) {
 		return (List<Vehicle>) vehicleRepository.findAllById(vehicleIds);
@@ -68,6 +73,7 @@ public class VehicleService {
 	            vehicleRepository.delete(vehicle);
 	        }
 	    }
+
 	}
 
 }
