@@ -106,11 +106,19 @@ public class VehicleController {
 		existingVehicle.setPrice(vehicle.getPrice());
 
 		if(!file.isEmpty()) {
-			try {
-				VehiclePhoto vehiclePhoto = new VehiclePhoto();
-				vehiclePhoto.setData(file.getBytes());
-				this.vehiclePhotoService.save(vehiclePhoto);
-				existingVehicle.setVehiclePhoto(vehiclePhoto);
+			try{
+				VehiclePhoto photo = existingVehicle.getVehiclePhoto();
+				if(photo != null){
+					photo.setData(file.getBytes());
+					this.vehiclePhotoService.save(photo);
+				}
+				else{
+					VehiclePhoto newPhoto = new VehiclePhoto();
+					newPhoto.setData(file.getBytes());
+					newPhoto.setVehicle(existingVehicle);
+					this.vehiclePhotoService.save(newPhoto);
+					existingVehicle.setVehiclePhoto(newPhoto);
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 				return "error.html";

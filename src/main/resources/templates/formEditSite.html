@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Edit Site</title>
+</head>
+
+<body>
+	<div th:replace="fragments/navbar :: navbar"></div>
+	<main>
+        <div class="left-box">
+            <img class="photo" th:if="${site.photo}" th:src="@{'/sitePhoto/' + ${photo.id}}" />
+            <h1 th:text="${site.name}">Name</h1>
+            <p><strong>City: </strong><span th:text="${site.city}"></span></p>
+            <p><strong>Address: </strong><span th:text="${site.address}"></span></p>
+            <p><strong>Postal Code: </strong><span th:text="${site.postalCode}"></span></p>
+            <p><strong>Phone: </strong><span th:text="${site.phone}"></span></p>
+            <p><strong>Email: </strong><span th:text="${site.email}"></span></p>
+        </div>
+			
+        <div class="right-box">
+            <h1>Edit Site</h1>
+
+            <form th:action="@{/administrator/formEditSite/{id}(id=${site.id})}" th:object="${site}" method="post" enctype="multipart/form-data">
+            
+            <label>Edit Name</label>
+            <input type="text" th:field="*{name}" placeholder="Name site">
+            <br>
+            <label>Edit City</label>
+            <input type="text" th:field="*{city}" placeholder="City site">
+            <br>
+            <label>Edit Address</label>
+            <input type="text" th:field="*{address}" placeholder="Address site">
+            <br>
+            <label>Edit Postal Code</label>
+            <input type="number" th:field="*{postalCode}" placeholder="Postal code site">
+            <br>
+            <label>Edit Phone</label>
+            <input type="text" th:field="*{phone}" placeholder="Phone site">
+            <br>
+            <label>Edit Email</label>
+            <input type="email" th:field="*{email}" placeholder="Email site">
+            <br>
+            <label>Edit Site Photo</label>
+            <input type="file" id="file" name="file" accept="image/*">
+            <br>
+            <button type="submit">Edit Site</button>
+            </form>
+		</div>
+	</main>
+  
+</body>
+
+</html>
