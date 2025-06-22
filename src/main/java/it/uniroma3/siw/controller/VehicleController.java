@@ -51,7 +51,7 @@ public class VehicleController {
 			return "vehicle.html";
 		}
 
-		model.addAttribute("errorMessage", "Book not found");
+		model.addAttribute("errorMessage", "Vehicle not found");
 		return "error.html";
 	}
 
@@ -82,14 +82,14 @@ public class VehicleController {
 	@Transactional
 	@PostMapping("/vehicle")
 	public String saveVehicle(@ModelAttribute("vehicle") Vehicle vehicle, @RequestParam("site_id") Long id,
-			@RequestParam("vehiclePhoto") MultipartFile photo, Model model) {
+			@RequestParam("file") MultipartFile file, Model model) {
 		vehicle.setSite(this.siteService.getSiteById(id));
 		this.vehicleService.save(vehicle);
 
-		if (!photo.isEmpty()) {
+		if (!file.isEmpty()) {
 			try {
 				VehiclePhoto vehiclePhoto = new VehiclePhoto();
-				vehiclePhoto.setData(photo.getBytes());
+				vehiclePhoto.setData(file.getBytes());
 				vehiclePhoto.setVehicle(vehicle);
 				this.vehiclePhotoService.save(vehiclePhoto);
 			} catch (IOException e) {
