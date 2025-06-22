@@ -2,6 +2,7 @@ package it.uniroma3.siw.model;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,7 +33,7 @@ public class Vehicle {
 	@OneToMany(mappedBy = "vehicle")
 	private List<Rental> rentals;
 	
-	@OneToOne(mappedBy = "vehicle")
+	@OneToOne(mappedBy = "vehicle", cascade=CascadeType.ALL, orphanRemoval = true)
 	private VehiclePhoto vehiclePhoto;
 
 	public Long getId() {

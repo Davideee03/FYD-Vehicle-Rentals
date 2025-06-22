@@ -67,4 +67,27 @@ public class SiteService {
 	    siteRepository.delete(oldSite);
 	}
 
+	public boolean existsByNameAndAddressAndCity(String name, String address, String city) {
+		return this.siteRepository.existsByNameAndAddressAndCity(name, address, city);
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

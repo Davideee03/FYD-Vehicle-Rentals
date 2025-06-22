@@ -58,7 +58,7 @@ public class VehicleController {
 		model.addAttribute("errorMessage", "Vehicle not found");
 		return "error.html";
 	}
-
+	@Transactional
 	@GetMapping("/availableVehicles")
 	public String getAvailableVehicles(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate, @RequestParam String city,

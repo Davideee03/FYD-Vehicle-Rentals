@@ -30,6 +30,7 @@ public class VehicleService {
 		return this.vehicleRepository.findById(id).orElse(null);
 	}
 
+	@Transactional
 	public List<Vehicle> getAvailableVehicles(LocalDate startDate, LocalDate endDate, String city) {
 		return vehicleRepository.queryAvailableVehicles(startDate, endDate, city);
 	}
@@ -42,7 +43,7 @@ public class VehicleService {
 	public List<Vehicle> filterVehicles(String brand, String model, String category, String transmission, String color,
 			Integer seats, Long price) {
 		return vehicleRepository.filterVehicles(brand, model, category, transmission, color, seats, price);
-
+	}
 	public List<Vehicle> getVehiclesByIds(List<Long> vehicleIds) {
 		return (List<Vehicle>) vehicleRepository.findAllById(vehicleIds);
 	}
