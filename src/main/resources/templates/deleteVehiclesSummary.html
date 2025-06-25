@@ -8,7 +8,7 @@
 
 <body>
 	<div class="deletion-summary">
-		<h2>Veicoli selezionati per eliminazione:</h2>
+		<h2>Selected Vehicles:</h2>
 		<ul class="vehicle-list">
 			<li th:each="v : ${vehicles}" th:text="${v.brand + ' ' + v.model}"></li>
 		</ul>
@@ -18,14 +18,14 @@
 				<div th:each="v : ${vehicles}">
 					<input type="hidden" name="vehicleIds" th:value="${v.id}" />
 				</div>
-				<button type="submit" class="btn btn-danger">Elimina veicoli e relativi noleggi</button>
+				<button type="submit" class="btn btn-danger">Delete vehicles and also rentals</button>
 			</form>
 
 			<form action="/administrator/deleteVehiclesOnly" method="post">
 				<div th:each="v : ${vehicles}">
 					<input type="hidden" name="vehicleIds" th:value="${v.id}" />
 				</div>
-				<button type="submit" class="btn btn-warning">Elimina veicoli ma lascia i noleggi</button>
+				<button type="submit" class="btn btn-warning">Delete only selected vehicles</button>
 			</form>
 		</div>
 	</div>

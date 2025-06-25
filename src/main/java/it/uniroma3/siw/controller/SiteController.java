@@ -96,7 +96,13 @@ public class SiteController {
     }
 	
     @PostMapping("/administrator/confirmDeleteSite")
-    public String confirmDeleteSite(@RequestParam Long siteToDeleteId, @RequestParam Long newSiteId) {
+    public String confirmDeleteSite(@RequestParam Long siteToDeleteId, @RequestParam Long newSiteId, Model model) {
+    	if(siteToDeleteId.equals(newSiteId)) {
+    		List<Site> sites = siteService.getAllSites();
+    		model.addAttribute("sites", sites);
+    		model.addAttribute("error", "You must choose a different site to reassign data");
+    		return "formDeleteSite.html";
+    	}
         this.siteService.reassignAndDeleteSite(siteToDeleteId, newSiteId);
         return "redirect:/sites";
     }

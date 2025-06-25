@@ -8,8 +8,11 @@
 </head>
 
 <body>
-    <h1>Select Rentals to Delete:</h1>
-
+	<div th:replace="fragments/navbar :: navbar"></div>
+    <h1 class="page-title">Select Rentals to Delete:</h1>
+	<h1 th:if="${#lists.isEmpty(rentals)}" class="error-message">
+			No Rentals are available to delete.
+		</h1>
     <form th:action="@{/administrator/confirmDeleteRentals}" method="post">
         <div th:each="rental : ${rentals}">
             <div style="border:1px solid #ccc; padding:10px; margin:10px;">
@@ -38,7 +41,9 @@
             </div>
         </div>
 
-        <button type="submit">Confirm Selected Rentals</button>
+        <button type="submit" th:if="${ not #lists.isEmpty(rentals)}">Confirm Selected Rentals</button>
+		<button type="button" th:if="${ #lists.isEmpty(rentals)}" onclick="history.back()">Go Back</button>
+
     </form>
 </body>
 

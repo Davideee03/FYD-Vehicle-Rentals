@@ -109,13 +109,19 @@ public class VehicleController {
 	
 	@GetMapping("/administrator/deleteVehicles") 
 	public String showDeleteVehicles(Model model) {
-		model.addAttribute("vehicles", this.vehicleService.getAllVehicles());
+		List<Vehicle> vehicles =  this.vehicleService.getAllVehicles();
+		model.addAttribute("vehicles", vehicles);
 		return "deleteVehicles.html";
 	}
 	
 	// summary page with all selected vehicles to delete
 	@PostMapping("/administrator/confirmDeleteVehicles") 
-	public String confirmDeleteVehicles(@RequestParam List<Long> vehicleIds, Model model) {
+	public String confirmDeleteVehicles(@RequestParam (name = "vehicleIds", required = false) List<Long> vehicleIds, Model model) {
+		if(vehicleIds == null || vehicleIds.isEmpty()) {
+			model.addAttribute("vehicles", this.vehicleService.getAllVehicles());
+			model.addAttribute("error", "Select at least one vehicle, please.");
+			return "deleteVehicles.html";
+		}
 		List<Vehicle> selectedVehicles = this.vehicleService.getVehiclesByIds(vehicleIds);
 		model.addAttribute("vehicles", selectedVehicles); 
 		return "deleteVehiclesSummary.html";
@@ -130,7 +136,6 @@ public class VehicleController {
 		this.vehicleService.deleteVehiclesByIds(vehicleIds);
 		return "redirect:/vehicles";
 	}
-	
 	// delete vehicles but NOT actives rentals
 	@PostMapping("/administrator/deleteVehiclesOnly")
 	public String deleteVehiclesOnly(@RequestParam List<Long> vehicleIds, Model model) {
