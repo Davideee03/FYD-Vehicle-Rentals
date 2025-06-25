@@ -45,6 +45,17 @@ public class RentalController {
 		}
 		
 		Vehicle vehicle = vehicleService.getVehicleById(vehicleId);
+		
+		//Check if there are no rental conflicts
+		for(Rental rental : vehicle.getRentals()) {
+			if(!startDate.isAfter(rental.getEndDate()) && !rental.getStartDate().isAfter(endDate)) {
+				model.addAttribute("vehicle", vehicle);
+				model.addAttribute("photo", vehicle.getPhoto());
+				model.addAttribute("error", "This vehicle is already reserved from " + startDate + " to " + endDate);
+				return "vehicle.html";
+			}
+		}
+			
 		Site site = siteService.getSiteById(siteId);
 		long days = ChronoUnit.DAYS.between(startDate, endDate) + 1;
 		long total = vehicle.getPrice() * days;
