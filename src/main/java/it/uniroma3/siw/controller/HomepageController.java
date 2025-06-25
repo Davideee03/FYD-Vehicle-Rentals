@@ -14,11 +14,11 @@ public class HomepageController {
 	@Autowired
 	private SiteService siteService;
 
-	@GetMapping("/")
-	public String getHomepage(Model model) {
-		model.addAttribute("cityList", this.siteService.getCityList());
-		return "homepage.html";
-	}
+	/*
+	 * @GetMapping("/") public String getHomepage(Model model) {
+	 * model.addAttribute("cityList", this.siteService.getCityList()); return
+	 * "homepage.html"; }
+	 */
 	
 	@GetMapping("/administrator/")
 	public String getAdministratorHomepage(Model model) {

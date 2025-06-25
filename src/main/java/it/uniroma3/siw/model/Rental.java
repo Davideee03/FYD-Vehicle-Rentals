@@ -25,8 +25,8 @@ public class Rental {
     private String vehiclePhoto;
 
 	@ManyToOne
-	@JoinColumn(name = "client_id")
-	private Client client;
+	@JoinColumn(name = "user_id")
+	private User user;
 
 	@ManyToOne(optional = true)
 	@JoinColumn(name = "vehicle_id", nullable = true)
@@ -64,12 +64,12 @@ public class Rental {
 		this.total = total;
 	}
 
-	public Client getClient() {
-		return client;
+	public User getUser() {
+		return user;
 	}
 
-	public void setClient(Client client) {
-		this.client = client;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public Vehicle getVehicle() {

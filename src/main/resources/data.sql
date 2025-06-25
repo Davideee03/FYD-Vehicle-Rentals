@@ -14,3 +14,7 @@ INSERT INTO vehicle (site_id, category, brand, model, transmission, color, seats
 (3, 'scooter', 'Yamaha', 'Xmax 300', 'automatic', 'gray', 2, 25.00),
 (2, 'truck', 'Mercedes', 'Sprinter', 'manual', 'silver', 3, 90.00),
 (4, 'car', 'Tesla', 'Model 3', 'automatic', 'red', 5, 120.00);
+
+
+insert into users(id, name, surname, email) values(1, 'a', 'a', 'yuuki@gmail.com');
+insert into credentials(id, password, role, username, user_id) values(1, '$2a$10$MAmsXo25TFmeg9w//qP9Y.KBlwzD/DoTcnz0RBqVOjSID1OAnM1di', 'ADMIN', 'a',1);

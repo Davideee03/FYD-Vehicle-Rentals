@@ -6,6 +6,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +16,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Rental;
 import it.uniroma3.siw.model.Site;
+import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.model.Vehicle;
+import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.RentalService;
 import it.uniroma3.siw.service.SiteService;
 import it.uniroma3.siw.service.VehicleService;
@@ -31,6 +37,9 @@ public class RentalController {
 	
 	@Autowired
 	private SiteService siteService;
+	
+	@Autowired
+	private CredentialsService credentialsService;
 
 	@GetMapping("/rentalSummary")
 	public String rentalSummary(@RequestParam Long siteId,
@@ -103,6 +112,13 @@ public class RentalController {
 		// snap
 		rental.setVehicleBrand(vehicle.getBrand());
 		rental.setVehicleModel(vehicle.getModel());
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    UserDetails userDetails = (UserDetails) auth.getPrincipal();
+	    Credentials cred = credentialsService.getCredentials(userDetails.getUsername());
+	    User user = cred.getUser();
+	    
+	    rental.setUser(user);
 		
 		this.rentalService.confirmRental(rental);
 		
