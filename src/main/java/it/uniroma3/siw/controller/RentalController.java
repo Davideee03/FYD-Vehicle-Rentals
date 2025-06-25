@@ -119,6 +119,7 @@ public class RentalController {
 	    User user = cred.getUser();
 	    
 	    rental.setUser(user);
+	    user.getRentals().add(rental);
 		
 		this.rentalService.confirmRental(rental);
 		

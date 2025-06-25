@@ -37,6 +37,31 @@
 		<div th:unless="${user}" class="alert-warning text-center">
 			User not Found.
 		</div>
+		<div th:if="${rentals != null and !rentals.isEmpty()}" class="rental-section">
+		    <h2>Rented Vehicles</h2>
+		    <table>
+		        <thead>
+		            <tr>
+		                <th>Brand & Model</th>
+		                <th>Start Date</th>
+		                <th>End Date</th>
+		                <th>Total</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <tr th:each="rental : ${rentals}">
+		                <td th:text="${rental.vehicleBrand + ' ' + rental.vehicleModel}">Brand Model</td>
+		                <td th:text="${#temporals.format(rental.startDate, 'dd/MM/yyyy')}">Start Date</td>
+		                <td th:text="${#temporals.format(rental.endDate, 'dd/MM/yyyy')}">End Date</td>
+		                <td th:text="${rental.total}">Total</td>
+		            </tr>
+		        </tbody>
+		    </table>
+		</div>
+
+		<div th:if="${rentals == null or rentals.isEmpty()}" class="no-rentals-msg">
+		    <p>No rentals found.</p>
+		</div>
 	</div>
 </body>
 

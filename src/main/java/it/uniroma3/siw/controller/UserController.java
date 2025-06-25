@@ -44,6 +44,7 @@ public class UserController {
 	    
 	    model.addAttribute("user", user);
 	    model.addAttribute("credentials", credentials);
+	    model.addAttribute("rentals", user.getRentals());
 
 		return "profile.html";
 	}
