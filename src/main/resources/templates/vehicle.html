@@ -34,6 +34,28 @@
 			</a>
 		</div>
 	</section>
+	
+	<p th:if="${error}" th:text="${error}" class="error-message"></p>
+	<form th:action="@{/rentalSummary}" method="get">
+		<fieldset>
+			<legend>Rent this vehicle</legend>
+
+			<div class="form-group">
+				<label for="startDate">Pick-up date:</label>
+				<input type="date" name="startDate" id="startDate" required>
+			</div>
+
+			<div class="form-group">
+				<label for="endDate">Drop-off date:</label>
+				<input type="date" name="endDate" id="endDate" required>
+			</div>
+
+			<input type="hidden" name="siteId" th:value="${vehicle.site.id}" />
+			<input type="hidden" name="vehicleId" th:value="${vehicle.id}" />
+
+			<button type="submit">Rent</button>
+		</fieldset>
+	</form>
 	<div th:replace="fragments/footer :: footer"></div>
 </body>
 

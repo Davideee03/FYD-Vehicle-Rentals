@@ -209,6 +209,22 @@ button:hover {
 	color: #666;
 }
 
+.error-message {
+	background-color: #ffe6e6;
+	color: #cc0000;
+	border: 1px solid #ffcccc;
+	padding: 12px 20px;
+	border-radius: 8px;
+	font-size: 16px;
+	font-weight: 500;
+	margin: 20px auto;
+	max-width: 1000px;
+	box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+}
+
+
+
+
 .site-footer {
 	background-color: #f5f5f5;
 	padding: 30px 110px;
