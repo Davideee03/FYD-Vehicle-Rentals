@@ -16,7 +16,7 @@
 		No sites
 	</h1>
 
-	<div id="flex-container">
+	<div th:unless="${#lists.isEmpty(sites)}" id="flex-container">
 		<a class="flex-item" th:each="site : ${sites}" th:href="@{/site/{id}(id=${site.id})}">
 			<h1 th:text="${site.name + ' - ' + site.city}"></h1>
 		</a>
