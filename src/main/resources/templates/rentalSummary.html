@@ -2,38 +2,58 @@
 <html>
 
 <head>
-    <title>Rental Summary</title>
+	<title>Rental Summary</title>
+	<link rel="stylesheet" href="/css/style.css?v=1">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400&display=swap" rel="stylesheet">
 </head>
 
 <body>
 	<div th:replace="fragments/navbar :: navbar"></div>
-    <h1>Rental Summary</h1>
+	
+	<h1 th:if="${error}" th:text="${error}" class="error-message"></h1>
 
-    <p><strong>City:</strong> <span th:text="${site.city}"></span></p>
-    <p><strong>Start Date:</strong> <span th:text="${startDate}"></span></p>
-    <p><strong>End Date:</strong> <span th:text="${endDate}"></span></p>
+	<div class="form-container">
+		<div class="summary-box">
+			<h2>Selected Vehicle</h2>
+			<div class="summary-grid">
+				<div><strong>Brand:</strong> <span th:text="${vehicle.brand}"></span></div>
+				<div><strong>Model:</strong> <span th:text="${vehicle.model}"></span></div>
+				<div><strong>Transmission:</strong> <span th:text="${vehicle.transmission}"></span></div>
+				<div><strong>Color:</strong> <span th:text="${vehicle.color}"></span></div>
+				<div><strong>Seats:</strong> <span th:text="${vehicle.seats}"></span></div>
+				<div><strong>Daily Price:</strong> <span th:text="${vehicle.price} + ' €'"></span></div>
+			</div>
+		</div>
+		
+		<div class="summary-box">
+			<h2>Rental Summary</h2>
+			<div class="summary-grid">
+				<div><strong>Site: </strong><span th:text="${site.name}"></span></div>
+				<div><strong>City: </strong><span th:text="${site.city}"></span></div>
+				<div><strong>Pick-Up Date: </strong><span th:text="${startDate}"></span></div>
+				<div><strong>Drop-Off Date: </strong><span th:text="${endDate}"></span></div>
+			</div>
+		</div>
 
-    <h2>Selected Vehicle</h2>
-    <ul>
-        <li th:text="'Brand: ' + ${vehicle.brand}"></li>
-        <li th:text="'Model: ' + ${vehicle.model}"></li>
-        <li th:text="'Transmission: ' + ${vehicle.transmission}"></li>
-        <li th:text="'Color: ' + ${vehicle.color}"></li>
-        <li th:text="'Seats: ' + ${vehicle.seats}"></li>
-        <li th:text="'Daily Price: ' + ${vehicle.price} + ' €'"></li>
-    </ul>
+		<div class="total-box">
+		    <p th:text="'Total: ' + ${total} + ' €'"></p>
+		</div>
 
-    <h2 th:text="'Total: ' + ${total} + ' €'"></h2>
+		<form th:action="@{/confirmRental}" method="post" class="inline-form">
+			<input type="hidden" name="siteId" th:value="${vehicle.site.id}" />
+			<input type="hidden" name="vehicleId" th:value="${vehicle.id}" />
+			<input type="hidden" name="startDate" th:value="${startDate}" />
+			<input type="hidden" name="endDate" th:value="${endDate}" />
+			<button type="submit">Confirm Rental</button>
+		</form>
 
-    <form th:action="@{/confirmRental}" method="post">
-        <input type="hidden" name="siteId" th:value="${vehicle.site.id}" />
-        <input type="hidden" name="vehicleId" th:value="${vehicle.id}" />
-        <input type="hidden" name="startDate" th:value="${startDate}" />
-        <input type="hidden" name="endDate" th:value="${endDate}" />
-        <button type="submit">Confirm Rental</button>
-    </form>
-
-    <button onclick="window.history.back();">Back</button>
+		<form th:action="@{/availableVehicles}" method="get" class="inline-form">
+			<input type="hidden" name="startDate" th:value="${startDate}" />
+			<input type="hidden" name="endDate" th:value="${endDate}" />
+			<input type="hidden" name="city" th:value="${site.city}" />
+			<button type="submit">Back</button>
+		</form>
+	</div>
 
 	<div th:replace="fragments/footer :: footer"></div>
 </body>

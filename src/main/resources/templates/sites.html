@@ -3,15 +3,26 @@
 
 <head>
 	<title>Sites</title>
+
+	<link rel="stylesheet" href="/css/style.css?v=1">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400&display=swap" rel="stylesheet">
 </head>
 
 <body>
 	<div th:replace="fragments/navbar :: navbar"></div>
-	<div class="flex-container" th:each="site:${sites}">
-		<a class="flex-item" th:href="@{/site/{id}(id=${site.id})}">
-			<h1 th:text="${site.name+ ' - ' + site.city}"></h1>
+
+
+	<h1 th:if="${#lists.isEmpty(sites)}" class="error-message">
+		No sites
+	</h1>
+
+	<div id="flex-container">
+		<a class="flex-item" th:each="site : ${sites}" th:href="@{/site/{id}(id=${site.id})}">
+			<h1 th:text="${site.name + ' - ' + site.city}"></h1>
 		</a>
 	</div>
+
+
 	<div th:replace="fragments/footer :: footer"></div>
 </body>
 

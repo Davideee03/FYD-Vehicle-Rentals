@@ -62,7 +62,7 @@ public class VehicleController {
 
 		if (startDate.isAfter(endDate) || startDate.isBefore(LocalDate.now())) {
 			model.addAttribute("error", "Invalid pick-up or drop-off date.");
-			return "error.html";
+			return "homepage.html";
 		}
 
 		model.addAttribute("vehicles", this.vehicleService.getAvailableVehicles(startDate, endDate, city));

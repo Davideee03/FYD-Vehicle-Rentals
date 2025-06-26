@@ -2,18 +2,48 @@
 <html>
 
 <head>
-    <title>Rental Confirmed</title>
+	<title>Rental Confirmed</title>
+	<link rel="stylesheet" href="/css/style.css?v=1">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400&display=swap" rel="stylesheet">
 </head>
 
 <body>
 	<div th:replace="fragments/navbar :: navbar"></div>
-    <h1>Rental Confirmed</h1>
-    
-    <p>Vehicle: <span th:text="${rental.vehicle.brand + ' ' + rental.vehicle.model}"></span></p>
-    <p>Site: <span th:text="${rental.site.city}"></span></p>
-    <p>Period: <span th:text="${rental.startDate}"></span> - <span th:text="${rental.endDate}"></span></p>
-    <p>Total: <span th:text="${rental.total} + ' €'"></span></p>
-	
+
+	<div class="confirmation-container">
+		<div class="confirmation-box">
+			<div class="checkmark">&#10003;</div>
+			<h1>Rental Confirmed</h1>
+
+			<p class="message">Your rental has been successfully confirmed.</p>
+
+			<div class="summary-grid">
+				<p><strong>Vehicle:</strong> <span
+						th:text="${rental.vehicle.brand + ' ' + rental.vehicle.model}"></span></p>
+				<p><strong>Site:</strong> <span th:text="${rental.site.city}"></span></p>
+				<p><strong>Period:</strong> <span th:text="${rental.startDate}"></span> - <span
+						th:text="${rental.endDate}"></span></p>
+				<p><strong>Total:</strong> <span th:text="${rental.total} + ' €'"></span></p>
+			</div>
+
+			<form th:action="@{/}" method="get" class="inline-form">
+				<button type="submit">Return to Home</button>
+			</form>
+		</div>
+	</div>
+
+	<h3 class="central-title">Looking for something else?</h3>
+
+	<div id="flex-container">
+		<a class="flex-item" th:href="@{/vehicle/{id}(id=${vehicle.id})}" th:each="vehicle:${vehicles}">
+			<img th:if="${vehicle.vehiclePhoto}" class="flex-image"
+				th:src="@{'/vehiclePhoto/' + ${vehicle.vehiclePhoto.id}}" alt="Vehicle image" />
+			<h1 th:text="${vehicle.brand + ' ' + vehicle.model}"></h1>
+			<p th:text="'Seats: ' + ${vehicle.seats}"></p>
+			<p th:text="'Price per day: €' + ${vehicle.price}"></p>
+		</a>
+	</div>
+
 	<div th:replace="fragments/footer :: footer"></div>
 </body>
 
