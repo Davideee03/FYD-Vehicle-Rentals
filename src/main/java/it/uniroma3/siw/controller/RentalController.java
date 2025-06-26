@@ -62,7 +62,7 @@ public class RentalController {
 		for(Rental rental : vehicle.getRentals()) {
 			if(!startDate.isAfter(rental.getEndDate()) && !rental.getStartDate().isAfter(endDate)) {
 				model.addAttribute("vehicle", vehicle);
-				model.addAttribute("photo", vehicle.getPhoto());
+				model.addAttribute("photo", vehicle.getVehiclePhoto());
 				model.addAttribute("error", "This vehicle is already reserved from " + startDate + " to " + endDate);
 				return "vehicle.html";
 			}
