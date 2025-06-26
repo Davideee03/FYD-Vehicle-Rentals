@@ -73,6 +73,66 @@ nav {
 /* --------------------
    Homepage Hero
 -------------------- */
+.nav-auth-wrapper {
+	display: flex;
+	gap: 15px;
+	align-items: center;
+}
+
+.nav-auth {
+	display: flex;
+	gap: 10px;
+}
+
+.btn-auth {
+	padding: 8px 16px;
+	border-radius: 8px;
+	text-decoration: none;
+	font-weight: 500;
+	font-size: 14px;
+	transition: all 0.3s ease;
+}
+
+.btn-login {
+	border: 1px solid black;
+	color: black;
+}
+
+.btn-login:hover {
+	background-color: black;
+	color: white;
+}
+
+.btn-signup {
+	border: 1px solid black;
+	color: black;
+}
+
+.btn-signup:hover {
+	background-color: black;
+	color: white;
+}
+
+.btn-logout {
+	border: 1px solid #cc0000;
+	color: #cc0000;
+}
+
+.btn-logout:hover {
+	background-color: #cc0000;
+	color: white;
+}
+
+.btn-username {
+	border: 1px solid #666;
+	color: #333;
+	cursor: default;
+}
+
+.btn-username:hover {
+	background-color: #f0f0f0;
+}
+
 .homepage {
 	display: flex;
 	justify-content: center;
@@ -255,22 +315,39 @@ legend {
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-end;
+
 	width: 400px;
 	height: 400px;
 	text-decoration: none;
 	text-align: center;
 	color: black;
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.flex-item:hover {
+	transform: scale(1.05); 
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+
 }
 
 .flex-image {
 	width: 100%;
 	height: 50%;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	
 }
 
 .flex-image img {
-	width: 100%;
+	width: auto;
+	height: 100%;
+	max-width: 100%;
 	object-fit: cover;
+	display: block;
+	margin: auto;
 }
 
 
@@ -279,6 +356,8 @@ legend {
 -------------------- */
 .central-title {
 	margin: 100px 100px;
+	text-align: center;
+
 	font-size: 42px;
 	font-weight: 300;
 
@@ -289,6 +368,7 @@ legend {
 /* --------------------
    Description Layout (Home)
 -------------------- */
+
 #description-container {
 	display: flex;
 	justify-content: center;
@@ -365,3 +445,199 @@ legend {
 .footer-links a:hover {
 	color: #666;
 }
+
+.page-title {
+	text-align: center;
+	font-size: 36px;
+	margin: 60px 0 40px;
+	font-weight: 300;
+}
+
+form {
+	max-width: 1000px;
+	margin: 0 auto;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.vehicle-card {
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	padding: 20px;
+	display: flex;
+	align-items: flex-start;
+	background-color: #f9f9f9;
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.05);
+}
+
+.vehicle-card input[type="checkbox"] {
+	margin-right: 20px;
+	transform: scale(1.2);
+	margin-top: 5px;
+}
+
+.vehicle-info {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	gap: 10px 20px;
+	width: 100%;
+}
+
+button[type="submit"] {
+	align-self: center;
+	margin-top: 40px;
+	padding: 12px 24px;
+	font-size: 16px;
+	border: none;
+	border-radius: 8px;
+	background-color: black;
+	color: white;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+	background-color: #333;
+}
+
+
+/* Select Options (used by delete Sites */
+select {
+    padding: 12px 16px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+
+    background-position: right 12px center;
+    background-size: 14px;
+    cursor: pointer;
+}
+
+select:focus {
+    outline: none;
+    border-color: #999;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+
+.login-page {
+	background-color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	margin: 0;
+}
+
+.login-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	padding: 20px;
+}
+
+.login-form {
+	background-color: white;
+	padding: 40px;
+	border-radius: 12px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	max-width: 400px;
+}
+
+.login-title {
+	text-align: center;
+	font-size: 24px;
+	margin-bottom: 30px;
+}
+
+.login-footer {
+	text-align: center;
+	margin-top: 30px;
+	color: #777;
+	font-size: 14px;
+}
+
+.register-link {
+	text-align: center;
+	margin-top: 20px;
+}
+
+
+.profile-container {
+	max-width: 1000px;
+	margin: 60px auto;
+	padding: 20px;
+}
+
+.profile-content {
+	display: flex;
+	gap: 40px;
+	align-items: flex-start;
+	background-color: #f9f9f9;
+	border-radius: 12px;
+	padding: 30px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.profile-left {
+	flex: 0 0 250px;
+	text-align: center;
+}
+
+.profile-left .photo {
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 2px solid #ccc;
+}
+
+.profile-right {
+	flex: 1;
+}
+
+.profile-actions {
+	margin-top: 30px;
+	display: flex;
+	gap: 20px;
+}
+
+.profile-actions .btn {
+	padding: 10px 20px;
+	text-decoration: none;
+	border-radius: 8px;
+	font-weight: 500;
+	transition: background-color 0.3s ease;
+}
+
+
+/* pulsanti non so se vogliamo usare quelli generali nel dubbio si levano */
+.btn-primary-outline {
+	border: 1px solid black;
+	color: black;
+}
+
+.btn-primary-outline:hover {
+	background-color: black;
+	color: white;
+}
+
+.btn-danger-outline {
+	border: 1px solid #cc0000;
+	color: #cc0000;
+}
+
+.btn-danger-outline:hover {
+	background-color: #cc0000;
+	color: white;
+}
+
+
+
+

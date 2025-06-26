@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Area</title>
+	<link rel="stylesheet" href="/css/style.css?v=1">
+</head>
+<body>
+
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<h1 class="central-title">Welcome in the Administrator Section</h1>
+
+<div id="flex-container">
+
+    <a class="flex-item" th:href="@{/vehicles}">
+        <div class="flex-image">
+            <img src="/images/cars.png" alt="Our Vehicles">
+			
+        </div>
+        <h3>Our Vehicles</h3>
+    </a>
+
+    <a class="flex-item" th:href="@{/sites}">
+        <div class="flex-image">
+            <img src="/images/site.png" alt="Our Sites">
+        </div>
+        <h3>Our Sites</h3>
+    </a>
+
+    <a class="flex-item" th:href="@{/administrator/formNewVehicle}">
+        <div class="flex-image">
+            <img src="/images/car-side.png" alt="Add Vehicle">
+        </div>
+        <h3>Add new Vehicle</h3>
+    </a>
+
+    <a class="flex-item" th:href="@{/administrator/formNewSite}">
+        <div class="flex-image">
+            <img src="/images/newsite.png" alt="Add Site">
+        </div>
+        <h3>Add new Site</h3>
+    </a>
+
+    <a class="flex-item" th:href="@{/administrator/deleteVehicles}">
+        <div class="flex-image">
+            <img src="/images/deleteCar.png" alt="Delete Vehicles">
+        </div>
+        <h3>Delete Vehicles</h3>
+    </a>
+
+    <a class="flex-item" th:href="@{/administrator/deleteSite}">
+        <div class="flex-image">
+            <img src="/images/deleteBuild.png" alt="Delete Sites">
+        </div>
+        <h3>Delete Sites</h3>
+    </a>
+
+    <a class="flex-item" th:href="@{/administrator/deleteRentals}">
+        <div class="flex-image">
+            <img src="/images/deleteRental.png" alt="Delete Rentals">
+        </div>
+        <h3>Delete Rentals</h3>
+    </a>
+
+</div>
+
+</body>
+</html>

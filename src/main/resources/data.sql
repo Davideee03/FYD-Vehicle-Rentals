@@ -14,3 +14,4 @@ INSERT INTO vehicle (site_id, category, brand, model, transmission, color, seats
 (3, 'scooter', 'Yamaha', 'Xmax 300', 'automatic', 'gray', 2, 25.00),
 (2, 'truck', 'Mercedes', 'Sprinter', 'manual', 'silver', 3, 90.00),
 (4, 'car', 'Tesla', 'Model 3', 'automatic', 'red', 5, 120.00);
+

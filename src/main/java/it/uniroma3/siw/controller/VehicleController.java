@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import it.uniroma3.siw.model.Site;
 import it.uniroma3.siw.model.Vehicle;
 import it.uniroma3.siw.model.VehiclePhoto;
+import it.uniroma3.siw.service.RentalService;
 import it.uniroma3.siw.service.SiteService;
 import it.uniroma3.siw.service.VehiclePhotoService;
 import it.uniroma3.siw.service.VehicleService;
@@ -34,6 +35,9 @@ public class VehicleController {
 
 	@Autowired
 	private VehiclePhotoService vehiclePhotoService;
+	
+	@Autowired
+	private RentalService rentalService;
 
 	@GetMapping("/vehicles")
 	public String getAllVehicles(Model model) {
@@ -55,7 +59,7 @@ public class VehicleController {
 		model.addAttribute("errorMessage", "Vehicle not found");
 		return "error.html";
 	}
-
+	@Transactional
 	@GetMapping("/availableVehicles")
 	public String getAvailableVehicles(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate, @RequestParam String city,
@@ -153,6 +157,49 @@ public class VehicleController {
 
 		return "redirect:/vehicle/" + vehicle.getId();
 	}
+	
+	
+	@GetMapping("/administrator/deleteVehicles") 
+	public String showDeleteVehicles(Model model) {
+		List<Vehicle> vehicles =  this.vehicleService.getAllVehicles();
+		model.addAttribute("vehicles", vehicles);
+		return "deleteVehicles.html";
+	}
+	
+	// summary page with all selected vehicles to delete
+	@PostMapping("/administrator/confirmDeleteVehicles") 
+	public String confirmDeleteVehicles(@RequestParam (name = "vehicleIds", required = false) List<Long> vehicleIds, Model model) {
+		if(vehicleIds == null || vehicleIds.isEmpty()) {
+			model.addAttribute("vehicles", this.vehicleService.getAllVehicles());
+			model.addAttribute("error", "Select at least one vehicle, please.");
+			return "deleteVehicles.html";
+		}
+		List<Vehicle> selectedVehicles = this.vehicleService.getVehiclesByIds(vehicleIds);
+		model.addAttribute("vehicles", selectedVehicles); 
+		return "deleteVehiclesSummary.html";
+	}
+	
+	
+	
+	// delete vehicles AND RENTALS
+	@PostMapping("/administrator/deleteVehiclesWithRentals")
+	public String deleteVehiclesWithRentals(@RequestParam List<Long> vehicleIds, Model model) {
+		this.rentalService.deleteRentalsByVehicleIds(vehicleIds);
+		this.vehicleService.deleteVehiclesByIds(vehicleIds);
+		return "redirect:/vehicles";
+	}
+	// delete vehicles but NOT actives rentals
+	@PostMapping("/administrator/deleteVehiclesOnly")
+	public String deleteVehiclesOnly(@RequestParam List<Long> vehicleIds, Model model) {
+		this.vehicleService.deleteVehiclesOnly(vehicleIds);
+		return "redirect:/vehicles";
+	}
+	
+	
+	
+	
+	
+	
 
 	@GetMapping("/filterVehicles")
 	public String filterVehicles(@RequestParam(required = false, defaultValue = "") String brand,
