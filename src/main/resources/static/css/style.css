@@ -1,3 +1,6 @@
+/* --------------------
+   Base
+-------------------- */
 body {
 	font-family: 'Inter', sans-serif;
 	font-weight: 500;
@@ -8,6 +11,30 @@ body {
 	color: black;
 }
 
+input,
+button {
+	padding: 10px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	box-sizing: border-box;
+}
+
+button {
+	background-color: black;
+	color: white;
+	border: none;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+button:hover {
+	background-color: #333;
+}
+
+/* --------------------
+   Navbar
+-------------------- */
 nav {
 	padding: 30px 150px;
 }
@@ -42,6 +69,10 @@ nav {
 	color: #666;
 }
 
+
+/* --------------------
+   Homepage Hero
+-------------------- */
 .homepage {
 	display: flex;
 	justify-content: center;
@@ -63,6 +94,10 @@ nav {
 	margin-top: 10px;
 }
 
+
+/* --------------------
+   Form Styles
+-------------------- */
 form {
 	max-width: 1000px;
 	margin: 75px auto;
@@ -70,6 +105,26 @@ form {
 	background-color: #f9f9f9;
 	border-radius: 12px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.page-form {
+	max-width: 1000px;
+	margin: 75px auto;
+	padding: 30px;
+	background-color: #f9f9f9;
+	border-radius: 12px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.inline-form {
+	margin: 10px 0 20px 0;
+	padding: 0;
+	background: none;
+	box-shadow: none;
+	border-radius: 0;
+	max-width: none;
+	display: flex;
+	justify-content: center;
 }
 
 .form-grid {
@@ -80,19 +135,6 @@ form {
 
 .form-grid .form-group {
 	margin-bottom: 0;
-}
-
-
-fieldset {
-	border: none;
-	padding: 0;
-	margin: 0;
-}
-
-legend {
-	font-size: 20px;
-	font-weight: 500;
-	margin-bottom: 20px;
 }
 
 .form-group {
@@ -106,36 +148,102 @@ label {
 	font-weight: 500;
 }
 
-input,
-button {
-	padding: 10px;
-	font-size: 16px;
-	border: 1px solid #ccc;
-	border-radius: 6px;
-	box-sizing: border-box;
-}
-
-button {
-	background-color: black;
-	color: white;
+fieldset {
 	border: none;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
+	padding: 0;
+	margin: 0;
 }
 
-button:hover {
-	background-color: #333;
+legend {
+	font-size: 20px;
+	font-weight: 500;
+	margin-bottom: 20px;
+}
+
+.form-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 100px 20px;
+	max-width: 900px;
+	margin: 0 auto;
 }
 
 
+.summary-box {
+	background-color: #fafafa;
+	padding: 20px 30px;
+	border: 1px solid #ddd;
+	border-radius: 10px;
+	margin-top: 30px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+	width: 100%;
+	max-width: 700px;
+}
+
+.summary-grid {
+	text-align: left;
+	margin: 0 auto 30px auto;
+	max-width: 400px;
+	display: grid;
+	row-gap: 10px;
+}
+
+.total-box {
+	background-color: #ddd;
+	color: black;
+	padding: 15px 30px;
+	border-radius: 8px;
+	margin: 30px 0 10px 0;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+	width: 100%;
+	max-width: 700px;
+}
+
+
+.confirmation-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 50vh;
+	padding: 60px 20px;
+}
+
+.confirmation-box {
+	background-color: #f0fff4;
+	border: 1px solid #c6f6d5;
+	border-radius: 12px;
+	padding: 40px;
+	text-align: center;
+	max-width: 600px;
+	width: 100%;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.checkmark {
+	font-size: 48px;
+	color: #38a169;
+	margin-bottom: 20px;
+}
+
+.message {
+	font-size: 18px;
+	font-weight: 400;
+	margin: 10px 0 30px 0;
+	color: #2f855a;
+}
+
+/* --------------------
+   Flex Cards (Vehicles)
+-------------------- */
 #flex-container {
 	display: flex;
 	justify-content: center;
 	align-items: flex-start;
 	flex-wrap: wrap;
-
 	gap: 20px;
-
 	max-width: 1500px;
 	margin: 100px auto;
 }
@@ -143,19 +251,15 @@ button:hover {
 .flex-item {
 	border: 1px solid #999;
 	border-radius: 10px;
-
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: flex-end;
-
 	width: 400px;
 	height: 400px;
-
 	text-decoration: none;
 	text-align: center;
 	color: black;
-
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -169,19 +273,27 @@ button:hover {
 	object-fit: cover;
 }
 
+
+/* --------------------
+   Section titles / Text
+-------------------- */
 .central-title {
 	margin: 100px 100px;
-
 	font-size: 42px;
 	font-weight: 300;
+
+	text-align: center;
 }
 
+
+/* --------------------
+   Description Layout (Home)
+-------------------- */
 #description-container {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: row;
-
 	height: 1000px;
 	margin: 100px 100px;
 }
@@ -190,25 +302,26 @@ button:hover {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-
 	width: 50%;
 	height: 800px;
-
 	padding: 20px 40px;
 }
 
 .description a {
 	width: 150px;
-
 	color: black;
 	text-decoration: none;
-	transition: color 0.3 ease;
+	transition: color 0.3s ease;
 }
 
 .description a:hover {
 	color: #666;
 }
 
+
+/* --------------------
+   Error Message
+-------------------- */
 .error-message {
 	background-color: #ffe6e6;
 	color: #cc0000;
@@ -223,8 +336,9 @@ button:hover {
 }
 
 
-
-
+/* --------------------
+   Footer
+-------------------- */
 .site-footer {
 	background-color: #f5f5f5;
 	padding: 30px 110px;
