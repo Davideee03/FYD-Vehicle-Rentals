@@ -13,8 +13,8 @@ public class VehiclePhotoService {
 	@Autowired
 	private VehiclePhotoRepository vehiclePhotoRepository;
 
-	public VehiclePhoto save(VehiclePhoto bookPhoto) {
-		return vehiclePhotoRepository.save(bookPhoto);
+	public VehiclePhoto save(VehiclePhoto vehiclePhoto) {
+		return vehiclePhotoRepository.save(vehiclePhoto);
 	}
 	
 	public VehiclePhoto findById(Long id) {
