@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Delete Vehicles</title>
+	<link rel="stylesheet" href="/css/style.css?v=1">
+</head>
+
+<body>
+	<div class="deletion-summary">
+		<h2>Selected Vehicles:</h2>
+		<ul class="vehicle-list">
+			<li th:each="v : ${vehicles}" th:text="${v.brand + ' ' + v.model}"></li>
+		</ul>
+
+		<div class="button-group">
+
+			<form th:action="@{/administrator/deleteVehiclesWithRentals}" method="post">
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+				<div th:each="v : ${vehicles}">
+					<input type="hidden" name="vehicleIds" th:value="${v.id}" />
+				</div>
+				<button type="submit" class="btn btn-danger">Delete vehicles and also rentals</button>
+			</form>
+
+			<form th:action="@{/administrator/deleteVehiclesOnly}" method="post">
+				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+				<div th:each="v : ${vehicles}">
+					<input type="hidden" name="vehicleIds" th:value="${v.id}" />
+				</div>
+				<button type="submit" class="btn btn-warning">Delete only selected vehicles</button>
+			</form>
+
+		</div>
+	</div>
+</body>
+
+</html>

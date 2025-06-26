@@ -2,12 +2,16 @@ package it.uniroma3.siw.controller;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,9 +19,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Rental;
 import it.uniroma3.siw.model.Site;
+import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.model.Vehicle;
+import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.RentalService;
 import it.uniroma3.siw.service.SiteService;
 import it.uniroma3.siw.service.VehicleService;
@@ -33,6 +40,9 @@ public class RentalController {
 	
 	@Autowired
 	private SiteService siteService;
+	
+	@Autowired
+	private CredentialsService credentialsService;
 
 	@GetMapping("/rentalSummary")
 	public String rentalSummary(@RequestParam Long siteId,
@@ -52,7 +62,7 @@ public class RentalController {
 		for(Rental rental : vehicle.getRentals()) {
 			if(!startDate.isAfter(rental.getEndDate()) && !rental.getStartDate().isAfter(endDate)) {
 				model.addAttribute("vehicle", vehicle);
-				model.addAttribute("photo", vehicle.getPhoto());
+				model.addAttribute("photo", vehicle.getVehiclePhoto());
 				model.addAttribute("error", "This vehicle is already reserved from " + startDate + " to " + endDate);
 				return "vehicle.html";
 			}
@@ -112,6 +122,18 @@ public class RentalController {
 		rental.setEndDate(endDate);
 		rental.setTotal(total);
 		
+		// snap
+		rental.setVehicleBrand(vehicle.getBrand());
+		rental.setVehicleModel(vehicle.getModel());
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    UserDetails userDetails = (UserDetails) auth.getPrincipal();
+	    Credentials cred = credentialsService.getCredentials(userDetails.getUsername());
+	    User user = cred.getUser();
+	    
+	    rental.setUser(user);
+	    user.getRentals().add(rental);
+		
 		this.rentalService.confirmRental(rental);
 		
 		redirectAttributes.addAttribute("rentalId", rental.getId());
@@ -131,4 +153,28 @@ public class RentalController {
 		
 		return "rentalConfirmed.html";
 	}
+	
+	@GetMapping("/administrator/deleteRentals") 
+	public String showDeleteRentals(Model model) {
+		model.addAttribute("rentals", this.rentalService.getAllRentals());
+		return "deleteRentals.html";
+	}
+	
+	// summary page with all selected vehicles to delete
+	@PostMapping("/administrator/confirmDeleteRentals") 
+	public String confirmDeleteVehicles(@RequestParam List<Long> rentalIds, Model model) {
+		List<Rental> selectedRentals = this.rentalService.getRentalByIds(rentalIds);
+		model.addAttribute("rental", selectedRentals); 
+		return "deleteRentalsSummary.html";
+	}
+	
+
+	// delete active rentals
+	@PostMapping("/administrator/deleteRentals")
+	public String deleteRentals(@RequestParam List<Long> rentalIds, Model model) {
+		this.rentalService.deleteRentals(rentalIds);
+		return "redirect:/vehicles";
+	}
+	
+	
 }

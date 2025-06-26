@@ -1,11 +1,13 @@
 package it.uniroma3.siw.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import it.uniroma3.siw.controller.validator.SiteValidator;
 import it.uniroma3.siw.model.Site;
 import it.uniroma3.siw.model.SitePhoto;
 import it.uniroma3.siw.service.SitePhotoService;
@@ -26,6 +29,9 @@ public class SiteController {
 	
 	@Autowired
 	private SitePhotoService sitePhotoService;
+	
+	@Autowired
+	private SiteValidator siteValidator;
 	
 	@GetMapping("/sites")
 	public String getAllVehicles(Model model) {
@@ -104,9 +110,16 @@ public class SiteController {
 	
 	@Transactional
 	@PostMapping("/site")
-	public String newAuthor(@ModelAttribute("site") Site site, @RequestParam("sitePhoto") MultipartFile photo, Model model) {
+	public String newAuthor(@ModelAttribute("site") Site site, @RequestParam("sitePhoto") MultipartFile photo, Model model, BindingResult bindingResult) {
+		
+		siteValidator.validate(site, bindingResult);
+		if (bindingResult.hasErrors()) {
+	        model.addAttribute("duplicate", "The site already exists in the system");
+	        return "formNewSite.html";
+	    }
+				
 		this.siteService.save(site);
-
+		
 		try {
 			SitePhoto sitePhoto = new SitePhoto();
 			sitePhoto.setData(photo.getBytes());
@@ -121,4 +134,24 @@ public class SiteController {
 		
 		return "redirect:site/"+site.getId();
 	}
+	
+	@GetMapping("/administrator/deleteSite")
+    public String showDeleteSiteForm(Model model) {
+        List<Site> sites = siteService.getAllSites();
+        model.addAttribute("sites", sites);
+        return "formDeleteSite.html";
+    }
+	
+    @PostMapping("/administrator/confirmDeleteSite")
+    public String confirmDeleteSite(@RequestParam Long siteToDeleteId, @RequestParam Long newSiteId, Model model) {
+    	if(siteToDeleteId.equals(newSiteId)) {
+    		List<Site> sites = siteService.getAllSites();
+    		model.addAttribute("sites", sites);
+    		model.addAttribute("error", "You must choose a different site to reassign data");
+    		return "formDeleteSite.html";
+    	}
+        this.siteService.reassignAndDeleteSite(siteToDeleteId, newSiteId);
+        return "redirect:/sites";
+    }
 }
+	

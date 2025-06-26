@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.uniroma3.siw.model.Rental;
+import it.uniroma3.siw.model.Vehicle;
 import it.uniroma3.siw.repository.RentalRepository;
 import jakarta.transaction.Transactional;
 
@@ -36,5 +37,18 @@ public class RentalService {
 	@Transactional
 	public void deleteRentalsBySiteIds(List<Long> ids) {
 	    this.rentalRepository.deleteRentalsBySiteIds(ids);
+	}
+
+	public List<Rental> getAllRentals() {
+		return (List<Rental>) this.rentalRepository.findAll();
+	}
+
+	public List<Rental> getRentalByIds(List<Long> rentalIds) {
+		return (List<Rental>) rentalRepository.findAllById(rentalIds);
+	}
+
+	public void deleteRentals(List<Long> rentalIds) {
+		this.rentalRepository.deleteAllById(rentalIds);
+		
 	}
 }

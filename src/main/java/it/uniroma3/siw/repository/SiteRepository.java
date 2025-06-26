@@ -10,4 +10,6 @@ public interface SiteRepository extends CrudRepository<Site, Long>{
 
 	@Query("SELECT DISTINCT s.city FROM Site s")
 	List<String> queryCityList();
+
+	boolean existsByNameAndAddressAndCity(String name, String address, String city);
 }

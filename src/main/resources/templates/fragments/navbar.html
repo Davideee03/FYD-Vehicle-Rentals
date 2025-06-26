@@ -1,10 +1,22 @@
 <nav th:fragment="navbar">
 	<div class="navbar">
 		<a href="/" class="nav-logo">FYD Rentals</a>
+
 		<div class="nav-menu">
 			<a href="/vehicles" class="nav-link">Our Vehicles</a>
 			<a href="/sites" class="nav-link">Our Sites</a>
-			<a href="/" class="nav-link">Login</a>
+		</div>
+
+		<div class="nav-auth-wrapper">
+			<div sec:authorize="isAuthenticated()" class="nav-auth">
+				<a href="/profile" class="btn-auth btn-username" th:text="${#authentication.name}">Username</a>
+				<a href="/logout" class="btn-auth btn-logout">Logout</a>
+			</div>
+
+			<div sec:authorize="isAnonymous()" class="nav-auth">
+				<a href="/login" class="btn-auth btn-login">Login</a>
+				<a href="/register" class="btn-auth btn-signup">Sign Up</a>
+			</div>
 		</div>
 	</div>
 </nav>

@@ -18,13 +18,18 @@ public class Rental {
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private Long total;
+	
+	
+    private String vehicleBrand;
+    private String vehicleModel;
+    private String vehiclePhoto;
 
 	@ManyToOne
-	@JoinColumn(name = "client_id")
-	private Client client;
+	@JoinColumn(name = "user_id")
+	private User user;
 
-	@ManyToOne
-	@JoinColumn(name = "vehicle_id")
+	@ManyToOne(optional = true)
+	@JoinColumn(name = "vehicle_id", nullable = true)
 	private Vehicle vehicle;
 
 	@ManyToOne
@@ -59,12 +64,12 @@ public class Rental {
 		this.total = total;
 	}
 
-	public Client getClient() {
-		return client;
+	public User getUser() {
+		return user;
 	}
 
-	public void setClient(Client client) {
-		this.client = client;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public Vehicle getVehicle() {
@@ -82,4 +87,36 @@ public class Rental {
 	public void setSite(Site site) {
 		this.site = site;
 	}
+
+	public String getVehicleBrand() {
+		return vehicleBrand;
+	}
+
+	public void setVehicleBrand(String vehicleBrand) {
+		this.vehicleBrand = vehicleBrand;
+	}
+
+	public String getVehicleModel() {
+		return vehicleModel;
+	}
+
+	public void setVehicleModel(String vehicleModel) {
+		this.vehicleModel = vehicleModel;
+	}
+
+	public String getVehiclePhoto() {
+		return vehiclePhoto;
+	}
+
+	public void setVehiclePhoto(String vehiclePhoto) {
+		this.vehiclePhoto = vehiclePhoto;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	
+	
+	
 }

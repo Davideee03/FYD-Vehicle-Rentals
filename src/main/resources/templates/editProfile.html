@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Edit Profile</title>
+	<link rel="stylesheet" href="/css/style.css?v=1">
+</head>
+
+<body>
+	<div th:replace="fragments/navbar :: navbar"></div>
+	<div class="container">
+		
+		<form th:action="@{/profile/editProfile}" method="post" th:object="${user}" enctype="multipart/form-data">
+			<h2>Edit Profile</h2>
+
+			<div>
+				<label>Name:</label>
+				<input type="text" th:field="*{name}">
+			</div>
+
+			<div>
+				<label>Surname:</label>
+				<input type="text" th:field="*{surname}">
+			</div>
+
+			<div>
+				<label>Email:</label>
+				<input type="text" th:field="*{email}">
+			</div>
+
+			<div>
+				<label for="file">Profile Picture</label>
+				<input type="file" id="file" name="file" accept="image/*" />
+			</div>
+
+			<input type="hidden" th:field="*{id}" />
+			<input type="hidden" th:object="${credentials}" />
+
+			<button type="submit">Save</button>
+		</form>
+	</div>
+</body>
+
+</html>

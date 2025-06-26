@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Profilo Utente</title>
+	<link rel="stylesheet" href="/css/style.css?v=1">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body class="profilo-utente">
+	<div th:replace="fragments/navbar :: navbar"></div>
+
+	<div class="profile-container">
+		<div th:if="${user}" class="profile-content">
+			<div class="profile-left">
+				<!--	<img class="profile-img"
+					th:src="${user.photo != null} ? @{'/photo/' + ${user.photo.id}} : @{/images/defaultProfile.jpg}" />-->
+				<img class="photo"
+					th:src="${user.userPhoto != null} ? @{|/userPhoto/${user.userPhoto.id}|} : @{/images/defaultProfile.jpg}" />
+
+			</div>
+			<div class="profile-right">
+				<h1 th:text="'User Profile: ' + ${credentials.username}">Profile User</h1>
+
+				<p><strong>Name:</strong> <span th:text="${user.name}">Ciccio</span></p>
+				<p><strong>Surname:</strong> <span th:text="${user.surname}">Gamer</span></p>
+				<p><strong>Email:</strong> <span th:text="${user.email}">ciccio.gamer@gmail.com</span></p>
+				<p><strong>Username:</strong> <span th:text="${credentials.username}">cicciogamer89</span></p>
+
+				<p class="success-msg" th:if="${success}" th:text="${success}">Profilo aggiornato</p>
+
+				<div class="profile-actions">
+					<a href="/profile/editProfile" class="btn btn-primary-outline">Edit Profile</a>
+					<a href="/profile/modifyPassword" class="btn btn-danger-outline">Edit Password</a>
+				</div>
+			</div>
+		</div>
+
+		<div th:unless="${user}" class="alert-warning text-center">
+			User not Found.
+		</div>
+		<div th:if="${rentals != null and !rentals.isEmpty()}" class="rental-section">
+			<h2>Rented Vehicles</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>Brand & Model</th>
+						<th>Start Date</th>
+						<th>End Date</th>
+						<th>Total</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="rental : ${rentals}">
+						<td th:text="${rental.vehicleBrand + ' ' + rental.vehicleModel}">Brand Model</td>
+						<td th:text="${#temporals.format(rental.startDate, 'dd/MM/yyyy')}">Start Date</td>
+						<td th:text="${#temporals.format(rental.endDate, 'dd/MM/yyyy')}">End Date</td>
+						<td th:text="${rental.total}">Total</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div th:if="${rentals == null or rentals.isEmpty()}" class="no-rentals-msg">
+			<p>No rentals found.</p>
+		</div>
+	</div>
+</body>
+
+</html>
