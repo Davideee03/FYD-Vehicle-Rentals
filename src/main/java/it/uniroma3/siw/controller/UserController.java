@@ -37,8 +37,6 @@ public class UserController {
 	public String getProfile(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    UserDetails userDetails = (UserDetails) auth.getPrincipal();
-
-	    
 	    Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 	    User user = credentials.getUser();
 	    
@@ -54,10 +52,9 @@ public class UserController {
 	public String editProfile(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    UserDetails userDetails = (UserDetails) auth.getPrincipal();
-
-	    
 	    Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 	    User user = credentials.getUser();
+	    
 		model.addAttribute("credentials", credentials);
 		model.addAttribute("user", user);
 		
@@ -70,15 +67,15 @@ public class UserController {
 	                              @ModelAttribute("credentials") Credentials credentials,
 	                              @RequestParam(name = "photoFile", required = false) MultipartFile photoFile,
 	                              Model model) throws IOException {
-	    credentials.setUser(user);
-
+	   
+		credentials.setUser(user);
 	    // Recupera lo user esistente (per non perdere la foto)
 	    User existingUser = userService.getUser(user.getId());
 
 
 
 	    userService.saveUser(user);
-	    model.addAttribute("success", "Profilo aggiornato correttamente");
+	    model.addAttribute("success", "Perfect, you have modified your profile!");
 
 	    return "redirect:/profile";
 	}
@@ -101,12 +98,12 @@ public class UserController {
 	    User user = credenziali.getUser();
 	    
 	    if (!passwordEncoder.matches(oldPsw, credenziali.getPassword())) {
-	    	model.addAttribute("msgError", "Password inserita errata");
+	    	model.addAttribute("msgError", "Wrong Password");
 	    	return "editPsw.html";
 	    }
 	    
 	    if (!newPsw.equals(confirmPsw))  {
-	    	model.addAttribute("msgError", "Password inserite diverse");
+	    	model.addAttribute("msgError", "Wrong new Passwords");
 	
 	    	return "editPsw.html";
 	    }
@@ -115,7 +112,7 @@ public class UserController {
 	    credenziali.setPassword(newPsw);
 	    credentialsService.saveCredentials(credenziali);
 	    
-	    model.addAttribute("success", "modifiche apportate!");
+	    model.addAttribute("success", "You have modified your profile!");
 	    
 		return "redirect:/profile";
 	}
