@@ -2,6 +2,9 @@ package it.uniroma3.siw.controller;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +53,7 @@ public class RentalController {
 		
 		if (startDate.isAfter(endDate)) {
 			model.addAttribute("error", "Start date must be before or equal to end date.");
-			return "error.html";
+			return "homepage.html";
 		}
 		
 		Vehicle vehicle = vehicleService.getVehicleById(vehicleId);
@@ -88,12 +91,22 @@ public class RentalController {
 
 		if (startDate.isAfter(endDate)) {
 			model.addAttribute("error", "Start date must be before or equal to end date.");
-			return "error.html";
+			return "homepage.html";
 		}
 
 		if (!rentalService.isVehicleAvailableForRental(vehicleId, startDate, endDate)) {
-			model.addAttribute("error", "The selected vehicle is not available for the chosen dates.");
-			return "error.html";
+			model.addAttribute("error", "Looks like someone has already pre-ordered it!");
+			
+			Vehicle vehicle = this.vehicleService.getVehicleById(vehicleId);
+			long days = ChronoUnit.DAYS.between(startDate, endDate) + 1;
+			long total = vehicle.getPrice() * days;
+			
+			model.addAttribute("site", vehicle.getSite());
+			model.addAttribute("vehicle", vehicle);
+			model.addAttribute("startDate", startDate);
+			model.addAttribute("endDate", endDate);
+			model.addAttribute("total", total);
+			return "rentalSummary.html";
 		}
 		
 		Vehicle vehicle = vehicleService.getVehicleById(vehicleId);
@@ -131,6 +144,13 @@ public class RentalController {
 	public String rentalConfirmed(@RequestParam Long rentalId, Model model) {
 		Rental rental = rentalService.getRentalById(rentalId);
 		model.addAttribute("rental", rental);
+		
+		List<Vehicle> vehicles = this.vehicleService.getAllVehicles();
+		vehicles.remove(rental.getVehicle());
+		Collections.shuffle(vehicles);
+		vehicles = vehicles.subList(0, Math.min(3, vehicles.size()));
+		model.addAttribute("vehicles", vehicles);
+		
 		return "rentalConfirmed.html";
 	}
 	

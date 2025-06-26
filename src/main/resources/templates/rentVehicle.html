@@ -3,6 +3,8 @@
 
 <head>
 	<title>Vehicles</title>
+	<link rel="stylesheet" href="/css/style.css?v=1">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400&display=swap">
 </head>
 
 <body>
@@ -10,21 +12,26 @@
 	<h1 th:if="${#lists.isEmpty(vehicles)}">
 		No vehicles are available for the selected period
 	</h1>
-
-	<div class="flex-container" th:each="vehicle:${vehicles}">
-		<a class="flex-item" th:href="@{/vehicle/{id}(id=${vehicle.id})}">
+	<div id="flex-container">
+		<a class="flex-item" th:href="@{/vehicle/{id}(id=${vehicle.id})}" th:each="vehicle:${vehicles}">
+			<img th:if="${vehicle.vehiclePhoto}" class="flex-image"
+				th:src="@{'/vehiclePhoto/' + ${vehicle.vehiclePhoto.id}}" alt="Vehicle image" />
 			<h1 th:text="${vehicle.brand + ' ' + vehicle.model}"></h1>
-		</a>
-		<form th:action="@{/rentalSummary}" method="get">
-			<input type="hidden" name="siteId" th:value="${vehicle.site.id}" />
-			<input type="hidden" name="vehicleId" th:value="${vehicle.id}" />
-			<input type="hidden" name="startDate" th:value="${startDate}" />
-			<input type="hidden" name="endDate" th:value="${endDate}" />
-			<button type="submit">Select Vehicle</button>
-		</form>
+			<p th:text="'Seats: ' + ${vehicle.seats}"></p>
+			<p th:text="'Price per day: €' + ${vehicle.price}"></p>
 
-		<div th:replace="fragments/footer :: footer"></div>
+			<form th:action="@{/rentalSummary}" method="get" class="inline-form">
+				<input type="hidden" name="siteId" th:value="${vehicle.site.id}" />
+				<input type="hidden" name="vehicleId" th:value="${vehicle.id}" />
+				<input type="hidden" name="startDate" th:value="${startDate}" />
+				<input type="hidden" name="endDate" th:value="${endDate}" />
+				<button type="submit">Select Vehicle</button>
+			</form>
+
+		</a>
 	</div>
+
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 
 </html>

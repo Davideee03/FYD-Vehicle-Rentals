@@ -60,6 +60,53 @@ public class SiteController {
 		model.addAttribute("site", new Site());
 		return "formNewSite.html";
 	}
+
+	@GetMapping("/administrator/formEditSite/{id}")
+	public String editSite(@PathVariable Long id, Model model) {
+
+		Site site = siteService.getSiteById(id);
+		
+		model.addAttribute("site",site);
+		model.addAttribute("photo", site.getPhoto());
+
+		return "formEditSite.html";
+	}
+
+	@PostMapping("/administrator/formEditSite/{id}")
+	public String editSite(@PathVariable Long id, @RequestParam("file") MultipartFile file, @ModelAttribute Site site) {
+
+		Site existingSite = siteService.getSiteById(id);
+
+		existingSite.setCity(site.getCity());
+		existingSite.setAddress(site.getAddress());
+		existingSite.setPostalCode(site.getPostalCode());
+		existingSite.setPhone(site.getPhone());
+		existingSite.setEmail(site.getEmail());
+
+		if(!file.isEmpty()) {
+			try{
+				SitePhoto photo = existingSite.getPhoto();
+				if(photo != null){
+					photo.setData(file.getBytes());
+					this.sitePhotoService.save(photo);
+				}
+				else{
+					SitePhoto newPhoto = new SitePhoto();
+					newPhoto.setData(file.getBytes());
+					newPhoto.setSite(existingSite);
+					this.sitePhotoService.save(newPhoto);
+					existingSite.setPhoto(newPhoto);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+				return "error.html";
+			}
+		}
+
+		siteService.save(existingSite);
+
+		return "redirect:/administrator/formEditSite/" + id;
+	}
 	
 	@Transactional
 	@PostMapping("/site")
