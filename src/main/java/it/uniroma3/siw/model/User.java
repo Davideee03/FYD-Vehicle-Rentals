@@ -17,6 +17,8 @@ public class User {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Rental> rentals;
 	
+	@OneToOne(mappedBy = "user", cascade=CascadeType.ALL, orphanRemoval = true)
+	private UserPhoto userPhoto;
 	
 	public Long getId() {
 		return id;
@@ -57,6 +59,15 @@ public class User {
 	public void setRentals(List<Rental> rentals) {
 		this.rentals = rentals;
 	}
+
+	public UserPhoto getUserPhoto() {
+		return userPhoto;
+	}
+
+	public void setUserPhoto(UserPhoto userPhoto) {
+		this.userPhoto = userPhoto;
+	}
+	
 	
 	
 	

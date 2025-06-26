@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.User;
+import it.uniroma3.siw.model.UserPhoto;
 import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.UserService;
 import jakarta.transaction.Transactional;
@@ -65,20 +66,31 @@ public class UserController {
 	@PostMapping("/profile/editProfile")
 	public String saveEditProfile(@ModelAttribute("user") User user,
 	                              @ModelAttribute("credentials") Credentials credentials,
-	                              @RequestParam(name = "photoFile", required = false) MultipartFile photoFile,
+	                              @RequestParam(name = "file", required = false) MultipartFile photoFile,
 	                              Model model) throws IOException {
-	   
-		credentials.setUser(user);
-	    // Recupera lo user esistente (per non perdere la foto)
+
 	    User existingUser = userService.getUser(user.getId());
 
+	    existingUser.setName(user.getName());
+	    existingUser.setSurname(user.getSurname());
+	    existingUser.setEmail(user.getEmail());
 
+	    if (photoFile != null && !photoFile.isEmpty()) {
+	        UserPhoto photo = existingUser.getUserPhoto();
+	        if (photo == null) {
+	            photo = new UserPhoto();
+	            photo.setUser(existingUser);
+	        }
+	        photo.setData(photoFile.getBytes());
+	        existingUser.setUserPhoto(photo);
+	    }
 
-	    userService.saveUser(user);
+	    userService.saveUser(existingUser);
+
 	    model.addAttribute("success", "Perfect, you have modified your profile!");
-
 	    return "redirect:/profile";
 	}
+
 
 
 	

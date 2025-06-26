@@ -14,11 +14,14 @@
 	<div class="profile-container">
 		<div th:if="${user}" class="profile-content">
 			<div class="profile-left">
-			<!--	<img class="profile-img"
+				<!--	<img class="profile-img"
 					th:src="${user.photo != null} ? @{'/photo/' + ${user.photo.id}} : @{/images/defaultProfile.jpg}" />-->
+				<img class="photo"
+					th:src="${user.userPhoto != null} ? @{|/userPhoto/${user.userPhoto.id}|} : @{/images/defaultProfile.jpg}" />
+
 			</div>
 			<div class="profile-right">
-				<h1 th:text="'Profilo utente: ' + ${credentials.username}">Profile User</h1>
+				<h1 th:text="'User Profile: ' + ${credentials.username}">Profile User</h1>
 
 				<p><strong>Name:</strong> <span th:text="${user.name}">Ciccio</span></p>
 				<p><strong>Surname:</strong> <span th:text="${user.surname}">Gamer</span></p>
@@ -38,29 +41,29 @@
 			User not Found.
 		</div>
 		<div th:if="${rentals != null and !rentals.isEmpty()}" class="rental-section">
-		    <h2>Rented Vehicles</h2>
-		    <table>
-		        <thead>
-		            <tr>
-		                <th>Brand & Model</th>
-		                <th>Start Date</th>
-		                <th>End Date</th>
-		                <th>Total</th>
-		            </tr>
-		        </thead>
-		        <tbody>
-		            <tr th:each="rental : ${rentals}">
-		                <td th:text="${rental.vehicleBrand + ' ' + rental.vehicleModel}">Brand Model</td>
-		                <td th:text="${#temporals.format(rental.startDate, 'dd/MM/yyyy')}">Start Date</td>
-		                <td th:text="${#temporals.format(rental.endDate, 'dd/MM/yyyy')}">End Date</td>
-		                <td th:text="${rental.total}">Total</td>
-		            </tr>
-		        </tbody>
-		    </table>
+			<h2>Rented Vehicles</h2>
+			<table>
+				<thead>
+					<tr>
+						<th>Brand & Model</th>
+						<th>Start Date</th>
+						<th>End Date</th>
+						<th>Total</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="rental : ${rentals}">
+						<td th:text="${rental.vehicleBrand + ' ' + rental.vehicleModel}">Brand Model</td>
+						<td th:text="${#temporals.format(rental.startDate, 'dd/MM/yyyy')}">Start Date</td>
+						<td th:text="${#temporals.format(rental.endDate, 'dd/MM/yyyy')}">End Date</td>
+						<td th:text="${rental.total}">Total</td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 
 		<div th:if="${rentals == null or rentals.isEmpty()}" class="no-rentals-msg">
-		    <p>No rentals found.</p>
+			<p>No rentals found.</p>
 		</div>
 	</div>
 </body>
