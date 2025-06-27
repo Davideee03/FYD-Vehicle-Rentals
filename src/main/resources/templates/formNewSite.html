@@ -8,6 +8,9 @@
 
 <body>
 	<div th:replace="fragments/navbar :: navbar"></div>
+	<div th:if="${duplicate}" class="error-message">
+		<p th:text="${duplicate}"></p>
+	</div>
 	<form th:action="@{/site}" method="POST" th:object="${site}" enctype="multipart/form-data">
 		<div>Name: <span><input required type="text" th:field="${site.name}" /></span></div>
 		<div>City: <span><input required type="text" th:field="${site.city}" /></span></div>

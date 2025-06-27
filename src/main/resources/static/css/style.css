@@ -1,3 +1,6 @@
+/* --------------------
+   Base
+-------------------- */
 body {
 	font-family: 'Inter', sans-serif;
 	font-weight: 500;
@@ -8,6 +11,32 @@ body {
 	color: black;
 }
 
+input,
+button {
+	padding: 10px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	box-sizing: border-box;
+}
+
+button {
+	background-color: black;
+	color: white;
+	border: none;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	
+	max-width: 200px;
+}
+
+button:hover {
+	background-color: #333;
+}
+
+/* --------------------
+   Navbar
+-------------------- */
 nav {
 	padding: 30px 150px;
 }
@@ -42,6 +71,70 @@ nav {
 	color: #666;
 }
 
+
+/* --------------------
+   Homepage Hero
+-------------------- */
+.nav-auth-wrapper {
+	display: flex;
+	gap: 15px;
+	align-items: center;
+}
+
+.nav-auth {
+	display: flex;
+	gap: 10px;
+}
+
+.btn-auth {
+	padding: 8px 16px;
+	border-radius: 8px;
+	text-decoration: none;
+	font-weight: 500;
+	font-size: 14px;
+	transition: all 0.3s ease;
+}
+
+.btn-login {
+	border: 1px solid black;
+	color: black;
+}
+
+.btn-login:hover {
+	background-color: black;
+	color: white;
+}
+
+.btn-signup {
+	border: 1px solid black;
+	color: black;
+}
+
+.btn-signup:hover {
+	background-color: black;
+	color: white;
+}
+
+.btn-logout {
+	border: 1px solid #cc0000;
+	color: #cc0000;
+}
+
+.btn-logout:hover {
+	background-color: #cc0000;
+	color: white;
+}
+
+.btn-username {
+	border: 1px solid #666;
+	color: #333;
+	cursor: default;
+}
+
+.btn-username:hover {
+	background-color: #f0f0f0;
+}
+
 .homepage {
 	display: flex;
 	justify-content: center;
@@ -63,7 +156,101 @@ nav {
 	margin-top: 10px;
 }
 
+.background-image {
+    background-image: url('/images/HomepageBackground.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+	
+    height: auto;
+	
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+	
+    padding: 2rem;
+}
+
+/* --------------------
+   Homepage Banner
+-------------------- */
+#banner-container {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.banner,
+.reverse-banner {
+	display: flex;
+	flex-direction: row;
+
+	height: 500px;
+}
+
+.banner {
+	background: linear-gradient(to right, #fff, #666);
+}
+
+.reverse-banner {
+	background: linear-gradient(to right, #666, #fff);
+}
+
+.banner-image {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	width: 40%;
+	height: 100%;
+}
+
+.banner-image img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+
+	-webkit-mask-image: radial-gradient(ellipse 50% 50% at center, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+	mask-image: radial-gradient(ellipse 50% 50% at center, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+}
+
+.banner-text {
+	color: white;
+	width: 40%;
+	margin: auto 150px;
+}
+
+.banner-text h1 {
+	font-size: 32px;
+}
+
+.banner-text p,
+.banner-text li {
+	font-size: 20px;
+	margin: 10px;
+}
+
+
+/* --------------------
+   Form Styles
+-------------------- */
 form {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	
+	width: 55%;
+	max-width: 700px;
+	margin: 75px auto;
+	padding: 10px;
+	background-color: #f9f9f9;
+	border-radius: 12px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.page-form {
 	max-width: 1000px;
 	margin: 75px auto;
 	padding: 30px;
@@ -72,9 +259,20 @@ form {
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 }
 
+.inline-form {
+	margin: 10px 0 20px 0;
+	padding: 0;
+	background: none;
+	box-shadow: none;
+	border-radius: 0;
+	max-width: none;
+	display: flex;
+	justify-content: center;
+}
+
 .form-grid {
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: repeat(3, 1fr);
 	gap: 10px;
 }
 
@@ -82,23 +280,13 @@ form {
 	margin-bottom: 0;
 }
 
-
-fieldset {
-	border: none;
-	padding: 0;
-	margin: 0;
-}
-
-legend {
-	font-size: 20px;
-	font-weight: 500;
-	margin-bottom: 20px;
-}
-
 .form-group {
 	margin-bottom: 10px;
 	display: flex;
 	flex-direction: column;
+	padding: 10px;
+	
+	text-align: center;
 }
 
 label {
@@ -106,36 +294,117 @@ label {
 	font-weight: 500;
 }
 
-input,
-button {
-	padding: 10px;
-	font-size: 16px;
-	border: 1px solid #ccc;
-	border-radius: 6px;
-	box-sizing: border-box;
+.form-group input {
+	max-width: 400px;
+	
+	text-align: center;
 }
 
-button {
-	background-color: black;
-	color: white;
+fieldset {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
 	border: none;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
+	padding: 0;
+	margin: 0;
 }
 
-button:hover {
-	background-color: #333;
+legend {
+	width: 100%;
+	
+	font-size: 20px;
+	font-weight: 500;
+	
+	padding: 5px;
+	
+	text-align: center;
+}
+
+.form-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 100px 20px;
+	max-width: 900px;
+	margin: 0 auto;
 }
 
 
+.summary-box {
+	background-color: #fafafa;
+	padding: 20px 30px;
+	border: 1px solid #ddd;
+	border-radius: 10px;
+	margin-top: 30px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+	width: 100%;
+	max-width: 700px;
+}
+
+.summary-grid {
+	text-align: left;
+	margin: 0 auto 30px auto;
+	max-width: 400px;
+	display: grid;
+	row-gap: 10px;
+}
+
+.total-box {
+	background-color: #ddd;
+	color: black;
+	padding: 15px 30px;
+	border-radius: 8px;
+	margin: 30px 0 10px 0;
+	font-size: 20px;
+	font-weight: bold;
+	text-align: center;
+	width: 100%;
+	max-width: 700px;
+}
+
+
+.confirmation-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 50vh;
+	padding: 60px 20px;
+}
+
+.confirmation-box {
+	background-color: #f0fff4;
+	border: 1px solid #c6f6d5;
+	border-radius: 12px;
+	padding: 40px;
+	text-align: center;
+	max-width: 600px;
+	width: 100%;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.checkmark {
+	font-size: 48px;
+	color: #38a169;
+	margin-bottom: 20px;
+}
+
+.message {
+	font-size: 18px;
+	font-weight: 400;
+	margin: 10px 0 30px 0;
+	color: #2f855a;
+}
+
+/* --------------------
+   Flex Cards (Vehicles)
+-------------------- */
 #flex-container {
 	display: flex;
 	justify-content: center;
 	align-items: flex-start;
 	flex-wrap: wrap;
-
 	gap: 20px;
-
 	max-width: 1500px;
 	margin: 100px auto;
 }
@@ -143,20 +412,16 @@ button:hover {
 .flex-item {
 	border: 1px solid #999;
 	border-radius: 10px;
-	overflow: hidden;
-
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	justify-content: center;
+	justify-content: flex-end;
 
 	width: 400px;
 	height: 400px;
-
 	text-decoration: none;
 	text-align: center;
 	color: black;
-
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 	transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -186,20 +451,30 @@ button:hover {
 	margin: auto;
 }
 
+
+/* --------------------
+   Section titles / Text
+-------------------- */
 .central-title {
+	margin: 100px 100px;
 	text-align: center;
-	margin: 100px auto;
+
 	font-size: 42px;
 	font-weight: 300;
+
+	text-align: center;
 }
 
+
+/* --------------------
+   Description Layout (Home)
+-------------------- */
 
 #description-container {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: row;
-
 	height: 1000px;
 	margin: 100px 100px;
 }
@@ -208,23 +483,45 @@ button:hover {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-
 	width: 50%;
 	height: 800px;
-
 	padding: 20px 40px;
 }
 
 .description a {
 	width: 150px;
-
 	color: black;
 	text-decoration: none;
-	transition: color 0.3 ease;
+	transition: color 0.3s ease;
 }
 
 .description a:hover {
 	color: #666;
+}
+
+
+/* --------------------
+   Error Message
+-------------------- */
+.error-message {
+	background-color: #ffe6e6;
+	color: #cc0000;
+	border: 1px solid #ffcccc;
+	padding: 12px 20px;
+	border-radius: 8px;
+	font-size: 16px;
+	font-weight: 500;
+	margin: 20px auto;
+	max-width: 1000px;
+	box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+}
+
+
+/* --------------------
+   Footer
+-------------------- */
+footer {
+	height: 150px;
 }
 
 .site-footer {
@@ -330,3 +627,122 @@ select:focus {
     border-color: #999;
     box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
 }
+
+
+.login-page {
+	background-color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	margin: 0;
+}
+
+.login-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	padding: 20px;
+}
+
+.login-form {
+	background-color: white;
+	padding: 40px;
+	border-radius: 12px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	max-width: 400px;
+}
+
+.login-title {
+	text-align: center;
+	font-size: 24px;
+	margin-bottom: 30px;
+}
+
+.login-footer {
+	text-align: center;
+	margin-top: 30px;
+	color: #777;
+	font-size: 14px;
+}
+
+.register-link {
+	text-align: center;
+	margin-top: 20px;
+}
+
+
+.profile-container {
+	max-width: 1000px;
+	margin: 60px auto;
+	padding: 20px;
+}
+
+.profile-content {
+	display: flex;
+	gap: 40px;
+	align-items: flex-start;
+	background-color: #f9f9f9;
+	border-radius: 12px;
+	padding: 30px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.profile-left {
+	flex: 0 0 250px;
+	text-align: center;
+}
+
+.profile-left .photo {
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 2px solid #ccc;
+}
+
+.profile-right {
+	flex: 1;
+}
+
+.profile-actions {
+	margin-top: 30px;
+	display: flex;
+	gap: 20px;
+}
+
+.profile-actions .btn {
+	padding: 10px 20px;
+	text-decoration: none;
+	border-radius: 8px;
+	font-weight: 500;
+	transition: background-color 0.3s ease;
+}
+
+
+/* pulsanti non so se vogliamo usare quelli generali nel dubbio si levano */
+.btn-primary-outline {
+	border: 1px solid black;
+	color: black;
+}
+
+.btn-primary-outline:hover {
+	background-color: black;
+	color: white;
+}
+
+.btn-danger-outline {
+	border: 1px solid #cc0000;
+	color: #cc0000;
+}
+
+.btn-danger-outline:hover {
+	background-color: #cc0000;
+	color: white;
+}
+
+
+
+

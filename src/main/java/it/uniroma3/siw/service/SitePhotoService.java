@@ -14,8 +14,8 @@ public class SitePhotoService {
 	@Autowired
 	private SitePhotoRepository sitePhotoRepository;
 	
-	public SitePhoto save(SitePhoto bookPhoto) {
-		return this.sitePhotoRepository.save(bookPhoto);
+	public SitePhoto save(SitePhoto sitePhoto) {
+		return this.sitePhotoRepository.save(sitePhoto);
 	}
 	
 	public SitePhoto findById(Long id) {

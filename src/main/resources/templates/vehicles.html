@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-	<meta charset="UTF-8">
 	<title>Vehicles</title>
 
 	<link rel="stylesheet" href="/css/style.css?v=1">
@@ -14,7 +13,9 @@
 
 	<form th:action="@{/filterVehicles}" method="get">
 		<fieldset>
-			<legend>Search Vehicles</legend>
+			<legend>
+				<h2>Search Vehicles</h1>
+			</legend>
 
 			<div class="form-grid">
 				<div class="form-group">
@@ -54,13 +55,13 @@
 			</div>
 
 			<br>
-			<button type="submit">Filter</button>
 		</fieldset>
+		<button type="submit">Filter</button>
 	</form>
 
 
 
-	<h1 th:if="${#lists.isEmpty(vehicles)}">
+	<h1 th:if="${#lists.isEmpty(vehicles)}" class="error-message">
 		No vehicles are available for the selected period
 	</h1>
 

@@ -8,8 +8,13 @@
 
 
 <body>
+	<div th:replace="fragments/navbar :: navbar"></div>
 	<h1 class="page-title">Select Vehicles to Eliminate</h1>
-
+	<h1 th:if="${#lists.isEmpty(vehicles)}" class="error-message">
+		There are no vehicles to Delete.
+	</h1>
+	<h1 th:if="${error}" class="error-message" th:text="${error}">
+	</h1>
 	<form th:action="@{/administrator/confirmDeleteVehicles}" method="post">
 		<div th:each="vehicle : ${vehicles}" class="vehicle-card">
 			<input type="checkbox" name="vehicleIds" th:value="${vehicle.id}">
@@ -25,8 +30,9 @@
 			</div>
 		</div>
 
-		<button type="submit">Confirm Selected</button>
+		<button type="submit" th:if="${not #lists.isEmpty(vehicles)}">Confirm Selected</button>
+		<button type="button" th:if="${ #lists.isEmpty(vehicles)}" onclick="history.back()">Go Back</button>
 	</form>
-</body>rm>
+</body>
 
 </html>

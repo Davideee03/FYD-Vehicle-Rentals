@@ -10,37 +10,81 @@
 <body>
 	<div th:replace="fragments/navbar :: navbar"></div>
 
-	<section class="homepage">
-		<h1 class="slogan">Mobility for a connected world</h1>
-		<p class="sub-slogan">Discover the safety of FYD car rentals</p>
-		<a th:href="@{/administrator/}">HOMEPAGE ADMIN MOMENTANEO LINK</a>
+	<div class="background-image">
+		<section class="homepage">
+			<h1 class="slogan">Find Your Drive.</h1>
+			<p class="sub-slogan">Discover the safety of FYD car rentals</p>
+		</section>
+
+		<p th:if="${error}" th:text="${error}" class="error-message"></p>
+		<form th:action="@{/availableVehicles}" method="get">
+			<fieldset>
+				<legend><strong>Search for Available Vehicles</strong></legend>
+
+				<div class="form-group">
+					<label for="startDate">Pick-up date:</label>
+					<input type="date" name="startDate" id="startDate" required>
+				</div>
+
+				<div class="form-group">
+					<label for="endDate">Drop-off date:</label>
+					<input type="date" name="endDate" id="endDate" required>
+				</div>
+
+				<div class="form-group">
+					<label for="city">City:</label>
+					<input type="text" name="city" id="city" list="suggestions" placeholder="Enter a city" required>
+					<datalist id="suggestions">
+						<option th:each="c : ${cityList}" th:value="${c}"> </option>
+					</datalist>
+				</div>
+
+			</fieldset>
+			<button type="submit">Search</button>
+		</form>
+	</div>
+
+	<section id="banner-container">
+		<div class="banner">
+			<div class="banner-image">
+				<img th:src="@{/images/HomeBanner.png}" alt="Photo not found">
+			</div>
+			<div class="banner-text">
+				<h1>Welcome to FYD Rentals</h1>
+				<p>
+					FYD Rentals is your trusted partner for reliable, flexible and tailor-made vehicle rentals
+					for your every need. Whether you are planning a day trip, a business trip or simply need
+					a temporary vehicle, our service guarantees worry-free mobility.
+				</p>
+				<p>
+					With a wide range of cars, vans and commercial vehicles, FYD Rentals combines convenience,
+					transparency and continuous assistance. Choose between daily, weekly or monthly rates,
+					book in a few clicks and collect the vehicle at the nearest branch to you.
+				</p>
+
+			</div>
+		</div>
+
+
+		<div class="reverse-banner">
+
+			<div class="banner-text">
+				<h1>Why choose FYD Rentals?</h1>
+				<ul>
+					<li>Updated fleet and always in perfect condition</li>
+					<li>Flexible rentals with no hidden costs</li>
+					<li>Customer service available 7 days a week</li>
+					<li>Quick bookings, even last-minute</li>
+				</ul>
+
+
+			</div>
+			<div class="banner-image">
+				<img th:src="@{/images/HomeReverseBanner.png}" alt="Photo not found">
+			</div>
+		</div>
 	</section>
 
-	<form th:action="@{/availableVehicles}" method="get">
-		<fieldset>
-			<legend>Search for Available Vehicles</legend>
-
-			<div class="form-group">
-				<label for="startDate">Pick-up date:</label>
-				<input type="date" name="startDate" id="startDate" required>
-			</div>
-
-			<div class="form-group">
-				<label for="endDate">Drop-off date:</label>
-				<input type="date" name="endDate" id="endDate" required>
-			</div>
-
-			<div class="form-group">
-				<label for="city">City:</label>
-				<input type="text" name="city" id="city" list="suggestions" placeholder="Enter a city" required>
-				<datalist id="suggestions">
-					<option th:each="c : ${cityList}" th:value="${c}"> </option>
-				</datalist>
-			</div>
-
-			<button type="submit">Search</button>
-		</fieldset>
-	</form>
 
 	<div th:replace="fragments/footer :: footer"></div>
 </body>
