@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import it.uniroma3.siw.controller.validator.RentalValidator;
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Rental;
 import it.uniroma3.siw.model.Site;
@@ -28,6 +29,7 @@ import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.RentalService;
 import it.uniroma3.siw.service.SiteService;
 import it.uniroma3.siw.service.VehicleService;
+import jakarta.transaction.Transactional;
 
 @Controller
 public class RentalController {
@@ -43,7 +45,11 @@ public class RentalController {
 	
 	@Autowired
 	private CredentialsService credentialsService;
+	
+	@Autowired 
+	private RentalValidator rentalValidator;
 
+	@Transactional
 	@GetMapping("/rentalSummary")
 	public String rentalSummary(@RequestParam Long siteId,
 	                            @RequestParam Long vehicleId,
@@ -51,35 +57,28 @@ public class RentalController {
 	                            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
 	                            Model model) {
 		
-		if (startDate.isAfter(endDate)) {
-			model.addAttribute("error", "Start date must be before or equal to end date.");
-			return "homepage.html";
-		}
-		
-		Vehicle vehicle = vehicleService.getVehicleById(vehicleId);
-		
-		//Check if there are no rental conflicts
-		for(Rental rental : vehicle.getRentals()) {
-			if(!startDate.isAfter(rental.getEndDate()) && !rental.getStartDate().isAfter(endDate)) {
-				model.addAttribute("vehicle", vehicle);
-				model.addAttribute("photo", vehicle.getVehiclePhoto());
-				model.addAttribute("error", "This vehicle is already reserved from " + startDate + " to " + endDate);
-				return "vehicle.html";
-			}
-		}
-			
-		Site site = siteService.getSiteById(siteId);
-		long days = ChronoUnit.DAYS.between(startDate, endDate) + 1;
-		long total = vehicle.getPrice() * days;
-		
-		model.addAttribute("site", site);
-		model.addAttribute("vehicle", vehicle);
-		model.addAttribute("startDate", startDate);
-		model.addAttribute("endDate", endDate);
-		model.addAttribute("total", total);
-		
-		return "rentalSummary.html";
-	}
+		String validationError = rentalValidator.validate(vehicleId, startDate, endDate);
+        if (validationError != null) {
+            Vehicle vehicle = vehicleService.getVehicleById(vehicleId);
+            model.addAttribute("vehicle", vehicle);
+            model.addAttribute("photo", vehicle.getVehiclePhoto());
+            model.addAttribute("error", validationError);
+            return "vehicle.html";
+        }
+
+        Vehicle vehicle = vehicleService.getVehicleById(vehicleId);
+        Site site = siteService.getSiteById(siteId);
+        long days = ChronoUnit.DAYS.between(startDate, endDate) + 1;
+        long total = vehicle.getPrice() * days;
+
+        model.addAttribute("site", site);
+        model.addAttribute("vehicle", vehicle);
+        model.addAttribute("startDate", startDate);
+        model.addAttribute("endDate", endDate);
+        model.addAttribute("total", total);
+
+        return "rentalSummary.html";
+    }
 
 	@PostMapping("/confirmRental")
 	public String confirmRental(@RequestParam Long siteId,
@@ -89,25 +88,22 @@ public class RentalController {
 	                            RedirectAttributes redirectAttributes,
 	                            Model model) {
 
-		if (startDate.isAfter(endDate)) {
-			model.addAttribute("error", "Start date must be before or equal to end date.");
-			return "homepage.html";
-		}
+		String validationError = rentalValidator.validate(vehicleId, startDate, endDate);
+        if (validationError != null) {
+            Vehicle vehicle = vehicleService.getVehicleById(vehicleId);
+            Site site = siteService.getSiteById(siteId);
+            long days = ChronoUnit.DAYS.between(startDate, endDate) + 1;
+            long total = vehicle.getPrice() * days;
 
-		if (!rentalService.isVehicleAvailableForRental(vehicleId, startDate, endDate)) {
-			model.addAttribute("error", "Looks like someone has already pre-ordered it!");
-			
-			Vehicle vehicle = this.vehicleService.getVehicleById(vehicleId);
-			long days = ChronoUnit.DAYS.between(startDate, endDate) + 1;
-			long total = vehicle.getPrice() * days;
-			
-			model.addAttribute("site", vehicle.getSite());
-			model.addAttribute("vehicle", vehicle);
-			model.addAttribute("startDate", startDate);
-			model.addAttribute("endDate", endDate);
-			model.addAttribute("total", total);
-			return "rentalSummary.html";
-		}
+            model.addAttribute("site", site);
+            model.addAttribute("vehicle", vehicle);
+            model.addAttribute("startDate", startDate);
+            model.addAttribute("endDate", endDate);
+            model.addAttribute("total", total);
+            model.addAttribute("error", validationError);
+
+            return "rentalSummary.html";
+        }
 		
 		Vehicle vehicle = vehicleService.getVehicleById(vehicleId);
 		Site site = siteService.getSiteById(siteId);

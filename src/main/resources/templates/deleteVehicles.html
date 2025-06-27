@@ -15,7 +15,8 @@
 	</h1>
 	<h1 th:if="${error}" class="error-message" th:text="${error}">
 	</h1>
-	<form th:action="@{/administrator/confirmDeleteVehicles}" method="post">
+	<form class="delete-vehicle-form" th:action="@{/administrator/confirmDeleteVehicles}" method="post">
+		<div class="vehicle-grid">
 		<div th:each="vehicle : ${vehicles}" class="vehicle-card">
 			<input type="checkbox" name="vehicleIds" th:value="${vehicle.id}">
 
@@ -29,7 +30,7 @@
 				<div><strong>Price:</strong> €<span th:text="${vehicle.price}"></span></div>
 			</div>
 		</div>
-
+		</div>
 		<button type="submit" th:if="${not #lists.isEmpty(vehicles)}">Confirm Selected</button>
 		<button type="button" th:if="${ #lists.isEmpty(vehicles)}" onclick="history.back()">Go Back</button>
 	</form>

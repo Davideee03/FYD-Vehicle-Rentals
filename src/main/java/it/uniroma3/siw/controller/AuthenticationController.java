@@ -100,8 +100,8 @@ public class AuthenticationController {
                  BindingResult credentialsBindingResult,
                  Model model, @RequestParam("confirmPassword") String psw) {
 		if(credentialsService.getCredentials(credentials.getUsername()) != null) {
-			model.addAttribute("error", "Username already used. Choose another one");
-			return "registerForm.html";
+			model.addAttribute("usernameError", "Username already used. Choose another one");
+			return "formRegisterUser.html";
 		}
 		
 		if(!credentials.getPassword().equals(psw)) {

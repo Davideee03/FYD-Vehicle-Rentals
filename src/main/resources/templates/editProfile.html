@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
 	<meta charset="UTF-8">
 	<title>Edit Profile</title>
@@ -9,37 +8,34 @@
 
 <body>
 	<div th:replace="fragments/navbar :: navbar"></div>
-	<div class="container">
-		
-		<form th:action="@{/profile/editProfile}" method="post" th:object="${user}" enctype="multipart/form-data">
-			<h2>Edit Profile</h2>
 
-			<div>
-				<label>Name:</label>
-				<input type="text" th:field="*{name}">
-			</div>
+	<form class="edit-profile-form" th:action="@{/profile/editProfile}" method="post" th:object="${user}" enctype="multipart/form-data">
+		<h2>Edit Profile</h2>
 
-			<div>
-				<label>Surname:</label>
-				<input type="text" th:field="*{surname}">
-			</div>
+		<div>
+			<label for="name">Name:</label>
+			<input type="text" th:field="*{name}" id="name">
+		</div>
 
-			<div>
-				<label>Email:</label>
-				<input type="text" th:field="*{email}">
-			</div>
+		<div>
+			<label for="surname">Surname:</label>
+			<input type="text" th:field="*{surname}" id="surname">
+		</div>
 
-			<div>
-				<label for="file">Profile Picture</label>
-				<input type="file" id="file" name="file" accept="image/*" />
-			</div>
+		<div>
+			<label for="email">Email:</label>
+			<input type="text" th:field="*{email}" id="email">
+		</div>
 
-			<input type="hidden" th:field="*{id}" />
-			<input type="hidden" th:object="${credentials}" />
+		<div>
+			<label for="file">Profile Picture</label>
+			<input type="file" id="file" name="file" accept="image/*" />
+		</div>
 
-			<button type="submit">Save</button>
-		</form>
-	</div>
+		<input type="hidden" th:field="*{id}" />
+		<input type="hidden" th:object="${credentials}" />
+
+		<button type="submit">Save</button>
+	</form>
 </body>
-
 </html>
