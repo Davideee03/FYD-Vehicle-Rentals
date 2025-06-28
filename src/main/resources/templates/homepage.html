@@ -13,10 +13,10 @@
 	<div class="background-image">
 		<section class="homepage">
 			<h1 class="slogan">Find Your Drive.</h1>
-			<p class="sub-slogan">Discover the safety of FYD car rentals</p>
 		</section>
 
 		<p th:if="${error}" th:text="${error}" class="error-message"></p>
+		
 		<form th:action="@{/availableVehicles}" method="get">
 			<fieldset>
 				<legend><strong>Search for Available Vehicles</strong></legend>
