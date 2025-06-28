@@ -18,13 +18,16 @@
 
 				<p class="error-message" th:if="${passwordError}" th:text="${passwordError}"></p>
 				<p class="error-message" th:if="${usernameError}" th:text="${usernameError}"></p>
+				
 
 				<div class="login-group">
+					<p th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error-message"></p>
 					<label for="username">Username</label>
 					<input type="text" id="username" th:field="*{username}" required>
 				</div>
-
+				<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></p>
 				<div class="login-group">
+					
 					<label for="password">Password</label>
 					<input type="password" id="password" name="password" required>
 				</div>
@@ -35,16 +38,19 @@
 				</div>
 
 				<div class="login-group" th:object="${user}">
+					<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-message"></p>
 					<label for="name">Name</label>
 					<input type="text" id="name" th:field="*{name}" required>
 				</div>
 
 				<div class="login-group" th:object="${user}">
+					<p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="error-message"></p>
 					<label for="surname">Surname</label>
 					<input type="text" id="surname" th:field="*{surname}" required>
 				</div>
 
 				<div class="login-group" th:object="${user}">
+					<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></p>
 					<label for="email">Email</label>
 					<input type="email" id="email" th:field="*{email}" required>
 				</div>
