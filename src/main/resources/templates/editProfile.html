@@ -12,17 +12,20 @@
 	<form class="edit-profile-form" th:action="@{/profile/editProfile}" method="post" th:object="${user}" enctype="multipart/form-data">
 		<h2>Edit Profile</h2>
 
+		<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-message"></p>
 		<div>
 			<label for="name">Name:</label>
 			<input type="text" th:field="*{name}" id="name">
 		</div>
 
+		<p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="error-message"></p>
 		<div>
 			<label for="surname">Surname:</label>
 			<input type="text" th:field="*{surname}" id="surname">
 		</div>
 
 		<div>
+			<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></p>
 			<label for="email">Email:</label>
 			<input type="text" th:field="*{email}" id="email">
 		</div>

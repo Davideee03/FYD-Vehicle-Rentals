@@ -9,12 +9,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import it.uniroma3.siw.controller.validator.UserValidator;
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Rental;
 import it.uniroma3.siw.model.User;
@@ -34,6 +36,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private UserValidator userValidator;
 	
 	@Transactional
 	@GetMapping("/profile") 
@@ -72,12 +77,18 @@ public class UserController {
 	
 	@Transactional
 	@PostMapping("/profile/editProfile")
-	public String saveEditProfile(@ModelAttribute("user") User user,
+	public String saveEditProfile(@ModelAttribute("user") User user, BindingResult userBindingResult,
 	                              @ModelAttribute("credentials") Credentials credentials,
 	                              @RequestParam(name = "file", required = false) MultipartFile photoFile,
 	                              Model model) throws IOException {
 
 	    User existingUser = userService.getUser(user.getId());
+	    
+	    userValidator.validate(user, userBindingResult);
+	    
+	    if (userBindingResult.hasErrors()) {
+	    	return "editProfile";
+	    }
 
 	    existingUser.setName(user.getName());
 	    existingUser.setSurname(user.getSurname());
@@ -122,8 +133,18 @@ public class UserController {
 	    	return "editPsw.html";
 	    }
 	    
+	    if(newPsw.length()<5) {
+	    	model.addAttribute("msgError", "Password must be at least 5 characters.");
+	    	return "editPsw";
+	    }
+	    
+	    if (oldPsw.equals(newPsw)) {
+	    	model.addAttribute("msgError", "The new password must be different from your current password.");
+	    	return "editPsw";
+	    }
+	    
 	    if (!newPsw.equals(confirmPsw))  {
-	    	model.addAttribute("msgError", "Wrong new Passwords");
+	    	model.addAttribute("msgError", "The Passwords are not the same.");
 	
 	    	return "editPsw.html";
 	    }

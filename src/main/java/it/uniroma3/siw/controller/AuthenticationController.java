@@ -116,10 +116,6 @@ public class AuthenticationController {
 		    return "formRegisterUser";
 		}
 		
-		if(credentialsService.getCredentials(credentials.getUsername()) != null) {
-			model.addAttribute("usernameError", "Username already used. Choose another one");
-			return "formRegisterUser.html";
-		}
 		
 		if(!credentials.getPassword().equals(psw)) {
 			model.addAttribute("passwordError", "Passwords are not the same");
