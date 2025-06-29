@@ -20,6 +20,11 @@
 
 	<div th:unless="${#lists.isEmpty(sites)}" id="flex-container">
 		<a class="flex-item" th:each="site : ${sites}" th:href="@{/site/{id}(id=${site.id})}">
+			<div sec:authorize="isAuthenticated() and hasRole('ADMIN')">
+				<a th:href="@{/administrator/formEditSite/{id}(id=${site.id})}">
+					<button type="button">Edit</button>
+				</a>
+			</div>
 			<h1 th:text="${site.name + ' - ' + site.city}"></h1>
 		</a>
 	</div>

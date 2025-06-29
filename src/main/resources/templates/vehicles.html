@@ -45,7 +45,7 @@
 
 				<div class="form-group">
 					<label for="seats">Seats</label>
-					<input type="number" name="seats" id="seats" min="1" placeholder="e.g. 5">
+					<input type="number" name="seats" id="seats" min="2" max ="9" placeholder="e.g. 5">
 				</div>
 
 				<div class="form-group">
@@ -67,6 +67,11 @@
 
 	<div id="flex-container">
 		<a class="flex-item" th:href="@{/vehicle/{id}(id=${vehicle.id})}" th:each="vehicle:${vehicles}">
+			<div sec:authorize="isAuthenticated() and hasRole('ADMIN')">
+				<a th:href="@{/administrator/formEditVehicle/{id}(id=${vehicle.id})}">
+					<button type="button">Edit</button>
+				</a>
+			</div>
 			<img th:if="${vehicle.vehiclePhoto}" class="flex-image"
 				th:src="@{'/vehiclePhoto/' + ${vehicle.vehiclePhoto.id}}" alt="Vehicle image" />
 			<h1 th:text="${vehicle.brand + ' ' + vehicle.model}"></h1>
