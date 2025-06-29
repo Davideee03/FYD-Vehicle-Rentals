@@ -1,38 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>Delete Vehicles</title>
-	<link rel="stylesheet" href="/css/style.css?v=1">
+    <title>Delete Vehicles</title>
+    <link rel="stylesheet" href="/css/style.css?v=1">
 </head>
 
 <body>
-	<div class="deletion-summary">
-		<h2>Selected Vehicles:</h2>
-		<ul class="vehicle-list">
-			<li th:each="v : ${vehicles}" th:text="${v.brand + ' ' + v.model}"></li>
-		</ul>
+    <div th:replace="fragments/navbar :: navbar"></div>
 
-		<div class="button-group">
+    <div class="deletion-summary">
+        <h1 class="page-title">Selected Vehicles to Delete</h1>
 
-			<form th:action="@{/administrator/deleteVehiclesWithRentals}" method="post">
-				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-				<div th:each="v : ${vehicles}">
-					<input type="hidden" name="vehicleIds" th:value="${v.id}" />
-				</div>
-				<button type="submit" class="btn btn-danger">Delete vehicles and also rentals</button>
-			</form>
+        <div class="vehicle-grid">
+            <div th:each="v : ${vehicles}" class="vehicle-card">
+                <div class="vehicle-photo">
+                    <img th:if="${v.vehiclePhoto}"
+                         th:src="@{'/vehiclePhoto/' + ${v.vehiclePhoto.id}}"
+                         alt="Vehicle photo"
+                         class="vehicle-thumbnail" />
+                </div>
 
-			<form th:action="@{/administrator/deleteVehiclesOnly}" method="post">
-				<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-				<div th:each="v : ${vehicles}">
-					<input type="hidden" name="vehicleIds" th:value="${v.id}" />
-				</div>
-				<button type="submit" class="btn btn-warning">Delete only selected vehicles</button>
-			</form>
+                <div class="vehicle-info">
+                    <div><strong>Brand:</strong> <span th:text="${v.brand}"></span></div>
+                    <div><strong>Model:</strong> <span th:text="${v.model}"></span></div>
+                    <div><strong>Category:</strong> <span th:text="${v.category}"></span></div>
+                    <div><strong>Transmission:</strong> <span th:text="${v.transmission}"></span></div>
+                    <div><strong>Color:</strong> <span th:text="${v.color}"></span></div>
+                    <div><strong>Seats:</strong> <span th:text="${v.seats}"></span></div>
+                    <div><strong>Price:</strong> €<span th:text="${v.price}"></span></div>
+                </div>
+            </div>
+        </div>
 
-		</div>
-	</div>
+        <div class="button-group">
+            <form th:action="@{/administrator/deleteVehiclesWithRentals}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <div th:each="v : ${vehicles}">
+                    <input type="hidden" name="vehicleIds" th:value="${v.id}" />
+                </div>
+                <button type="submit" class="btn btn-danger-outline">Delete vehicles and rentals</button>
+            </form>
+
+            <form th:action="@{/administrator/deleteVehiclesOnly}" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <div th:each="v : ${vehicles}">
+                    <input type="hidden" name="vehicleIds" th:value="${v.id}" />
+                </div>
+                <button type="submit" class="btn btn-primary-outline">Delete only vehicles</button>
+            </form>
+        </div>
+    </div>
+
+    <div th:replace="fragments/footer :: footer"></div>
 </body>
 
 </html>
