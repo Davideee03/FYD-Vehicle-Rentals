@@ -499,6 +499,16 @@ legend {
 	font-size: 18px;
 	color: #444;
 }
+
+.form-group-edit {
+	margin-bottom: 10px;
+	display: flex;
+	flex-direction: column;
+	padding: 10px;
+
+	text-align: left;
+}
+
 .stretched-link {
 	position: absolute;
 	top: 0;
@@ -664,7 +674,10 @@ footer {
 	gap: 30px;
 	margin: 40px auto;
 	max-width: 1000px;
+	text-align: left;
 }
+
+
 
 .vehicle-card input[type="checkbox"] {
 	margin-right: 20px;
@@ -686,6 +699,7 @@ footer {
 	padding: 20px;
 	display: flex;
 	flex-direction: column;
+	text-align: left;
 	gap: 20px;
 	align-items: center;
 }
@@ -886,6 +900,7 @@ PROFILE
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
+	
 	width: 100%;
 }
 

@@ -9,28 +9,28 @@
 <body>
 	<div th:replace="fragments/navbar :: navbar"></div>
 
-	<form class="edit-profile-form" th:action="@{/profile/editProfile}" method="post" th:object="${user}" enctype="multipart/form-data">
+	<form class="" th:action="@{/profile/editProfile}" method="post" th:object="${user}" enctype="multipart/form-data">
 		<h2>Edit Profile</h2>
 
 		<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-message"></p>
-		<div>
+		<div class="form-group">
 			<label for="name">Name:</label>
 			<input type="text" th:field="*{name}" id="name">
 		</div>
 
 		<p th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}" class="error-message"></p>
-		<div>
+		<div class="form-group">
 			<label for="surname">Surname:</label>
 			<input type="text" th:field="*{surname}" id="surname">
 		</div>
 
-		<div>
+		<div class="form-group">
 			<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></p>
 			<label for="email">Email:</label>
 			<input type="text" th:field="*{email}" id="email">
 		</div>
 
-		<div>
+		<div class="form-group">
 			<label for="file">Profile Picture</label>
 			<input type="file" id="file" name="file" accept="image/*" />
 		</div>

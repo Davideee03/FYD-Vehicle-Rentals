@@ -2,67 +2,64 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Edit Vehicle</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+	<title>Edit Vehicle</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
-    <div th:replace="fragments/navbar :: navbar"></div>
+	<div th:replace="fragments/navbar :: navbar"></div>
 
-    <main class="form-container">
-        <h1 class="page-title">Edit Vehicle</h1>
+	<h1 class="page-title">Edit Vehicle</h1>
 
-        <form class="edit-profile-form"
-              th:action="@{/administrator/formEditVehicle/{id}(id=${vehicle.id})}"
-              th:object="${vehicle}"
-              method="post"
-              enctype="multipart/form-data">
+	<form class="delete-vehicle-form" th:action="@{/administrator/formEditVehicle/{id}(id=${vehicle.id})}" th:object="${vehicle}" method="post"
+		enctype="multipart/form-data">
+		<div class="vehicle-grid">
+			<div class="form-group-edit">
+				<label for="brand">Brand</label>
+				<input type="text" id="brand" th:field="*{brand}" placeholder="Brand vehicle">
+			</div>
 
-            <div class="form-group">
-                <label for="brand">Brand</label>
-                <input type="text" id="brand" th:field="*{brand}" placeholder="Brand vehicle">
-            </div>
+			<div class="form-group-edit">
+				<label for="model">Model</label>
+				<input type="text" id="model" th:field="*{model}" placeholder="Model vehicle">
+			</div>
 
-            <div class="form-group">
-                <label for="model">Model</label>
-                <input type="text" id="model" th:field="*{model}" placeholder="Model vehicle">
-            </div>
+			<div class="form-group-edit">
+				<label for="transmission">Transmission</label>
+				<input type="text" id="transmission" th:field="*{transmission}" placeholder="Transmission type">
+			</div>
 
-            <div class="form-group">
-                <label for="transmission">Transmission</label>
-                <input type="text" id="transmission" th:field="*{transmission}" placeholder="Transmission type">
-            </div>
+			<div class="form-group-edit">
+				<label for="color">Color</label>
+				<input type="text" id="color" th:field="*{color}" placeholder="Color vehicle">
+			</div>
 
-            <div class="form-group">
-                <label for="color">Color</label>
-                <input type="text" id="color" th:field="*{color}" placeholder="Color vehicle">
-            </div>
+			<div class="form-group-edit">
+				<label for="seats">Seats</label>
+				<input type="number" id="seats" th:field="*{seats}" placeholder="Number of seats" min="2" max="9">
+			</div>
 
-            <div class="form-group">
-                <label for="seats">Seats</label>
-                <input type="number" id="seats" th:field="*{seats}" placeholder="Number of seats" min="2" max="9">
-            </div>
+			<div class="form-group-edit">
+				<label for="price">Price (€)</label>
+				<input type="number" id="price" th:field="*{price}" placeholder="Price vehicle (€)" step="1" min="0">
+			</div>
 
-            <div class="form-group">
-                <label for="price">Price (€)</label>
-                <input type="number" id="price" th:field="*{price}" placeholder="Price vehicle (€)" step="1" min="0">
-            </div>
+			<div class="form-group-edit">
+				<label for="site">Site</label>
+				<select id="site" th:field="*{site}">
+					<option th:each="site : ${sites}" th:value="${site.id}" th:text="${site.name + ' - ' + site.city}">
+						Site</option>
+				</select>
+			</div>
 
-            <div class="form-group">
-                <label for="site">Site</label>
-                <select id="site" th:field="*{site}">
-                    <option th:each="site : ${sites}" th:value="${site.id}" th:text="${site.name + ' - ' + site.city}">Site</option>
-                </select>
-            </div>
+			<div class="form-group-edit">
+				<label for="file">Vehicle Photo</label>
+				<input type="file" id="file" name="file" accept="image/*">
+			</div>
+		</div>
 
-            <div class="form-group">
-                <label for="file">Vehicle Photo</label>
-                <input type="file" id="file" name="file" accept="image/*">
-            </div>
-
-            <button type="submit">Edit Vehicle</button>
-        </form>
-    </main>
+		<button type="submit">Edit Vehicle</button>
+	</form>
 	<div th:replace="fragments/footer :: footer"></div>
 </body>
 
