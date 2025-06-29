@@ -70,7 +70,8 @@ public class AuthConfiguration {
                 	    "/vehiclePhoto/**",
                 	    "/sitePhoto/**",
                 	    "/cookie/**",
-                	    "/contact**"
+                	    "/contact/**",
+                	    "/filterVehicles/**"
                 	).permitAll()
         		// chiunque (autenticato o no) può mandare richieste POST al punto di accesso per login e register 
                 .requestMatchers(HttpMethod.POST,"/register", "/login", "/").permitAll()

@@ -2,19 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>Delete Sites</title>
+	<title>Delete Site</title>
 	<link rel="stylesheet" href="/css/style.css?v=1">
 </head>
 
 <body>
 	<div th:replace="fragments/navbar :: navbar"></div>
+
 	<h1 class="page-title">Delete Site</h1>
-	<h1 th:if="${error}" class="error-message" th:text="${error}">
-	</h1>
+
+	<p th:if="${error}" class="error-message" th:text="${error}"></p>
+
 	<form th:action="@{/administrator/confirmDeleteSite}" method="post" class="form-container">
 		<div class="form-group">
 			<label for="siteToDeleteId">Select site to delete:</label>
 			<select name="siteToDeleteId" id="siteToDeleteId" required onchange="filterNewSiteOptions()">
+				<option value="" disabled selected>Select a site</option>
 				<option th:each="site : ${sites}" th:value="${site.id}" th:text="${site.name}">Site</option>
 			</select>
 		</div>
@@ -22,6 +25,7 @@
 		<div class="form-group">
 			<label for="newSiteId">Reassign vehicles and rentals to:</label>
 			<select name="newSiteId" id="newSiteId" required>
+				<option value="" disabled selected>Select destination site</option>
 				<option th:each="site : ${sites}" th:value="${site.id}" th:text="${site.name}">Site</option>
 			</select>
 		</div>
@@ -34,14 +38,21 @@
 			const toDeleteId = document.getElementById('siteToDeleteId').value;
 			const newSiteSelect = document.getElementById('newSiteId');
 
-			for (const option of newSiteSelect.options) {
-				option.style.display = (option.value === toDeleteId) ? 'none' : 'block';
+			for (let i = 0; i < newSiteSelect.options.length; i++) {
+				const option = newSiteSelect.options[i];
+				if (option.value === toDeleteId) {
+					option.style.display = 'none';
+					if (newSiteSelect.value === toDeleteId) {
+						newSiteSelect.selectedIndex = 0;
+					}
+				} else {
+					option.style.display = 'block';
+				}
 			}
 		}
 
 		window.addEventListener('DOMContentLoaded', filterNewSiteOptions);
 	</script>
-
 </body>
 
 </html>

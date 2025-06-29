@@ -36,8 +36,10 @@
 
 	<div id="flex-container">
 		<a class="flex-item" th:href="@{/vehicle/{id}(id=${vehicle.id})}" th:each="vehicle:${vehicles}">
-			<img th:if="${vehicle.vehiclePhoto}" class="flex-image"
-				th:src="@{'/vehiclePhoto/' + ${vehicle.vehiclePhoto.id}}" alt="Vehicle image" />
+			<div class="flex-image">
+				<img th:if="${vehicle.vehiclePhoto}" th:src="@{'/vehiclePhoto/' + ${vehicle.vehiclePhoto.id}}"
+					alt="Vehicle image" />
+			</div>
 			<h1 th:text="${vehicle.brand + ' ' + vehicle.model}"></h1>
 			<p th:text="'Seats: ' + ${vehicle.seats}"></p>
 			<p th:text="'Price per day: €' + ${vehicle.price}"></p>

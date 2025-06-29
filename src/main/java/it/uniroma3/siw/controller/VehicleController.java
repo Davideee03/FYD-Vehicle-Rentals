@@ -195,6 +195,7 @@ public class VehicleController {
 		return "redirect:/vehicles";
 	}
 
+	@Transactional
 	@GetMapping("/filterVehicles")
 	public String filterVehicles(@RequestParam(required = false, defaultValue = "") String brand,
 			@RequestParam(required = false, defaultValue = "") String model,
