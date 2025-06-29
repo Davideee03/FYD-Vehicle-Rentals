@@ -77,6 +77,7 @@ public class SiteController {
 
 		Site existingSite = siteService.getSiteById(id);
 
+		existingSite.setName(site.getName());
 		existingSite.setCity(site.getCity());
 		existingSite.setAddress(site.getAddress());
 		existingSite.setPostalCode(site.getPostalCode());
@@ -105,7 +106,7 @@ public class SiteController {
 
 		siteService.save(existingSite);
 
-		return "redirect:/administrator/formEditSite/" + id;
+		return "redirect:/";
 	}
 	
 	@Transactional

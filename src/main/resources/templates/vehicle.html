@@ -14,27 +14,25 @@
 	<h1 class="central-title" th:text="${vehicle.brand + ' ' + vehicle.model}"></h1>
 
 	<section id="description-container">
-		<div class="description">
-			<img class="photo" th:if="${vehicle.vehiclePhoto}" th:src="@{'/vehiclePhoto/' + ${photo.id}}" />
+		<div class="description photo-wrapper">
+			<img th:if="${vehicle.vehiclePhoto}" 
+			     th:src="@{'/vehiclePhoto/' + ${vehicle.vehiclePhoto.id}}" 
+			     alt="Vehicle photo" />
 		</div>
 		<div class="description">
-			<h3>Model: </h3>
-			<p th:text="${vehicle.model}"></p>
-			<h3>Transmission: </h3>
-			<p th:text="${vehicle.transmission}"></p>
-			<h3>Color: </h3>
-			<p th:text="${vehicle.color}"></p>
-			<h3>Seats: </h3>
-			<p th:text="${vehicle.seats}"></p>
-			<h3>Price: </h3>
-			<p th:text="${vehicle.price + ' €'}"></p>
-			<h3>Site</h3>
-			<a th:href="@{/site/{id}(id=${vehicle.site.id})}">
-				<p th:text="${vehicle.site.name+' - '+vehicle.site.city}"></p>
-			</a>
+			<p><strong>Model:</strong> <span th:text="${vehicle.model}"></span></p>
+			<p><strong>Transmission:</strong> <span th:text="${vehicle.transmission}"></span></p>
+			<p><strong>Color:</strong> <span th:text="${vehicle.color}"></span></p>
+			<p><strong>Seats:</strong> <span th:text="${vehicle.seats}"></span></p>
+			<p><strong>Price:</strong> <span th:text="${vehicle.price + ' €'}"></span></p>
+			<p>
+				<strong>Site:</strong>
+				<a th:href="@{/site/{id}(id=${vehicle.site.id})}"
+					th:text="${vehicle.site.name + ' - ' + vehicle.site.city}"></a>
+			</p>
 		</div>
 	</section>
-	
+
 	<p th:if="${error}" th:text="${error}" class="error-message"></p>
 	<form th:action="@{/rentalSummary}" method="get">
 		<fieldset>

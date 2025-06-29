@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<title>Sites</title>
-
 	<link rel="stylesheet" href="/css/style.css?v=1">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400&display=swap" rel="stylesheet">
 </head>
@@ -11,17 +10,29 @@
 <body>
 	<div th:replace="fragments/navbar :: navbar"></div>
 
+	<h1 class="central-title">Come visit us at our offices!</h1>
 
 	<h1 th:if="${#lists.isEmpty(sites)}" class="error-message">
 		No sites
 	</h1>
 
 	<div th:unless="${#lists.isEmpty(sites)}" id="flex-container">
-		<a class="flex-item" th:each="site : ${sites}" th:href="@{/site/{id}(id=${site.id})}">
-			<h1 th:text="${site.name + ' - ' + site.city}"></h1>
-		</a>
-	</div>
+		<div class="flex-item" th:each="site : ${sites}" style="position: relative;">
+			<div class="flex-image">
+				<img th:if="${site.photo}" th:src="@{'/sitePhoto/' + ${site.photo.id}}" alt="Site image" />
+			</div>
 
+			<h1 th:text="${site.name + ' - ' + site.city}"></h1>
+
+			<div sec:authorize="isAuthenticated() and hasRole('ADMIN')">
+				<a th:href="@{/administrator/formEditSite/{id}(id=${site.id})}">
+					<button type="button">Edit</button>
+				</a>
+			</div>
+
+			<a class="stretched-link" th:href="@{/site/{id}(id=${site.id})}"></a>
+		</div>
+	</div>
 
 	<div th:replace="fragments/footer :: footer"></div>
 </body>

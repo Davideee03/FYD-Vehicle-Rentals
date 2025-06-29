@@ -26,7 +26,7 @@ button {
 	border: none;
 	cursor: pointer;
 	transition: background-color 0.3s ease;
-	
+
 	max-width: 200px;
 }
 
@@ -145,8 +145,12 @@ nav {
 }
 
 .slogan {
-	font-size: 42px;
-	font-weight: 300;
+	font-size: 72px;
+	font-weight: 600;
+	color: white;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+	text-align: center;
+	margin-bottom: 20px;
 }
 
 .sub-slogan {
@@ -157,19 +161,19 @@ nav {
 }
 
 .background-image {
-    background-image: url('/images/HomepageBackground.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-	
-    height: auto;
-	
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-	
-    padding: 2rem;
+	background-image: url('/images/HomepageBackground.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+
+	height: auto;
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	padding: 2rem;
 }
 
 /* --------------------
@@ -211,8 +215,8 @@ nav {
 	height: 100%;
 	object-fit: cover;
 
-	-webkit-mask-image: radial-gradient(ellipse 50% 50% at center, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
-	mask-image: radial-gradient(ellipse 50% 50% at center, rgba(0,0,0,1) 80%, rgba(0,0,0,0) 100%);
+	-webkit-mask-image: radial-gradient(ellipse 50% 50% at center, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0) 100%);
+	mask-image: radial-gradient(ellipse 50% 50% at center, rgba(0, 0, 0, 1) 80%, rgba(0, 0, 0, 0) 100%);
 }
 
 .banner-text {
@@ -240,10 +244,10 @@ form {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	
+
 	width: 55%;
 	max-width: 700px;
-	margin: 75px auto;
+	margin: 0 auto 150px auto;
 	padding: 10px;
 	background-color: #f9f9f9;
 	border-radius: 12px;
@@ -285,7 +289,7 @@ form {
 	display: flex;
 	flex-direction: column;
 	padding: 10px;
-	
+
 	text-align: center;
 }
 
@@ -296,7 +300,7 @@ label {
 
 .form-group input {
 	max-width: 400px;
-	
+
 	text-align: center;
 }
 
@@ -312,12 +316,12 @@ fieldset {
 
 legend {
 	width: 100%;
-	
+
 	font-size: 20px;
 	font-weight: 500;
-	
+
 	padding: 5px;
-	
+
 	text-align: center;
 }
 
@@ -418,7 +422,7 @@ legend {
 	justify-content: flex-end;
 
 	width: 400px;
-	height: 400px;
+	height: 420px;
 	text-decoration: none;
 	text-align: center;
 	color: black;
@@ -427,19 +431,20 @@ legend {
 }
 
 .flex-item:hover {
-	transform: scale(1.05); 
+	transform: scale(1.05);
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 
 }
 
 .flex-image {
 	width: 100%;
-	height: 50%;
+	height: 70%;
 	overflow: hidden;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	
+
+
 }
 
 .flex-image img {
@@ -449,14 +454,52 @@ legend {
 	object-fit: cover;
 	display: block;
 	margin: auto;
+	border-radius: 16px;
 }
 
+
+
+.flex-item button {
+	z-index: 2;
+	position: relative;
+	margin-top: auto;
+	margin-bottom: 10px;
+}
+
+
+.flex-item h1 {
+	font-size: 20px;
+	margin: 20px 0;
+}
+
+.vehicle-details {
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+	width: 100%;
+	padding: 0 10px;
+}
+
+.vehicle-details p {
+	margin: 7px 0;
+	font-size: 18px;
+	color: #444;
+}
+.stretched-link {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1;
+	text-indent: -9999px;
+}
 
 /* --------------------
    Section titles / Text
 -------------------- */
 .central-title {
-	margin: 100px 100px;
+	margin: 50px 100px;
 	text-align: center;
 
 	font-size: 42px;
@@ -475,15 +518,17 @@ legend {
 	justify-content: center;
 	align-items: center;
 	flex-direction: row;
-	height: 1000px;
-	margin: 100px 100px;
+	max-height: 1000px;
+	margin: 50px 100px;
 }
 
 .description {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	align-items: center;
 	width: 50%;
+	max-width: 600px;
 	height: 800px;
 	padding: 20px 40px;
 }
@@ -499,6 +544,37 @@ legend {
 	color: #666;
 }
 
+.photo-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+}
+
+.photo-wrapper img {
+	width: 100%;
+	max-width: 500px;
+	height: auto;
+	border-radius: 12px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	object-fit: cover;
+}
+
+.map-placeholder {
+	width: 100%;
+	max-width: 600px;
+	margin: 0 auto 30px auto;
+	border-radius: 12px;
+	overflow: hidden;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.map-placeholder iframe {
+	display: block;
+	width: 100%;
+	height: 300px;
+	border: none;
+}
 
 /* --------------------
    Error Message
@@ -556,15 +632,6 @@ footer {
 	font-size: 36px;
 	margin: 60px 0 40px;
 	font-weight: 300;
-}
-
-form {
-	max-width: 1000px;
-	margin: 0 auto;
-	padding: 20px;
-	display: flex;
-	flex-direction: column;
-	gap: 20px;
 }
 
 .vehicle-card {
@@ -644,22 +711,22 @@ button[type="submit"]:hover {
 
 /* Select Options (used by delete Sites */
 select {
-    padding: 12px 16px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+	padding: 12px 16px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 8px;
+	background-color: #fff;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 
-    background-position: right 12px center;
-    background-size: 14px;
-    cursor: pointer;
+	background-position: right 12px center;
+	background-size: 14px;
+	cursor: pointer;
 }
 
 select:focus {
-    outline: none;
-    border-color: #999;
-    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+	outline: none;
+	border-color: #999;
+	box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
 }
 
 /*
@@ -855,9 +922,11 @@ PROFILE
 }
 
 
-/* ADD VEHICLE AND ADD SITE CSS 
- */
-
- 
-
-
+.legal-page {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	min-height: 80vh;
+	padding: 60px 20px;
+}
