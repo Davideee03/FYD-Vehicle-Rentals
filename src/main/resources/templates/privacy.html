@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Privacy Policy - FYD Rentals</title>
+	<link rel="stylesheet" href="/css/style.css?v=1">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400&display=swap" rel="stylesheet">
+</head>
+
+<body>
+	<div th:replace="fragments/navbar :: navbar"></div>
+
+	<div class="legal-page">
+		<h1 class="page-title">Privacy Policy</h1>
+		<div class="summary-box">
+			<p><strong>Last updated:</strong> June 29, 2025</p>
+
+			<h2>Data Controller</h2>
+			<p>FYD Rentals – Head Office, Rome<br>Email: central@company.com</p>
+
+			<h2>Types of Data Collected</h2>
+			<ul>
+				<li>Personal identification data (name, email, etc.)</li>
+				<li>Technical data (IP address, browser type, access time)</li>
+			</ul>
+
+			<h2>Purpose of Processing</h2>
+			<ul>
+				<li>Managing bookings and customer contact</li>
+				<li>Improving service and performing statistical analysis</li>
+				<li>Legal compliance</li>
+			</ul>
+
+			<h2>User Rights</h2>
+			<p>You have the right to access, rectify, delete, restrict or object to data processing. Contact us at
+				[Insert email].</p>
+
+			<h2>Cookies</h2>
+			<p>This site uses technical cookies and, if applicable, third-party cookies. See our <a
+					th:href="@{/cookie}">Cookie Policy</a> for more details.</p>
+		</div>
+
+	</div>
+
+	<div th:replace="fragments/footer :: footer"></div>
+</body>
+
+</html>
