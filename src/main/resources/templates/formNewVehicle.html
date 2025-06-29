@@ -1,37 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<title>Add new vehicle</title>
+	<title>Add New Vehicle</title>
 	<link rel="stylesheet" href="/css/style.css?v=1">
 </head>
 
 <body>
 	<div th:replace="fragments/navbar :: navbar"></div>
-	<form th:action="@{/vehicle}" method="POST" th:object="${vehicle}" enctype="multipart/form-data">
-		<div>Category: <span><input required type="text" th:field="${vehicle.category}" /></span></div>
-		<div>Brand: <span><input required type="text" th:field="${vehicle.brand}" /></span></div>
-		<div>Model: <span><input required type="text" th:field="${vehicle.model}" /></span></div>
-		<div>Transmission: <span><input required type="text" th:field="${vehicle.transmission}" /></span></div>
-		<div>Color: <span><input required type="text" th:field="${vehicle.color}" /></span></div>
-		<div>Seats: <span><input required type="number" th:field="${vehicle.seats}" /></span></div>
-		<div>Price: <span><input required type="number" th:field="${vehicle.price}" /></span></div>
 
-		<label th:each="site : ${sites}">
-			<input type="radio" name="site_id" th:value="${site.id}">
-			<h3 th:text="${site.name}"></h3>
-			<p th:text="${site.city}"></p>
-		</label>
+	<h1 class="page-title">Add New Vehicle</h1>
 
-		<label for="file">Seleziona immagine:</label>
-		<input type="file" name="file" accept="image/*" required />
+	<form th:action="@{/vehicle}" method="POST" th:object="${vehicle}" enctype="multipart/form-data" class="delete-vehicle-form">
+		<div class="vehicle-grid">
+			<div class="form-group-edit">
+				<label for="category">Category</label>
+				<input required type="text" id="category" th:field="*{category}" placeholder="Vehicle category" />
+			</div>
 
-		<div>
-			<span><button type="submit">Submit</button></span>
+			<div class="form-group-edit">
+				<label for="brand">Brand</label>
+				<input required type="text" id="brand" th:field="*{brand}" placeholder="Brand" />
+			</div>
+
+			<div class="form-group-edit">
+				<label for="model">Model</label>
+				<input required type="text" id="model" th:field="*{model}" placeholder="Model" />
+			</div>
+
+			<div class="form-group-edit">
+				<label for="transmission">Transmission</label>
+				<input required type="text" id="transmission" th:field="*{transmission}" placeholder="Transmission type" />
+			</div>
+
+			<div class="form-group-edit">
+				<label for="color">Color</label>
+				<input required type="text" id="color" th:field="*{color}" placeholder="Color" />
+			</div>
+
+			<div class="form-group-edit">
+				<label for="seats">Seats</label>
+				<input required type="number" id="seats" th:field="*{seats}" placeholder="Number of seats" min="2" max="9" />
+			</div>
+
+			<div class="form-group-edit">
+				<label for="price">Price (€)</label>
+				<input required type="number" id="price" th:field="*{price}" placeholder="Price per day (€)" step="1" min="0" />
+			</div>
+
+			<div class="form-group-edit">
+				<label for="site">Site</label>
+				<select id="site" name="site_id" required>
+					<option disabled selected value="">Select a site</option>
+					<option th:each="site : ${sites}" th:value="${site.id}" th:text="${site.name + ' - ' + site.city}"></option>
+				</select>
+			</div>
+
+			<div class="form-group-edit">
+				<label for="file">Vehicle Photo</label>
+				<input type="file" name="file" id="file" accept="image/*" required />
+			</div>
 		</div>
+
+		<button type="submit">Submit</button>
 	</form>
+
 	<div th:replace="fragments/footer :: footer"></div>
 </body>
 
 </html>
-
