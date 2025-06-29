@@ -14,11 +14,12 @@
 	<p th:if="${error}" class="error-message" th:text="${error}"></p>
 
 	<form th:action="@{/administrator/confirmDeleteSite}" method="post" class="form-container">
+		
 		<div class="form-group">
 			<label for="siteToDeleteId">Select site to delete:</label>
-			<select name="siteToDeleteId" id="siteToDeleteId" required onchange="filterNewSiteOptions()">
+			<select name="siteToDeleteId" id="siteToDeleteId" required>
 				<option value="" disabled selected>Select a site</option>
-				<option th:each="site : ${sites}" th:value="${site.id}" th:text="${site.name}">Site</option>
+				<option th:each="site : ${sites}" th:value="${site.id}" th:text="${site.name + ' - ' + site.city}"></option>
 			</select>
 		</div>
 
@@ -26,33 +27,11 @@
 			<label for="newSiteId">Reassign vehicles and rentals to:</label>
 			<select name="newSiteId" id="newSiteId" required>
 				<option value="" disabled selected>Select destination site</option>
-				<option th:each="site : ${sites}" th:value="${site.id}" th:text="${site.name}">Site</option>
+				<option th:each="site : ${sites}" th:value="${site.id}" th:text="${site.name + ' - ' + site.city}"></option>
 			</select>
 		</div>
 
 		<button type="submit">Confirm</button>
 	</form>
-
-	<script>
-		function filterNewSiteOptions() {
-			const toDeleteId = document.getElementById('siteToDeleteId').value;
-			const newSiteSelect = document.getElementById('newSiteId');
-
-			for (let i = 0; i < newSiteSelect.options.length; i++) {
-				const option = newSiteSelect.options[i];
-				if (option.value === toDeleteId) {
-					option.style.display = 'none';
-					if (newSiteSelect.value === toDeleteId) {
-						newSiteSelect.selectedIndex = 0;
-					}
-				} else {
-					option.style.display = 'block';
-				}
-			}
-		}
-
-		window.addEventListener('DOMContentLoaded', filterNewSiteOptions);
-	</script>
 </body>
-
 </html>
