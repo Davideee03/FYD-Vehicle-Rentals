@@ -14,8 +14,10 @@
 	<h1 class="central-title" th:text="${vehicle.brand + ' ' + vehicle.model}"></h1>
 
 	<section id="description-container">
-		<div class="description">
-			<img class="photo" th:if="${vehicle.vehiclePhoto}" th:src="@{'/vehiclePhoto/' + ${photo.id}}" />
+		<div class="description photo-wrapper">
+			<img th:if="${vehicle.vehiclePhoto}" 
+			     th:src="@{'/vehiclePhoto/' + ${vehicle.vehiclePhoto.id}}" 
+			     alt="Vehicle photo" />
 		</div>
 		<div class="description">
 			<p><strong>Model:</strong> <span th:text="${vehicle.model}"></span></p>

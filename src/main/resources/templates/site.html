@@ -15,10 +15,14 @@
 	<h1 class="central-title" th:text="${site.name + ' - ' + site.city}"></h1>
 
 	<section id="description-container">
-		<div class="description">
+		<div class="description photo-wrapper">
 			<img class="photo" th:if="${photo != null}" th:src="@{'/sitePhoto/' + ${photo.id}}" alt="Site photo" />
 		</div>
 		<div class="description">
+			<div class="map-placeholder">
+				<iframe th:src="@{'https://maps.google.com/maps?q=' + ${site.address + ', ' + site.city} + '&output=embed'}"></iframe>
+			</div>
+			
 			<p><strong>Adress:</strong> <span th:text="${site.address}"></span></p>
 			<p><strong>Postal Code:</strong> <span th:text="${site.postalCode}"></span></p>
 			<p><strong>Phone:</strong> <span th:text="${site.phone}"></span></p>

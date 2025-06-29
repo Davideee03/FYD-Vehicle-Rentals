@@ -72,8 +72,10 @@
 					alt="Vehicle image" />
 			</div>
 			<h1 th:text="${vehicle.brand + ' ' + vehicle.model}"></h1>
-			<p th:text="'Seats: ' + ${vehicle.seats}"></p>
-			<p th:text="'Price per day: €' + ${vehicle.price}"></p>
+			<div class="vehicle-details">
+				<p th:text="'Seats: ' + ${vehicle.seats}"></p>
+				<p th:text="'Price per day: €' + ${vehicle.price}"></p>
+			</div>
 
 			<div sec:authorize="isAuthenticated() and hasRole('ADMIN')">
 				<a th:href="@{/administrator/formEditVehicle/{id}(id=${vehicle.id})}">

@@ -422,7 +422,7 @@ legend {
 	justify-content: flex-end;
 
 	width: 400px;
-	height: 400px;
+	height: 420px;
 	text-decoration: none;
 	text-align: center;
 	color: black;
@@ -438,11 +438,12 @@ legend {
 
 .flex-image {
 	width: 100%;
-	height: 50%;
+	height: 70%;
 	overflow: hidden;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+
 
 }
 
@@ -453,13 +454,37 @@ legend {
 	object-fit: cover;
 	display: block;
 	margin: auto;
+	border-radius: 16px;
 }
+
+
 
 .flex-item button {
-    z-index: 2;
-    position: relative;
+	z-index: 2;
+	position: relative;
+	margin-top: auto;
+	margin-bottom: 10px;
 }
 
+
+.flex-item h1 {
+	font-size: 20px;
+	margin: 20px 0;
+}
+
+.vehicle-details {
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+	width: 100%;
+	padding: 0 10px;
+}
+
+.vehicle-details p {
+	margin: 7px 0;
+	font-size: 18px;
+	color: #444;
+}
 .stretched-link {
 	position: absolute;
 	top: 0;
@@ -474,7 +499,7 @@ legend {
    Section titles / Text
 -------------------- */
 .central-title {
-	margin: 100px 100px;
+	margin: 50px 100px;
 	text-align: center;
 
 	font-size: 42px;
@@ -493,15 +518,17 @@ legend {
 	justify-content: center;
 	align-items: center;
 	flex-direction: row;
-	height: 1000px;
-	margin: 100px 100px;
+	max-height: 1000px;
+	margin: 50px 100px;
 }
 
 .description {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	align-items: center;
 	width: 50%;
+	max-width: 600px;
 	height: 800px;
 	padding: 20px 40px;
 }
@@ -517,6 +544,37 @@ legend {
 	color: #666;
 }
 
+.photo-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 20px;
+}
+
+.photo-wrapper img {
+	width: 100%;
+	max-width: 500px;
+	height: auto;
+	border-radius: 12px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	object-fit: cover;
+}
+
+.map-placeholder {
+	width: 100%;
+	max-width: 600px;
+	margin: 0 auto 30px auto;
+	border-radius: 12px;
+	overflow: hidden;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.map-placeholder iframe {
+	display: block;
+	width: 100%;
+	height: 300px;
+	border: none;
+}
 
 /* --------------------
    Error Message
