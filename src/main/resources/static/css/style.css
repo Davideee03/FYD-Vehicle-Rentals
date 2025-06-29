@@ -400,6 +400,20 @@ legend {
 	color: #2f855a;
 }
 
+.rental-row {
+	display: flex;
+	align-items: flex-end; /* o center */
+	gap: 20px;
+	flex-wrap: wrap;
+	justify-content: center;
+	border: none;
+}
+
+.form-inline-group {
+	display: flex;
+	flex-direction: column;
+}
+
 /* --------------------
    Flex Cards (Vehicles)
 -------------------- */
@@ -898,7 +912,47 @@ PROFILE
 	align-self: flex-start;
 }
 
+.rental-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 30px;
+	font-size: 16px;
+}
 
+.rental-table thead {
+	background-color: #eee;
+}
+
+.rental-table th,
+.rental-table td {
+	padding: 12px 15px;
+	text-align: center;
+	border: 1px solid #ccc;
+}
+
+.rental-table tr:nth-child(even) {
+	background-color: #f9f9f9;
+}
+
+.rental-table th {
+	font-weight: 600;
+	color: #333;
+}
+
+.rental-section p{
+	text-align: center;
+}
+
+.profile-rentals {
+	display: flex;
+	justify-content: center;
+	padding: 40px 20px;
+}
+
+.profile-rentals .rental-section {
+	width: 100%;
+	max-width: 900px;
+}
 
 /* pulsanti non so se vogliamo usare quelli generali nel dubbio si levano */
 .btn-primary-outline {

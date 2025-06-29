@@ -14,50 +14,54 @@
 	<form th:action="@{/filterVehicles}" method="get">
 		<fieldset>
 			<legend>
-				<h2>Search Vehicles</h1>
+				<h2>Search Vehicles</h2>
 			</legend>
 
 			<div class="form-grid">
 				<div class="form-group">
 					<label for="brand">Brand</label>
-					<input type="text" name="brand" id="brand" placeholder="Fiat">
+					<input type="text" name="brand" id="brand" placeholder="Fiat" th:value="${param.brand}">
 				</div>
 
 				<div class="form-group">
 					<label for="model">Model</label>
-					<input type="text" name="model" id="model" placeholder="Panda">
+					<input type="text" name="model" id="model" placeholder="Panda" th:value="${param.model}">
 				</div>
 
 				<div class="form-group">
 					<label for="category">Category</label>
-					<input type="text" name="category" id="category" placeholder="SUV, Citycar...">
+					<input type="text" name="category" id="category" placeholder="SUV, Citycar..."
+						th:value="${param.category}">
 				</div>
 
 				<div class="form-group">
 					<label for="transmission">Transmission</label>
-					<input type="text" name="transmission" id="transmission" placeholder="Automatic, Manual...">
+					<input type="text" name="transmission" id="transmission" placeholder="Automatic, Manual..."
+						th:value="${param.transmission}">
 				</div>
 
 				<div class="form-group">
 					<label for="color">Color</label>
-					<input type="text" name="color" id="color" placeholder="Black, Red...">
+					<input type="text" name="color" id="color" placeholder="Black, Red..." th:value="${param.color}">
 				</div>
 
 				<div class="form-group">
 					<label for="seats">Seats</label>
-					<input type="number" name="seats" id="seats" min="2" max="9" placeholder="e.g. 5">
+					<input type="number" name="seats" id="seats" min="2" max="9" placeholder="e.g. 5"
+						th:value="${param.seats}">
 				</div>
 
 				<div class="form-group">
 					<label for="price">Max Price (€)</label>
-					<input type="number" name="price" id="price" min="0" placeholder="e.g. 50">
+					<input type="number" name="price" id="price" min="0" placeholder="e.g. 50"
+						th:value="${param.price}">
 				</div>
 			</div>
-
 			<br>
 		</fieldset>
 		<button type="submit">Filter</button>
 	</form>
+
 
 	<h1 class="central-title">Check out our vehicles</h1>
 

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.model.Credentials;
+import it.uniroma3.siw.model.Rental;
 import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.model.UserPhoto;
 import it.uniroma3.siw.service.CredentialsService;
@@ -34,12 +35,19 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@Transactional
 	@GetMapping("/profile") 
 	public String getProfile(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    UserDetails userDetails = (UserDetails) auth.getPrincipal();
 	    Credentials credentials = credentialsService.getCredentials(userDetails.getUsername());
 	    User user = credentials.getUser();
+	    
+	    for (Rental rental : user.getRentals()) {
+	        if (rental.getVehicle() != null && rental.getVehicle().getVehiclePhoto() != null) {
+	            rental.getVehicle().getVehiclePhoto().getData();
+	        }
+	    }
 	    
 	    model.addAttribute("user", user);
 	    model.addAttribute("credentials", credentials);
