@@ -131,7 +131,7 @@ public class VehicleController {
 
 		vehicleService.save(existingVehicle);
 
-		return "redirect:/administrator/formEditVehicle/" + id;
+		return "redirect:/";
 	}
 	
 	

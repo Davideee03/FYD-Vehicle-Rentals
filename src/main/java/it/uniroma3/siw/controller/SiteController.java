@@ -105,7 +105,7 @@ public class SiteController {
 
 		siteService.save(existingSite);
 
-		return "redirect:/administrator/formEditSite/" + id;
+		return "redirect:/";
 	}
 	
 	@Transactional

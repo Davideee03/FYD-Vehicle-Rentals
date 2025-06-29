@@ -455,6 +455,11 @@ legend {
 	margin: auto;
 }
 
+.flex-item button {
+    z-index: 2;
+    position: relative;
+}
+
 
 /* --------------------
    Section titles / Text
