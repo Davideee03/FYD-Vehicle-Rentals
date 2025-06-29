@@ -77,6 +77,7 @@ public class SiteController {
 
 		Site existingSite = siteService.getSiteById(id);
 
+		existingSite.setName(site.getName());
 		existingSite.setCity(site.getCity());
 		existingSite.setAddress(site.getAddress());
 		existingSite.setPostalCode(site.getPostalCode());

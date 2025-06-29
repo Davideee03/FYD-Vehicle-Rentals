@@ -110,6 +110,7 @@ public class VehicleController {
 		existingVehicle.setColor(vehicle.getColor());
 		existingVehicle.setSeats(vehicle.getSeats());
 		existingVehicle.setPrice(vehicle.getPrice());
+		existingVehicle.setSite(vehicle.getSite());
 
 		if (!file.isEmpty()) {
 			try {
