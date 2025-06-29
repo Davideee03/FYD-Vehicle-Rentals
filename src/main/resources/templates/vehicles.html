@@ -66,7 +66,7 @@
 	</h1>
 
 	<div id="flex-container">
-		<div class="flex-item" th:each="vehicle : ${vehicles}">
+		<div class="flex-item" th:each="vehicle : ${vehicles}" style="position: relative;">
 			<div class="flex-image">
 				<img th:if="${vehicle.vehiclePhoto}" th:src="@{'/vehiclePhoto/' + ${vehicle.vehiclePhoto.id}}"
 					alt="Vehicle image" />
