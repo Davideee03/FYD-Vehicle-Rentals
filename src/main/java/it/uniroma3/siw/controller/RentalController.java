@@ -159,10 +159,16 @@ public class RentalController {
 		model.addAttribute("rentals", this.rentalService.getAllRentals());
 		return "deleteRentals.html";
 	}
-
+	
+	
 	// summary page with all selected vehicles to delete
 	@PostMapping("/administrator/confirmDeleteRentals")
-	public String confirmDeleteVehicles(@RequestParam List<Long> rentalIds, Model model) {
+	public String confirmDeleteVehicles(@RequestParam (name="rentalIds", required = false) List<Long> rentalIds, Model model) {
+		if (rentalIds == null || rentalIds.isEmpty()) {
+			model.addAttribute("rentals", this.rentalService.getAllRentals());
+			model.addAttribute("error", "Select at least one rental, please.");
+			return "deleteRentals.html";
+		}
 		List<Rental> selectedRentals = this.rentalService.getRentalByIds(rentalIds);
 		model.addAttribute("rental", selectedRentals);
 		return "deleteRentalsSummary.html";

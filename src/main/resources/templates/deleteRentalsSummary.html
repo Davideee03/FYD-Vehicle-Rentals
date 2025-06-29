@@ -3,41 +3,49 @@
 
 <head>
     <title>Confirm Rental Deletion</title>
-	<link rel="stylesheet" href="/css/style.css?v=1">
+    <link rel="stylesheet" href="/css/style.css?v=1">
     <meta charset="UTF-8" />
 </head>
 
 <body>
-    <h1>Confirm Deletion of the Following Rentals:</h1>
+    <div th:replace="fragments/navbar :: navbar"></div>
 
-    <form th:action="@{/administrator/deleteRentals}" method="post">
-        <div th:each="rental : ${rental}">
-            <div style="border:1px solid #ccc; padding:10px; margin:10px;">
-                <!-- Hidden checkbox or input to preserve selected rental IDs -->
+    <h1 class="page-title">Confirm Deletion of the Following Rentals</h1>
+
+    <form class="delete-vehicle-form" th:action="@{/administrator/deleteRentals}" method="post">
+        <div class="vehicle-grid">
+            <div th:each="rental : ${rental}" class="vehicle-card">
                 <input type="hidden" name="rentalIds" th:value="${rental.id}" />
 
-                <strong>Rental ID:</strong> <span th:text="${rental.id}"></span><br />
-                <strong>Start Date:</strong> <span th:text="${rental.startDate}"></span><br />
-                <strong>End Date:</strong> <span th:text="${rental.endDate}"></span><br />
-                <strong>Total:</strong> <span th:text="${rental.total}"></span><br />
-
-                <!-- Vehicle data if exists -->
-                <div th:if="${rental.vehicle != null}">
-                    <strong>Vehicle Brand:</strong> <span th:text="${rental.vehicle.brand}"></span><br />
-                    <strong>Vehicle Model:</strong> <span th:text="${rental.vehicle.model}"></span><br />
+                <div class="vehicle-photo">
+                    <img th:if="${rental.vehicle?.vehiclePhoto}" 
+                         th:src="@{'/vehiclePhoto/' + ${rental.vehicle.vehiclePhoto.id}}" 
+                         alt="Vehicle photo" />
                 </div>
 
-                <!-- Fallback data -->
-                <div th:if="${rental.vehicle == null}">
-                    <em>No associated vehicle</em><br />
-                    <strong>Stored Brand:</strong> <span th:text="${rental.vehicleBrand}"></span><br />
-                    <strong>Stored Model:</strong> <span th:text="${rental.vehicleModel}"></span><br />
+                <div class="vehicle-info">
+                    <div><strong>Rental ID:</strong> <span th:text="${rental.id}"></span></div>
+                    <div><strong>Start Date:</strong> <span th:text="${rental.startDate}"></span></div>
+                    <div><strong>End Date:</strong> <span th:text="${rental.endDate}"></span></div>
+                    <div><strong>Total:</strong> €<span th:text="${rental.total}"></span></div>
+
+                    <div th:if="${rental.vehicle != null}">
+                        <div><strong>Vehicle:</strong> <span th:text="${rental.vehicle.brand + ' ' + rental.vehicle.model}"></span></div>
+                    </div>
+
+                    <div th:if="${rental.vehicle == null}">
+                        <div><em>No associated vehicle</em></div>
+                        <div><strong>Stored Brand:</strong> <span th:text="${rental.vehicleBrand}"></span></div>
+                        <div><strong>Stored Model:</strong> <span th:text="${rental.vehicleModel}"></span></div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <button type="submit">Delete Selected Rentals</button>
-        <a href="/administrator/deleteRentals"><button type="button">Cancel</button></a>
+        <div class="button-group">
+            <button type="submit" >Delete Selected Rentals</button>
+			
+        </div>
     </form>
 </body>
 

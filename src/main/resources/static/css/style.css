@@ -1032,11 +1032,11 @@ PROFILE
 }
 
 .button-group {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 40px;
-    flex-wrap: wrap;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 20px;
+	margin-top: 40px;
 }
 
 .legal-page {
