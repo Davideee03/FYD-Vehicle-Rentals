@@ -34,7 +34,7 @@
         </div>
 
         <div class="button-group">
-            <form th:action="@{/administrator/deleteVehiclesWithRentals}" method="post">
+            <form class="form-button-row" th:action="@{/administrator/deleteVehiclesWithRentals}" method="post">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                 <div th:each="v : ${vehicles}">
                     <input type="hidden" name="vehicleIds" th:value="${v.id}" />
@@ -42,7 +42,7 @@
                 <button type="submit" class="btn btn-danger-outline">Delete vehicles and rentals</button>
             </form>
 
-            <form th:action="@{/administrator/deleteVehiclesOnly}" method="post">
+            <form class="form-button-row" th:action="@{/administrator/deleteVehiclesOnly}" method="post">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                 <div th:each="v : ${vehicles}">
                     <input type="hidden" name="vehicleIds" th:value="${v.id}" />

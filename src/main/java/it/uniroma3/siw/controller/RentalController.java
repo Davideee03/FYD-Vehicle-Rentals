@@ -178,7 +178,7 @@ public class RentalController {
 	@PostMapping("/administrator/deleteRentals")
 	public String deleteRentals(@RequestParam List<Long> rentalIds, Model model) {
 		this.rentalService.deleteRentals(rentalIds);
-		return "redirect:/vehicles";
+		return "redirect:/";
 	}
 
 }

@@ -45,6 +45,8 @@
 		<button type="submit" th:if="${not #lists.isEmpty(vehicles)}">Confirm Selected</button>
 		<button type="button" th:if="${ #lists.isEmpty(vehicles)}" onclick="history.back()">Go Back</button>
 	</form>
+	
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 
 </html>
