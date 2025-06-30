@@ -17,7 +17,7 @@
             <div th:each="rental : ${rental}" class="vehicle-card">
                 <input type="hidden" name="rentalIds" th:value="${rental.id}" />
 
-                <div class="vehicle-photo">
+                <div class="flex-image">
                     <img th:if="${rental.vehicle?.vehiclePhoto}" 
                          th:src="@{'/vehiclePhoto/' + ${rental.vehicle.vehiclePhoto.id}}" 
                          alt="Vehicle photo" />
