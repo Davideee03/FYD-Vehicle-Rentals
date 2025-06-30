@@ -9,7 +9,6 @@
 
 <body>
 	<div th:replace="fragments/navbar :: navbar"></div>
-
 	<div class="login-page">
 		<div class="login-container">
 			<form th:action="@{/register}" method="POST" class="login-form" th:object="${credentials}">
