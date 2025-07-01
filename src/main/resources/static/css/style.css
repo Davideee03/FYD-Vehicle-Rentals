@@ -382,6 +382,7 @@ legend {
 	align-items: center;
 	min-height: 50vh;
 	padding: 60px 20px;
+	margin: 80px;
 }
 
 .confirmation-box {
@@ -1082,3 +1083,5 @@ PROFILE
 	min-height: 80vh;
 	padding: 60px 20px;
 }
+
+.confirmation-container
