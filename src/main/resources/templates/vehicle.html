@@ -30,6 +30,14 @@
 				<a th:href="@{/site/{id}(id=${vehicle.site.id})}"
 					th:text="${vehicle.site.name + ' - ' + vehicle.site.city}"></a>
 			</p>
+			
+			<div sec:authorize="isAuthenticated() and hasRole('ADMIN')">
+			<div class="white-margin">
+							<a th:href="@{/administrator/formEditVehicle/{id}(id=${vehicle.id})}">
+								<button type="button">Edit</button>
+							</a>
+						</div>
+			</div>
 		</div>
 	</section>
 

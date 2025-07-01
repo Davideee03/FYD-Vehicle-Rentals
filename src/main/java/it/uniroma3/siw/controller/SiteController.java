@@ -106,7 +106,7 @@ public class SiteController {
 
 		siteService.save(existingSite);
 
-		return "redirect:/";
+		return "redirect:/site/" + id;
 	}
 	
 	@Transactional

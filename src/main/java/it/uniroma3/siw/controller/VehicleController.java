@@ -133,7 +133,7 @@ public class VehicleController {
 
 		vehicleService.save(existingVehicle);
 
-		return "redirect:/";
+		return "redirect:/vehicle/" + id;
 	}
 
 	@Transactional

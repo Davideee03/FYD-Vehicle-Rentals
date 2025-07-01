@@ -1084,4 +1084,7 @@ PROFILE
 	padding: 60px 20px;
 }
 
-.confirmation-container
+.white-margin {
+	height: 50px;
+	margin: 50px auto;
+}
