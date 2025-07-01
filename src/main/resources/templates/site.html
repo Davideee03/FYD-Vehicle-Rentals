@@ -27,6 +27,15 @@
 			<p><strong>Postal Code:</strong> <span th:text="${site.postalCode}"></span></p>
 			<p><strong>Phone:</strong> <span th:text="${site.phone}"></span></p>
 			<p><strong>Email:</strong> <span th:text="${site.email}"></span></p>
+			
+			<div sec:authorize="isAuthenticated() and hasRole('ADMIN')">
+				<div class="white-margin">
+							<a th:href="@{/administrator/formEditSite/{id}(id=${site.id})}">
+								<button type="button">Edit</button>
+							</a>
+						</div>
+			</div>
+						
 		</div>
 	</section>
 

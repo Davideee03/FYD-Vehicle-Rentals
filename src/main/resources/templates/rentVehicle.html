@@ -14,11 +14,15 @@
 	</h1>
 	<div id="flex-container">
 		<a class="flex-item" th:href="@{/vehicle/{id}(id=${vehicle.id})}" th:each="vehicle:${vehicles}">
-			<img th:if="${vehicle.vehiclePhoto}" class="flex-image"
-				th:src="@{'/vehiclePhoto/' + ${vehicle.vehiclePhoto.id}}" alt="Vehicle image" />
-			<h1 th:text="${vehicle.brand + ' ' + vehicle.model}"></h1>
-			<p th:text="'Seats: ' + ${vehicle.seats}"></p>
-			<p th:text="'Price per day: €' + ${vehicle.price}"></p>
+			<div class="flex-image">
+							<img th:if="${vehicle.vehiclePhoto}" th:src="@{'/vehiclePhoto/' + ${vehicle.vehiclePhoto.id}}"
+								alt="Vehicle image" />
+						</div>
+						<h1 th:text="${vehicle.brand + ' ' + vehicle.model}"></h1>
+									<div class="vehicle-details">
+										<p th:text="'Seats: ' + ${vehicle.seats}"></p>
+										<p th:text="'Price per day: €' + ${vehicle.price}"></p>
+									</div>
 
 			<form th:action="@{/rentalSummary}" method="get" class="inline-form">
 				<input type="hidden" name="siteId" th:value="${vehicle.site.id}" />
