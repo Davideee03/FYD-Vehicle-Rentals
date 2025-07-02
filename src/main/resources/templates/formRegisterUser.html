@@ -24,6 +24,7 @@
 					<label for="username">Username</label>
 					<input type="text" id="username" th:field="*{username}" required>
 				</div>
+				
 				<p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></p>
 				<div class="login-group">
 					
